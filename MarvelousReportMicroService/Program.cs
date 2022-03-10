@@ -1,23 +1,20 @@
 using MarvelousReportMicroService.API.Configuration;
+using MarvelousReportMicroService.API.Extensions;
 using MarvelousReportMicroService.API.Infrastructure;
 using MarvelousReportMicroService.BLL.Configuration;
-using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.DAL.Configuration;
-using MarvelousReportMicroService.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddAutoMapper(typeof(BusinessMapper).Assembly, typeof(APIMapper).Assembly);
 
-string _connectionStringVariableName = "CONNECTION_STRING";
+string _connectionStringVariableName = "REP_CONNECTION_STRING";
 string connString = builder.Configuration.GetValue<string>(_connectionStringVariableName);
 
 builder.Services.Configure<DbConfiguration>(opt =>
 {
     opt.ConnectionString = connString;
 });
-
 
 // Add services to the container.
 
@@ -26,9 +23,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ILeadService, LeadService>();
-builder.Services.AddScoped<ILeadRepository, LeadRepository>();
-
+builder.Services.RegisterProjectServices();
+builder.Services.RegisterProjectRepositories();
 
 var app = builder.Build();
 
