@@ -23,7 +23,7 @@ namespace MarvelousReportMicroService.API.Controllers
         public ActionResult GetAllLeads()
         {
             var leads = _leadService.GetAllLeads();
-            return Ok(_mapper.Map<List<AccountResponse>>(leads));
+            return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
     }
 }
