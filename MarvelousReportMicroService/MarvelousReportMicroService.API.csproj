@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MarvelousContracts" Version="1.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarvelousReportMicroService.BLL\MarvelousReportMicroService.BLL.csproj" />
+    <ProjectReference Include="..\MarvelousReportMicroService.DAL\MarvelousReportMicroService.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CurrencyEnum">
+      <HintPath>..\MarvelousReportMicroService.BLL\bin\Debug\net6.0\CurrencyEnum.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
