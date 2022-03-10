@@ -16,5 +16,4 @@ namespace MarvelousReportMicroService.DAL.Repositories
         }
         protected IDbConnection ProvideConnection() => new SqlConnection(ConnectionString);
     }
-
 }
