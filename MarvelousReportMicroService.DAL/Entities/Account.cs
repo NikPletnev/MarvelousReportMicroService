@@ -1,9 +1,4 @@
-﻿using CurrencyEnum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Marvelous.Contracts;
 
 namespace MarvelousReportMicroService.DAL.Entityes
 {

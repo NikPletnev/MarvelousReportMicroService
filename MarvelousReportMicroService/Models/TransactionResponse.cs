@@ -1,5 +1,4 @@
-﻿using CurrencyEnum;
-using MarvelousReportMicroService.DAL.Enum;
+﻿using Marvelous.Contracts;
 
 namespace MarvelousReportMicroService.API.Models
 {
@@ -10,6 +9,6 @@ namespace MarvelousReportMicroService.API.Models
         public TransactionType Type { get; set; }
         public decimal Amount { get; set; }
         public int AccountId { get; set; }
-        //public Currency Currency { get; set; }
+        public Currency Currency { get; set; }
     }
 }

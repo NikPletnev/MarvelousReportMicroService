@@ -1,4 +1,4 @@
-﻿using MarvelousReportMicroService.DAL.Enum;
+﻿using Marvelous.Contracts;
 
 namespace MarvelousReportMicroService.API.Models
 {
