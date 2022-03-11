@@ -62,10 +62,11 @@
   <ItemGroup>
     <Build Include="Tables\Leads.sql" />
     <Build Include="Tables\Accounts.sql" />
-    <Build Include="Tables\Trnsactions.sql" />
+    <Build Include="Tables\Transactions.sql" />
     <Build Include="StoredProcedures\GetAllLeads.sql" />
     <Build Include="StoredProcedures\GetTransactionsBetweenDatesByLeadId.sql" />
     <Build Include="StoredProcedures\GetLeadByParameters.sql" />
+    <Build Include="StoredProcedures\GetAccountBalance.sql" />
     <Build Include="StoredProcedures\GetTransactionsByAccountId.sql" />
   </ItemGroup>
 </Project>

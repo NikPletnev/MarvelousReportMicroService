@@ -9,12 +9,14 @@ namespace MarvelousReportMicroService.API.Extensions
         {
             services.AddScoped<ILeadService, LeadService>();
             services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<IAccountService, AccountService>();
         }
 
         public static void RegisterProjectRepositories(this IServiceCollection services)
         {
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
         }
     }
 }
