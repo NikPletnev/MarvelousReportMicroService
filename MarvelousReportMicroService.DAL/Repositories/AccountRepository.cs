@@ -13,22 +13,22 @@ using MarvelousReportMicroService.DAL.Configuration;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
-    public class AccountRepository : BaseRepository
+    public class AccountRepository : BaseRepository, IAccountRepository
     {
         public AccountRepository(IOptions<DbConfiguration> options) : base(options)
         {
 
         }
 
-        public decimal GetAccauntBalance(int id)
+        public decimal GetAccountBalance(int id)
         {
             using IDbConnection connection = ProvideConnection();
 
             return connection
                 .QuerySingle<decimal>
                 (
-                 Queries.GetAllLeads,
-                 new { Id = id},
+                 Queries.GetAccountBalance,
+                 new { Id = id },
                 commandType: CommandType.StoredProcedure
                 );
         }
