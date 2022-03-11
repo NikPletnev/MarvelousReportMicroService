@@ -16,7 +16,7 @@ namespace MarvelousReportMicroService.API.Controllers
         private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
 
-        public AccountController(IMapper mapper, ITransactionService transactionService)
+        public AccountController(IMapper mapper, ITransactionService transactionService, IAccountService accountService)
         {
             _mapper = mapper;
             _accountService = accountService;
