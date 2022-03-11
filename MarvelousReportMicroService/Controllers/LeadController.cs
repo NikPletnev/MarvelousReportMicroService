@@ -11,12 +11,14 @@ namespace MarvelousReportMicroService.API.Controllers
     public class LeadController : Controller
     {
         private readonly ILeadService _leadService;
+        private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
 
-        public LeadController(IMapper mapper, ILeadService leadService)
+        public LeadController(IMapper mapper, ILeadService leadService, ITransactionService transactionService)
         {
             _mapper = mapper;
             _leadService = leadService;
+            _transactionService = transactionService; ;
         }
 
         [HttpGet]
@@ -24,6 +26,22 @@ namespace MarvelousReportMicroService.API.Controllers
         {
             var leads = _leadService.GetAllLeads();
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
+        }
+
+        [HttpGet("{id}/transactions-for-period/")]
+        public ActionResult GetTransactionsBetweenDatesByLeadId(int id
+            , [FromQuery] 
+              DateTime startDate
+            , DateTime finishDate)
+        {
+            List<TransactionModel> transactions =
+                _transactionService
+                .GetTransactionsBetweenDatesByLeadId(
+                id
+                , startDate
+                , finishDate);
+
+            return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
         }
     }
 }
