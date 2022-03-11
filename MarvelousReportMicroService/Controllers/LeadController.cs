@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
-    [Route("api/accounts")]
+    [Route("api/leads")]
     public class LeadController : Controller
     {
         private readonly ILeadService _leadService;

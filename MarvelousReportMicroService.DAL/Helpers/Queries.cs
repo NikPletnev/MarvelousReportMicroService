@@ -9,5 +9,6 @@ namespace MarvelousReportMicroService.DAL.Helpers
     public static class Queries
     {
         public const string GetAllLeads = "GetAllLeads";
+        public const string GetAccountBalance = "GetAccountBalance";
     }
 }
