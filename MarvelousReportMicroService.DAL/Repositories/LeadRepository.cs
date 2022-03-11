@@ -32,5 +32,4 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 .ToList();
         }
     }
-
 }

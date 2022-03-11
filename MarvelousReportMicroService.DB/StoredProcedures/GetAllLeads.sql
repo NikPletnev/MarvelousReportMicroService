@@ -2,4 +2,3 @@
 
 AS
 	SELECT * FROM [dbo].[Leads]
-
