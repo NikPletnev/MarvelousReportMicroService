@@ -12,13 +12,15 @@ namespace MarvelousReportMicroService.API.Controllers
     public class AccountController : Controller
     {
 
+        private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
 
-        public AccountController(IMapper mapper, IAccountService accountService)
+        public AccountController(IMapper mapper, ITransactionService transactionService)
         {
             _mapper = mapper;
             _accountService = accountService;
+            _transactionService = transactionService;
         }
 
         [HttpGet("{id}/balance/")]
@@ -28,5 +30,12 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(balance);
         }
 
+        [HttpGet("{id}/transactions")]
+        public ActionResult GetTransactionsByAccountId(int id)
+        {
+            List<TransactionModel> transactions = _transactionService.GetTransactionsByAccountId(id);
+
+            return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
+        }
     }
 }
