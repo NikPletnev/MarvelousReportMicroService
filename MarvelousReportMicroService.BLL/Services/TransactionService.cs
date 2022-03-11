@@ -25,5 +25,13 @@ namespace MarvelousReportMicroService.BLL.Services
 
             return _mapper.Map<List<TransactionModel>>(transactions);
         }
+
+        public List<TransactionModel> GetTransactionsByAccountId(int id)
+        {
+            List<Transaction> transactions = _transactionRepository
+                .GetTransactionsByAccountId(id);
+
+            return _mapper.Map<List<TransactionModel>>(transactions);
+        }
     }
 }

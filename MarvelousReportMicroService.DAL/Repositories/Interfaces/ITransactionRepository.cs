@@ -5,5 +5,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
     public interface ITransactionRepository
     {
         List<Transaction> GetTransactionsBetweenDatesByLeadId(int id, DateTime startDate, DateTime finishDate);
+        List<Transaction> GetTransactionsByAccountId(int accountId);
     }
 }
