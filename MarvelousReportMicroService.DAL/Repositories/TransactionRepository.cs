@@ -27,5 +27,19 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             return transactions;
         }
+
+        public List<Transaction> GetTransactionsByAccountId(int accountId)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            List<Transaction> transactions =
+                connection
+                    .Query<Transaction>(
+                    Queries.GetTransactionsByAccountId
+                    , new { accountId }
+                    , commandType: CommandType.StoredProcedure).ToList();
+
+            return transactions;
+        }
     }
 }
