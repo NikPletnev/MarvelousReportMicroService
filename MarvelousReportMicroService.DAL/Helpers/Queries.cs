@@ -10,5 +10,6 @@ namespace MarvelousReportMicroService.DAL.Helpers
     {
         public const string GetAllLeads = "GetAllLeads";
         public const string GetTransactionsBetweenDatesByLeadId = "GetTransactionsBetweenDatesByLeadId";
+        public const string GetTransactionsByAccountId = "GetTransactionsByAccountId";
     }
 }
