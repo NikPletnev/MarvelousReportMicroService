@@ -45,7 +45,7 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
         }
 
-        [HttpGet("qqq")]
+        [HttpGet("by-params")]
         public ActionResult<List<LeadResponse>> GetLeadByParameters(
             [FromQuery] int? id
             , string? name
