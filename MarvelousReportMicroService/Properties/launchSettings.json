@@ -8,8 +8,10 @@
       "sslPort": 44303
     }
   },
-  "profiles": {
-    "MarvelousReportMicroService": {
+  "profiles": 
+  {
+    "MarvelousReportMicroService": 
+    {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -19,23 +21,26 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "IIS Express": {
+    "IIS Express": 
+    {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "ReportProfile": {
-          "commandName": "Project",
-          "dotnetRunMessages": true,
-          "launchBrowser": true,
-          "launchUrl": "swagger",
-          "applicationUrl": "https://localhost:7011;http://localhost:5011",
-          "environmentVariables": {
-            "ASPNETCORE_ENVIRONMENT": "Development"
-          }
-        }
       }
+    },
+    "ReportProfile": 
+    {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7011;http://localhost:5011",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "REP_CONNECTION_STRING": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MarvelousReportMicroService.DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+      }
+    }
   }
 }
