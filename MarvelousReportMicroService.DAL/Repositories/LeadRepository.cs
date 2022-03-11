@@ -31,5 +31,27 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 commandType: CommandType.StoredProcedure)
                 .ToList();
         }
+
+        public List<Lead> GetLeadByParameters(Lead lead)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            return connection.
+                Query<Lead>(
+                Queries.GetLeadByParameters
+                , new 
+                {
+                    lead.Id,
+                    lead.Name,
+                    lead.LastName,
+                    lead.BirthDate,
+                    lead.Email,
+                    lead.Phone,
+                    lead.Role,
+                    lead.IsBanned
+                }
+                , commandType: CommandType.StoredProcedure)
+                .ToList();
+        }
     }
 }
