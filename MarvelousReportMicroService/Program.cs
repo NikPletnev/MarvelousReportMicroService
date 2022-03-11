@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAutoMapper(typeof(BusinessMapper).Assembly, typeof(APIMapper).Assembly);
 
-string _connectionStringVariableName = "REP_CONNECTION_STRING";
+string _connectionStringVariableName = "REPORT_CONNECTION_STRING";
 string connString = builder.Configuration.GetValue<string>(_connectionStringVariableName);
 
 builder.Services.Configure<DbConfiguration>(opt =>

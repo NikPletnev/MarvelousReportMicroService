@@ -17,7 +17,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "REP_CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=ReportDb;User ID = student; Password = qwe!23",
+        "REPORT_CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=ReportDb;User ID = student; Password = qwe!23",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
