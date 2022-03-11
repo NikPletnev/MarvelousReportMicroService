@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Marvelous.Contracts;
 using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
@@ -42,6 +43,34 @@ namespace MarvelousReportMicroService.API.Controllers
                 , finishDate);
 
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
+        }
+
+        [HttpGet("by-params")]
+        public ActionResult<List<LeadResponse>> GetLeadByParameters(
+            [FromQuery] int? id
+            , string? name
+            , string? lastName
+            , DateTime? birthDate
+            , string? email
+            , string? phone
+            , Role? role
+            , bool? isBanned)
+        {
+            LeadModelSearchRequest leadModel = new LeadModelSearchRequest()
+            {
+                Id = id,
+                Name = name,
+                LastName = lastName,
+                BirthDate = birthDate,
+                Email = email,
+                Phone = phone,
+                Role = role,
+                IsBanned = isBanned
+            };
+
+            List<LeadModel> leads = _leadService.GetLeadByParameters(leadModel);
+
+            return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
     }
 }

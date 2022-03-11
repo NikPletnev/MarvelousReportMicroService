@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MarvelousReportMicroService.BLL.Models;
+using MarvelousReportMicroService.DAL.Entityes;
 using MarvelousReportMicroService.DAL.Repositories;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,15 @@ namespace MarvelousReportMicroService.BLL.Services
             _mapper = mapper;
         }
 
-
         public List<LeadModel> GetAllLeads()
         {
             var leads = _leadRepository.GetAllLeads();
+            return _mapper.Map<List<LeadModel>>(leads);
+        }
+
+        public List<LeadModel> GetLeadByParameters(LeadModelSearchRequest model)
+        {
+            var leads = _leadRepository.GetLeadByParameters(_mapper.Map<Lead>(model));
             return _mapper.Map<List<LeadModel>>(leads);
         }
     }

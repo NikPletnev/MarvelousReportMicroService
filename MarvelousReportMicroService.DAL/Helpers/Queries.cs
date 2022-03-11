@@ -11,6 +11,7 @@ namespace MarvelousReportMicroService.DAL.Helpers
         public const string GetAllLeads = "GetAllLeads";
         public const string GetAccountBalance = "GetAccountBalance";
         public const string GetTransactionsBetweenDatesByLeadId = "GetTransactionsBetweenDatesByLeadId";
+        public const string GetLeadByParameters = "GetLeadByParameters";
         public const string GetTransactionsByAccountId = "GetTransactionsByAccountId";
     }
 }
