@@ -3,6 +3,7 @@ using MarvelousReportMicroService.API.Extensions;
 using MarvelousReportMicroService.API.Infrastructure;
 using MarvelousReportMicroService.BLL.Configuration;
 using MarvelousReportMicroService.DAL.Configuration;
+using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,17 @@ builder.Services.Configure<DbConfiguration>(opt =>
 
 // Add services to the container.
 
+builder.Services.AddHttpLogging(httpLogging =>
+{
+    httpLogging.LoggingFields = HttpLoggingFields.ResponseBody;
+    httpLogging.LoggingFields = HttpLoggingFields.Request;
+    httpLogging.RequestHeaders.Add("My-Request-Header");
+    httpLogging.ResponseHeaders.Add("My-Response-Header");
+    httpLogging.RequestBodyLogLimit = 4096;
+    httpLogging.ResponseBodyLogLimit = 4096;
+});
+
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -29,13 +41,12 @@ builder.Services.RegisterProjectRepositories();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseMiddleware<GlobalExeptionHandler>();
+
+app.UseHttpLogging();
 
 app.UseHttpsRedirection();
 
