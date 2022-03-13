@@ -24,13 +24,12 @@ namespace MarvelousReportMicroService.API.Controllers
             _accountService = accountService;
             _transactionService = transactionService;
             _logger = NLog.Web.NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
-            //_logger = LogManager.GetCurrentClassLogger();
         }
 
         [HttpGet("{id}/balance/")]
         public ActionResult GetAllLeads(int id)
         {
-            _logger.Info($"Получен запрос на получение баланса аккаунта с id = {id}");
+            _logger.Info($"Запрос на получение баланса аккаунта с id = {id}");
             var balance = _accountService.GetAccountBalance(id);
             return Ok(balance);
         }
