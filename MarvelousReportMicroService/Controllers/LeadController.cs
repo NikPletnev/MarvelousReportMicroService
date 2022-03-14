@@ -4,6 +4,7 @@ using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
@@ -14,17 +15,20 @@ namespace MarvelousReportMicroService.API.Controllers
         private readonly ILeadService _leadService;
         private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
+        private readonly Logger _logger;
 
         public LeadController(IMapper mapper, ILeadService leadService, ITransactionService transactionService)
         {
             _mapper = mapper;
             _leadService = leadService;
-            _transactionService = transactionService; ;
+            _transactionService = transactionService;
+            _logger = NLog.Web.NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
         }
 
         [HttpGet]
         public ActionResult GetAllLeads()
         {
+            _logger.Info($"Запрос на получение всех лидов");
             var leads = _leadService.GetAllLeads();
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
