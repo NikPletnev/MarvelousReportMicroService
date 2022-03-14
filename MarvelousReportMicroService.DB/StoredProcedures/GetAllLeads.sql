@@ -1,4 +1,4 @@
 ﻿CREATE PROCEDURE [dbo].[GetAllLeads]
 
 AS
-	SELECT * FROM [dbo].[Leads]
+	SELECT * FROM [dbo].[Lead]
