@@ -1,15 +1,9 @@
-﻿using MarvelousReportMicroService.DAL.Entityes;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
-using System.Data.SqlClient;
+﻿using MarvelousReportMicroService.DAL.Configuration;
+using MarvelousReportMicroService.DAL.Entityes;
 using MarvelousReportMicroService.DAL.Helpers;
 using Microsoft.Extensions.Options;
-using MarvelousReportMicroService.DAL.Configuration;
+using System.Data;
+using Dapper;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {

@@ -1,8 +1,7 @@
-﻿
-using MarvelousReportMicroService.DAL.Configuration;
+﻿using MarvelousReportMicroService.DAL.Configuration;
 using Microsoft.Extensions.Options;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {

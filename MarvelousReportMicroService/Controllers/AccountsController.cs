@@ -27,7 +27,7 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet("{id}/balance/")]
-        public ActionResult GetAllLeads(int id)
+        public ActionResult GetAccountBalance(int id)
         {
             _logger.Info($"Запрос на получение баланса аккаунта с id = {id}");
             var balance = _accountService.GetAccountBalance(id);

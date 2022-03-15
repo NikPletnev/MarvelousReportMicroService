@@ -13,15 +13,13 @@ namespace MarvelousReportMicroService.API.Controllers
     public class LeadsController : Controller
     {
         private readonly ILeadService _leadService;
-        private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
         private readonly Logger _logger;
 
-        public LeadsController(IMapper mapper, ILeadService leadService, ITransactionService transactionService)
+        public LeadsController(IMapper mapper, ILeadService leadService)
         {
             _mapper = mapper;
             _leadService = leadService;
-            _transactionService = transactionService;
             _logger = NLog.Web.NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
         }
 
@@ -31,21 +29,6 @@ namespace MarvelousReportMicroService.API.Controllers
             _logger.Info($"Запрос на получение всех лидов");
             var leads = _leadService.GetAllLeads();
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
-        }
-
-        [HttpGet("{id}/transactions-for-period/")]
-        public ActionResult GetTransactionsBetweenDatesByLeadId(int id,
-            [FromQuery] DateTime startDate,
-            [FromQuery] DateTime finishDate)
-        {
-            List<TransactionModel> transactions =
-                _transactionService
-                .GetTransactionsBetweenDatesByLeadId(
-                id
-                , startDate
-                , finishDate);
-
-            return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
         }
 
         [HttpGet("search")]

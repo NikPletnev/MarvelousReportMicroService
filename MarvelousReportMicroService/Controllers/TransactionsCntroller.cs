@@ -18,5 +18,21 @@ namespace MarvelousReportMicroService.API.Controllers
             _mapper = mapper;
             _transactionService = transactionService;
         }
+
+        [HttpGet("/transactions-for-period/")]
+        public ActionResult GetTransactionsBetweenDatesByLeadId(
+            [FromQuery] int leadId,
+            [FromQuery] DateTime startDate,
+            [FromQuery] DateTime finishDate)
+        {
+            List<TransactionModel> transactions =
+                _transactionService
+                .GetTransactionsBetweenDatesByLeadId(
+                leadId,
+                startDate,
+                finishDate);
+
+            return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
+        }
     }
 }
