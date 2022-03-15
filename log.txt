@@ -1,5 +1,8 @@
-2022-03-13 13:40:16.5719 | MarvelousReportMicroService.API.Controllers.AccountController.GetAllLeads | INFO | Запрос на получение баланса аккаунта с id = 2
-2022-03-15 13:21:50.5581 | MarvelousReportMicroService.API.Controllers.AccountsController.GetAllLeads | INFO | Запрос на получение баланса аккаунта с id = 2
-2022-03-15 13:35:56.6347 | MarvelousReportMicroService.API.Controllers.AccountsController.GetAccountBalance | INFO | Запрос на получение баланса аккаунта с id = 4
-2022-03-15 13:35:59.5313 | MarvelousReportMicroService.API.Controllers.AccountsController.GetAccountBalance | INFO | Запрос на получение баланса аккаунта с id = 3
-2022-03-15 16:01:30.6803 | MarvelousReportMicroService.API.Controllers.LeadsController.GetAllLeads | INFO | Запрос на получение всех лидов
+2022-03-16 02:04:33.1685 | MarvelousReportMicroService.API.Controllers.LeadsController.GetAllLeads | INFO | Запрос на получение всех лидов
+2022-03-16 02:04:43.0065 | MarvelousReportMicroService.API.Controllers.LeadsController.GetAllLeads | INFO | Запрос на получение всех лидов
+2022-03-16 02:05:03.8952 | Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync | INFO | Now listening on: https://localhost:5001
+2022-03-16 02:05:03.9323 | Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync | INFO | Now listening on: http://localhost:5000
+2022-03-16 02:05:03.9323 | Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted | INFO | Application started. Press Ctrl+C to shut down.
+2022-03-16 02:05:03.9323 | Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted | INFO | Hosting environment: Development
+2022-03-16 02:05:03.9323 | Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted | INFO | Content root path: D:\Projects\MarvelousReportMicroService\MarvelousReportMicroService\
+2022-03-16 02:05:10.1070 | MarvelousReportMicroService.API.Controllers.LeadsController.GetAllLeads | INFO | Запрос на получение всех лидов

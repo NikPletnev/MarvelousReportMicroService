@@ -1,5 +1,6 @@
 ﻿using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.DAL.Repositories;
+using NLog.Extensions.Logging;
 
 namespace MarvelousReportMicroService.API.Extensions
 {
@@ -17,6 +18,17 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+        }
+
+        public static void RegisterLogger(this IServiceCollection service, IConfiguration config)
+        {
+            service.AddLogging(loggingBuilder =>
+            {
+                // configure Logging with NLog
+                loggingBuilder.ClearProviders();
+                loggingBuilder.SetMinimumLevel(LogLevel.Information);
+                loggingBuilder.AddNLog(config);
+            });
         }
     }
 }

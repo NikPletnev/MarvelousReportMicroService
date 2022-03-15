@@ -9,12 +9,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(BusinessMapper).Assembly, typeof(APIMapper).Assembly);
 
 string _connectionStringVariableName = "REPORT_CONNECTION_STRING";
+string _logDirectoryVariableName = "LOG_DIRECTORY";
+
 string connString = builder.Configuration.GetValue<string>(_connectionStringVariableName);
+string logDirectory = builder.Configuration.GetValue<string>(_logDirectoryVariableName);
 
 builder.Services.Configure<DbConfiguration>(opt =>
 {
     opt.ConnectionString = connString;
 });
+
+var config = new ConfigurationBuilder()
+           .SetBasePath(logDirectory)
+           .AddXmlFile("NLog.config", optional: true, reloadOnChange: true)
+           //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+           .Build();
 
 // Add services to the container.
 
@@ -25,6 +34,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.RegisterProjectServices();
 builder.Services.RegisterProjectRepositories();
+builder.Services.RegisterLogger(config);
 
 var app = builder.Build();
 
