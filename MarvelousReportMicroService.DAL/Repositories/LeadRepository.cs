@@ -33,7 +33,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             return connection.
                 Query<Lead>(
-                Queries.GetLeadByParameters
+                Queries.GetLeadsByParameters
                 , new 
                 {
                     lead.Id,

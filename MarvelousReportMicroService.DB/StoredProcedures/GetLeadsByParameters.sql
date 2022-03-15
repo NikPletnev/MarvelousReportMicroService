@@ -1,4 +1,4 @@
-﻿create procedure [dbo].[GetLeadByParameters]
+﻿create procedure [dbo].[GetLeadsByParameters]
 	@Id integer = null,
 	@Name varchar(30) = null,
     @LastName varchar(30) = null,
