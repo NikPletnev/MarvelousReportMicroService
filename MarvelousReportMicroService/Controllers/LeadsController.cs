@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Marvelous.Contracts;
 using MarvelousReportMicroService.API.Models;
+using MarvelousReportMicroService.API.Models.Request;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -36,25 +37,27 @@ namespace MarvelousReportMicroService.API.Controllers
             [FromQuery] int? id,
             [FromQuery] string? name,
             [FromQuery] string? lastName,
-            [FromQuery] DateTime? birthDate,
+            [FromQuery] DateTime? startBirthDate,
+            [FromQuery] DateTime? endBirthDate,
             [FromQuery] string? email,
             [FromQuery] string? phone,
             [FromQuery] Role? role,
             [FromQuery] bool? isBanned)
         {
-            LeadModelSearchRequest leadModel = new LeadModelSearchRequest()
+            LeadSearchRequest leadModel = new LeadSearchRequest()
             {
                 Id = id,
                 Name = name,
                 LastName = lastName,
-                BirthDate = birthDate,
+                StartBirthDate = startBirthDate,
+                EndBirthDate = endBirthDate,
                 Email = email,
                 Phone = phone,
                 Role = role,
                 IsBanned = isBanned
             };
 
-            List<LeadModel> leads = _leadService.GetLeadByParameters(leadModel);
+            List<LeadModel> leads = _leadService.GetLeadByParameters(_mapper.Map<LeadSearchModel>(leadModel));
 
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }

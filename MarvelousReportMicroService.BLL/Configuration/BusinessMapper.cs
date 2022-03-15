@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Entityes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MarvelousReportMicroService.DAL.Models;
 
 namespace MarvelousReportMicroService.BLL.Configuration
 {
@@ -16,7 +12,7 @@ namespace MarvelousReportMicroService.BLL.Configuration
                 CreateMap<Lead, LeadModel>().ReverseMap();
                 CreateMap<Account, AccountModel>().ReverseMap();
                 CreateMap<Transaction, TransactionModel>().ReverseMap();
-                CreateMap<LeadModelSearchRequest, Lead>();
+                CreateMap<LeadSearchModel, LeadSearch>();
             }
     }
 }

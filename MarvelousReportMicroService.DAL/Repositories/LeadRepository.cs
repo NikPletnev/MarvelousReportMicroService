@@ -4,6 +4,7 @@ using MarvelousReportMicroService.DAL.Helpers;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Dapper;
+using MarvelousReportMicroService.DAL.Models;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
@@ -26,7 +27,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 .ToList();
         }
 
-        public List<Lead> GetLeadByParameters(Lead lead)
+        public List<Lead> GetLeadByParameters(LeadSearch lead)
         {
             using IDbConnection connection = ProvideConnection();
 
@@ -38,7 +39,8 @@ namespace MarvelousReportMicroService.DAL.Repositories
                     lead.Id,
                     lead.Name,
                     lead.LastName,
-                    lead.BirthDate,
+                    lead.StartBirthDate,
+                    lead.EndBirthDate,
                     lead.Email,
                     lead.Phone,
                     lead.Role,

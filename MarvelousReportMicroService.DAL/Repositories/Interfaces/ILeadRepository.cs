@@ -1,10 +1,11 @@
 ﻿using MarvelousReportMicroService.DAL.Entityes;
+using MarvelousReportMicroService.DAL.Models;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
     public interface ILeadRepository
     {
         List<Lead> GetAllLeads();
-        List<Lead> GetLeadByParameters(Lead lead);
+        List<Lead> GetLeadByParameters(LeadSearch lead);
     }
 }

@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
 using MarvelousReportMicroService.BLL.Models;
-using MarvelousReportMicroService.DAL.Entityes;
+using MarvelousReportMicroService.DAL.Models;
 using MarvelousReportMicroService.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -26,9 +22,9 @@ namespace MarvelousReportMicroService.BLL.Services
             return _mapper.Map<List<LeadModel>>(leads);
         }
 
-        public List<LeadModel> GetLeadByParameters(LeadModelSearchRequest model)
+        public List<LeadModel> GetLeadByParameters(LeadSearchModel model)
         {
-            var leads = _leadRepository.GetLeadByParameters(_mapper.Map<Lead>(model));
+            var leads = _leadRepository.GetLeadByParameters(_mapper.Map<LeadSearch>(model));
             return _mapper.Map<List<LeadModel>>(leads);
         }
     }
