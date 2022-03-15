@@ -19,7 +19,7 @@ namespace MarvelousReportMicroService.API.Controllers
             _transactionService = transactionService;
         }
 
-        [HttpGet("/search/")]
+        [HttpGet("/search")]
         public ActionResult GetTransactionsBetweenDatesByLeadId(
             [FromQuery] int leadId,
             [FromQuery] DateTime startDate,

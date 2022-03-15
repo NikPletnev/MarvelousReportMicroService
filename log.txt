@@ -2,3 +2,4 @@
 2022-03-15 13:21:50.5581 | MarvelousReportMicroService.API.Controllers.AccountsController.GetAllLeads | INFO | Запрос на получение баланса аккаунта с id = 2
 2022-03-15 13:35:56.6347 | MarvelousReportMicroService.API.Controllers.AccountsController.GetAccountBalance | INFO | Запрос на получение баланса аккаунта с id = 4
 2022-03-15 13:35:59.5313 | MarvelousReportMicroService.API.Controllers.AccountsController.GetAccountBalance | INFO | Запрос на получение баланса аккаунта с id = 3
+2022-03-15 16:01:30.6803 | MarvelousReportMicroService.API.Controllers.LeadsController.GetAllLeads | INFO | Запрос на получение всех лидов
