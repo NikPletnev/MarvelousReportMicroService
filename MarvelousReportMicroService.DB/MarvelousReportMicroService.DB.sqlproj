@@ -60,13 +60,15 @@
     <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Leads.sql" />
-    <Build Include="Tables\Accounts.sql" />
-    <Build Include="Tables\Transactions.sql" />
+    <Build Include="Tables\Lead.sql" />
+    <Build Include="Tables\Account.sql" />
+    <Build Include="Tables\Transaction.sql" />
     <Build Include="StoredProcedures\GetAllLeads.sql" />
     <Build Include="StoredProcedures\GetTransactionsBetweenDatesByLeadId.sql" />
     <Build Include="StoredProcedures\GetLeadByParameters.sql" />
     <Build Include="StoredProcedures\GetAccountBalance.sql" />
     <Build Include="StoredProcedures\GetTransactionsByAccountId.sql" />
+    <Build Include="Tables\Service.sql" />
+    <Build Include="Tables\ServiceToLead.sql" />
   </ItemGroup>
 </Project>
