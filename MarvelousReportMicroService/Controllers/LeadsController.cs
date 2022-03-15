@@ -10,14 +10,14 @@ namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
     [Route("api/leads")]
-    public class LeadController : Controller
+    public class LeadsController : Controller
     {
         private readonly ILeadService _leadService;
         private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
         private readonly Logger _logger;
 
-        public LeadController(IMapper mapper, ILeadService leadService, ITransactionService transactionService)
+        public LeadsController(IMapper mapper, ILeadService leadService, ITransactionService transactionService)
         {
             _mapper = mapper;
             _leadService = leadService;
@@ -34,10 +34,9 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet("{id}/transactions-for-period/")]
-        public ActionResult GetTransactionsBetweenDatesByLeadId(int id
-            , [FromQuery] 
-              DateTime startDate
-            , DateTime finishDate)
+        public ActionResult GetTransactionsBetweenDatesByLeadId(int id,
+            [FromQuery] DateTime startDate,
+            [FromQuery] DateTime finishDate)
         {
             List<TransactionModel> transactions =
                 _transactionService
@@ -51,14 +50,14 @@ namespace MarvelousReportMicroService.API.Controllers
 
         [HttpGet("search")]
         public ActionResult<List<LeadResponse>> GetLeadByParameters(
-            [FromQuery] int? id
-            , string? name
-            , string? lastName
-            , DateTime? birthDate
-            , string? email
-            , string? phone
-            , Role? role
-            , bool? isBanned)
+            [FromQuery] int? id,
+            [FromQuery] string? name,
+            [FromQuery] string? lastName,
+            [FromQuery] DateTime? birthDate,
+            [FromQuery] string? email,
+            [FromQuery] string? phone,
+            [FromQuery] Role? role,
+            [FromQuery] bool? isBanned)
         {
             LeadModelSearchRequest leadModel = new LeadModelSearchRequest()
             {
