@@ -10,18 +10,16 @@ namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
     [Route("api/leads")]
-    public class LeadController : Controller
+    public class LeadsController : Controller
     {
         private readonly ILeadService _leadService;
-        private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
         private readonly Logger _logger;
 
-        public LeadController(IMapper mapper, ILeadService leadService, ITransactionService transactionService)
+        public LeadsController(IMapper mapper, ILeadService leadService)
         {
             _mapper = mapper;
             _leadService = leadService;
-            _transactionService = transactionService;
             _logger = NLog.Web.NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
         }
 
@@ -33,32 +31,16 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
-        [HttpGet("{id}/transactions-for-period/")]
-        public ActionResult GetTransactionsBetweenDatesByLeadId(int id
-            , [FromQuery] 
-              DateTime startDate
-            , DateTime finishDate)
-        {
-            List<TransactionModel> transactions =
-                _transactionService
-                .GetTransactionsBetweenDatesByLeadId(
-                id
-                , startDate
-                , finishDate);
-
-            return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
-        }
-
         [HttpGet("search")]
         public ActionResult<List<LeadResponse>> GetLeadByParameters(
-            [FromQuery] int? id
-            , string? name
-            , string? lastName
-            , DateTime? birthDate
-            , string? email
-            , string? phone
-            , Role? role
-            , bool? isBanned)
+            [FromQuery] int? id,
+            [FromQuery] string? name,
+            [FromQuery] string? lastName,
+            [FromQuery] DateTime? birthDate,
+            [FromQuery] string? email,
+            [FromQuery] string? phone,
+            [FromQuery] Role? role,
+            [FromQuery] bool? isBanned)
         {
             LeadModelSearchRequest leadModel = new LeadModelSearchRequest()
             {

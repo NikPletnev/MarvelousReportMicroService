@@ -1,9 +1,9 @@
 ﻿using MarvelousReportMicroService.DAL.Configuration;
 using MarvelousReportMicroService.DAL.Entityes;
+using MarvelousReportMicroService.DAL.Helpers;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Dapper;
-using MarvelousReportMicroService.DAL.Helpers;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {

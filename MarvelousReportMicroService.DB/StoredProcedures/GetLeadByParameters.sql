@@ -1,10 +1,10 @@
 ﻿create procedure [dbo].[GetLeadByParameters]
 	@Id integer = null,
-	@Name varchar = null,
-    @LastName varchar = null,
-    @BirthDate date = "0001-01-01",
-	@Email varchar = null,
-	@Phone varchar = null,
+	@Name varchar(30) = null,
+    @LastName varchar(30) = null,
+    @Birthdate date = null,
+	@Email varchar(30) = null,
+	@Phone varchar(20) = null,
 	@Role integer = null,
 	@IsBanned integer = null
 as
