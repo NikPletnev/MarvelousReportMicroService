@@ -22,6 +22,7 @@ namespace MarvelousReportMicroService.API.Extensions
 
         public static void RegisterLogger(this IServiceCollection service, IConfiguration config)
         {
+            service.Configure<ConsoleLifetimeOptions>(opts => opts.SuppressStatusMessages = true);
             service.AddLogging(loggingBuilder =>
             {
                 loggingBuilder.ClearProviders();
