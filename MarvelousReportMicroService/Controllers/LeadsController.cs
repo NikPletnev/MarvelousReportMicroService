@@ -4,6 +4,7 @@ using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.API.Models.Request;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
+using MarvelousReportMicroService.DAL.Enums;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 
@@ -36,11 +37,15 @@ namespace MarvelousReportMicroService.API.Controllers
         public ActionResult<List<LeadResponse>> GetLeadByParameters(
             [FromQuery] int? id,
             [FromQuery] string? name,
+            [FromQuery] LeadSearchParams? nameParam,
             [FromQuery] string? lastName,
+            [FromQuery] LeadSearchParams? lastNameParam,
             [FromQuery] DateTime? startBirthDate,
             [FromQuery] DateTime? endBirthDate,
             [FromQuery] string? email,
+            [FromQuery] LeadSearchParams? emailParam,
             [FromQuery] string? phone,
+            [FromQuery] LeadSearchParams? phoneParam,
             [FromQuery] Role? role,
             [FromQuery] bool? isBanned)
         {
@@ -48,10 +53,14 @@ namespace MarvelousReportMicroService.API.Controllers
             {
                 Id = id,
                 Name = name,
+                NameParam = nameParam,
                 LastName = lastName,
+                LastNameParam = lastNameParam,
                 StartBirthDate = startBirthDate,
                 EndBirthDate = endBirthDate,
                 Email = email,
+                EmailParam = emailParam,
+                PhoneParam = phoneParam,
                 Phone = phone,
                 Role = role,
                 IsBanned = isBanned
