@@ -21,7 +21,6 @@ namespace MarvelousReportMicroService.API.Controllers
         {
             _mapper = mapper;
             _leadService = leadService;
-            //_logger = NLog.Web.NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             _logger = logger;
         }
 

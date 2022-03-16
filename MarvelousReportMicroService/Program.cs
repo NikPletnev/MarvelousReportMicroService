@@ -3,7 +3,6 @@ using MarvelousReportMicroService.API.Extensions;
 using MarvelousReportMicroService.API.Infrastructure;
 using MarvelousReportMicroService.BLL.Configuration;
 using MarvelousReportMicroService.DAL.Configuration;
-using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +22,6 @@ builder.Services.Configure<DbConfiguration>(opt =>
 var config = new ConfigurationBuilder()
            .SetBasePath(logDirectory)
            .AddXmlFile("NLog.config", optional: true, reloadOnChange: true)
-           //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
            .Build();
 
 // Add services to the container.
