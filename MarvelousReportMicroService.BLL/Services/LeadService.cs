@@ -2,11 +2,7 @@
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Entityes;
 using MarvelousReportMicroService.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MarvelousReportMicroService.BLL.Services
 {

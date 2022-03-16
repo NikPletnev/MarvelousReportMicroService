@@ -1,8 +1,0 @@
-2022-03-16 02:04:33.1685 | MarvelousReportMicroService.API.Controllers.LeadsController.GetAllLeads | INFO | Запрос на получение всех лидов
-2022-03-16 02:04:43.0065 | MarvelousReportMicroService.API.Controllers.LeadsController.GetAllLeads | INFO | Запрос на получение всех лидов
-2022-03-16 02:05:03.8952 | Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync | INFO | Now listening on: https://localhost:5001
-2022-03-16 02:05:03.9323 | Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync | INFO | Now listening on: http://localhost:5000
-2022-03-16 02:05:03.9323 | Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted | INFO | Application started. Press Ctrl+C to shut down.
-2022-03-16 02:05:03.9323 | Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted | INFO | Hosting environment: Development
-2022-03-16 02:05:03.9323 | Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted | INFO | Content root path: D:\Projects\MarvelousReportMicroService\MarvelousReportMicroService\
-2022-03-16 02:05:10.1070 | MarvelousReportMicroService.API.Controllers.LeadsController.GetAllLeads | INFO | Запрос на получение всех лидов

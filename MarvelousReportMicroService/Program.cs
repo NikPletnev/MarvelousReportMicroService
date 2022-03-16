@@ -22,7 +22,6 @@ builder.Services.Configure<DbConfiguration>(opt =>
 var config = new ConfigurationBuilder()
            .SetBasePath(logDirectory)
            .AddXmlFile("NLog.config", optional: true, reloadOnChange: true)
-           //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
            .Build();
 
 // Add services to the container.

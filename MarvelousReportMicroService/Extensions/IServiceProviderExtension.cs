@@ -24,7 +24,6 @@ namespace MarvelousReportMicroService.API.Extensions
         {
             service.AddLogging(loggingBuilder =>
             {
-                // configure Logging with NLog
                 loggingBuilder.ClearProviders();
                 loggingBuilder.SetMinimumLevel(LogLevel.Information);
                 loggingBuilder.AddNLog(config);
