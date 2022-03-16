@@ -31,6 +31,11 @@ namespace MarvelousReportMicroService.DAL.Repositories
         {
             using IDbConnection connection = ProvideConnection();
 
+            string nameParam = GenerateParamString.Generate(lead.NameParam, lead.Name);
+            string lastNameParam = GenerateParamString.Generate(lead.LastNameParam, lead.LastName);
+            string emailParam = GenerateParamString.Generate(lead.EmailParam, lead.Email);
+            string phoneParam = GenerateParamString.Generate(lead.PhoneParam, lead.Phone);
+
             return connection.
                 Query<Lead>(
                 Queries.GetLeadsByParameters
@@ -44,7 +49,11 @@ namespace MarvelousReportMicroService.DAL.Repositories
                     lead.Email,
                     lead.Phone,
                     lead.Role,
-                    lead.IsBanned
+                    lead.IsBanned,
+                    NameParam = nameParam,
+                    LastNameParam = lastNameParam,
+                    EmailParam = emailParam,
+                    PhoneParam = phoneParam
                 }
                 , commandType: CommandType.StoredProcedure)
                 .ToList();

@@ -1,5 +1,6 @@
 ﻿using Marvelous.Contracts;
 using MarvelousReportMicroService.DAL.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace MarvelousReportMicroService.API.Models.Request
 {
