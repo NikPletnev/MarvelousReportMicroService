@@ -1,1 +1,0 @@
-2022-03-15 18:28:12.6564 | MarvelousReportMicroService.API.Controllers.AccountsController.GetAccountBalance | INFO | Запрос на получение баланса аккаунта с id = 1

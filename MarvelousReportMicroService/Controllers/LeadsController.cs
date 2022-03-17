@@ -6,29 +6,30 @@ using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.DAL.Enums;
 using Microsoft.AspNetCore.Mvc;
-using NLog;
+using Marvelous.Contracts;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
-    [Route("api/leads")]
+    [Route("api/[controller]")]
     public class LeadsController : Controller
     {
         private readonly ILeadService _leadService;
         private readonly IMapper _mapper;
-        private readonly Logger _logger;
+        private readonly ILogger<LeadsController> _logger;
 
-        public LeadsController(IMapper mapper, ILeadService leadService)
+        public LeadsController(IMapper mapper, ILeadService leadService, ILogger<LeadsController> logger)
         {
             _mapper = mapper;
             _leadService = leadService;
-            _logger = NLog.Web.NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
+            _logger = logger;
         }
 
         [HttpGet]
         public ActionResult GetAllLeads()
         {
-            _logger.Info($"Запрос на получение всех лидов");
+            _logger.LogInformation($"Запрос на получение всех лидов");
             var leads = _leadService.GetAllLeads();
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
