@@ -65,7 +65,7 @@
     <Build Include="Tables\Transaction.sql" />
     <Build Include="StoredProcedures\GetAllLeads.sql" />
     <Build Include="StoredProcedures\GetTransactionsBetweenDatesByLeadId.sql" />
-    <Build Include="StoredProcedures\GetLeadByParameters.sql" />
+    <Build Include="StoredProcedures\GetLeadsByParameters.sql" />
     <Build Include="StoredProcedures\GetAccountBalance.sql" />
     <Build Include="StoredProcedures\GetTransactionsByAccountId.sql" />
     <Build Include="Tables\Service.sql" />

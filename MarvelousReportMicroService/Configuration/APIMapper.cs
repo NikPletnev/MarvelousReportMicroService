@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MarvelousReportMicroService.API.Models;
+using MarvelousReportMicroService.API.Models.Request;
 using MarvelousReportMicroService.BLL.Models;
 
 namespace MarvelousReportMicroService.API.Configuration
@@ -11,6 +12,7 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<LeadModel, LeadResponse>().ReverseMap();
             CreateMap<AccountModel, AccountResponse>().ReverseMap();
             CreateMap<TransactionModel, TransactionResponse>().ReverseMap();
+            CreateMap<LeadSearchModel, LeadSearchRequest>().ReverseMap();
         }
     }
 }

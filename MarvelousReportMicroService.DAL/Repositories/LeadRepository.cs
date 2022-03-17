@@ -4,6 +4,7 @@ using MarvelousReportMicroService.DAL.Helpers;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Dapper;
+using MarvelousReportMicroService.DAL.Models;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
@@ -26,23 +27,33 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 .ToList();
         }
 
-        public List<Lead> GetLeadByParameters(Lead lead)
+        public List<Lead> GetLeadByParameters(LeadSearch lead)
         {
             using IDbConnection connection = ProvideConnection();
 
+            string nameParam = GenerateParamString.Generate(lead.NameParam, lead.Name);
+            string lastNameParam = GenerateParamString.Generate(lead.LastNameParam, lead.LastName);
+            string emailParam = GenerateParamString.Generate(lead.EmailParam, lead.Email);
+            string phoneParam = GenerateParamString.Generate(lead.PhoneParam, lead.Phone);
+
             return connection.
                 Query<Lead>(
-                Queries.GetLeadByParameters
+                Queries.GetLeadsByParameters
                 , new 
                 {
                     lead.Id,
                     lead.Name,
                     lead.LastName,
-                    lead.BirthDate,
+                    lead.StartBirthDate,
+                    lead.EndBirthDate,
                     lead.Email,
                     lead.Phone,
                     lead.Role,
-                    lead.IsBanned
+                    lead.IsBanned,
+                    NameParam = nameParam,
+                    LastNameParam = lastNameParam,
+                    EmailParam = emailParam,
+                    PhoneParam = phoneParam
                 }
                 , commandType: CommandType.StoredProcedure)
                 .ToList();
