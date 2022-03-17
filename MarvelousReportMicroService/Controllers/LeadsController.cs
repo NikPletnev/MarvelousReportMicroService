@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Marvelous.Contracts;
-using MarvelousReportMicroService.API.Models;
+﻿using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.API.Models.Request;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
@@ -21,8 +19,8 @@ namespace MarvelousReportMicroService.API.Controllers
 
         public LeadsController(IMapper mapper, ILeadService leadService, ILogger<LeadsController> logger)
         {
-            _mapper = mapper;
             _leadService = leadService;
+            _mapper = mapper;
             _logger = logger;
         }
 
@@ -31,6 +29,8 @@ namespace MarvelousReportMicroService.API.Controllers
         {
             _logger.LogInformation($"Запрос на получение всех лидов");
             var leads = _leadService.GetAllLeads();
+
+            _logger.LogInformation($"Ответ на запрос о получении всех лидов");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
@@ -50,6 +50,8 @@ namespace MarvelousReportMicroService.API.Controllers
             [FromQuery] Role? role,
             [FromQuery] bool? isBanned)
         {
+            _logger.LogInformation($"Запрос на получение всех лидов по определенным параметрам");
+
             LeadSearchRequest leadModel = new LeadSearchRequest()
             {
                 Id = id,
@@ -69,6 +71,7 @@ namespace MarvelousReportMicroService.API.Controllers
 
             List<LeadModel> leads = _leadService.GetLeadByParameters(_mapper.Map<LeadSearchModel>(leadModel));
 
+            _logger.LogInformation($"Ответ на запрос о получении всех лидов по определенным параметрам");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
     }

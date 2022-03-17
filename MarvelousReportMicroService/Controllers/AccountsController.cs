@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using MarvelousReportMicroService.API.Models;
+﻿using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
-using NLog;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
@@ -30,14 +29,18 @@ namespace MarvelousReportMicroService.API.Controllers
         {
             _logger.LogInformation($"Запрос на получение баланса аккаунта с id = {id}");
             var balance = _accountService.GetAccountBalance(id);
+
+            _logger.LogInformation($"Выдан ответ на запрос о получении баланса аккаунта с id = {id}");
             return Ok(balance);
         }
 
         [HttpGet("{id}/transactions")]
         public ActionResult GetTransactionsByAccountId(int id)
         {
+            _logger.LogInformation($"Запрос на получение всех транзакций аккаунта с id = {id}");
             List<TransactionModel> transactions = _transactionService.GetTransactionsByAccountId(id);
 
+            _logger.LogInformation($"Выдан ответ на запрос о получении всех транзакций аккаунта с id = {id}");
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
         }
     }
