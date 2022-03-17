@@ -8,12 +8,12 @@ namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TransactionsCntroller : Controller
+    public class TransactionsController : Controller
     {
         private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
 
-        public TransactionsCntroller(IMapper mapper, ITransactionService transactionService)
+        public TransactionsController(IMapper mapper, ITransactionService transactionService)
         {
             _mapper = mapper;
             _transactionService = transactionService;

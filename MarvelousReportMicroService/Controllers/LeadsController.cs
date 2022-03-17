@@ -1,16 +1,14 @@
-﻿using AutoMapper;
-using Marvelous.Contracts;
-using MarvelousReportMicroService.API.Models;
+﻿using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
-using NLog;
-using NLog.Extensions.Logging;
+using Marvelous.Contracts;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
-    [Route("api/leads")]
+    [Route("api/[controller]")]
     public class LeadsController : Controller
     {
         private readonly ILeadService _leadService;
