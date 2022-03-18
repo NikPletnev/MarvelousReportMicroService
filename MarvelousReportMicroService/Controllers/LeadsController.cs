@@ -73,7 +73,7 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet("search-offset-{offset}-fetch-{fetch}")]
-        public ActionResult<List<LeadResponse>> GetLeadWithOffsetAndFetch()
+        public ActionResult<List<LeadResponse>> GetLeadWithOffsetAndFetch(int offset, int fetch)
         {
             LeadSerchWithOffsetAndFetchRequest leadModel = new LeadSerchWithOffsetAndFetchRequest()
             {
@@ -81,7 +81,7 @@ namespace MarvelousReportMicroService.API.Controllers
                 Fetch = fetch
             };
 
-            var leads = _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchRequest>(leadModel));
+            var leads = _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
     }

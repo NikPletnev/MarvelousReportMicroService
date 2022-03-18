@@ -7,7 +7,7 @@ namespace MarvelousReportMicroService.API.Models.Request
 {
     public class LeadSerchWithOffsetAndFetchRequest
     {
-        int Offset { get; set; }
-        int Fetch { get; set; }
+        public int Offset { get; set; }
+        public int Fetch { get; set; }
     }
 }

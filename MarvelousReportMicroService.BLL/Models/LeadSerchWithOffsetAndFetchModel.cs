@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace MarvelousReportMicroService.BLL.Models
 {
-    class LeadSerchWithOffsetAndFetchModel
+    public class LeadSerchWithOffsetAndFetchModel
     {
-        int Offset { get; set; }
-        int Fetch { get; set; }
+        public int Offset { get; set; }
+        public int Fetch { get; set; }
     }
 }

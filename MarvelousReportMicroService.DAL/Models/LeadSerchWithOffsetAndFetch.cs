@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MarvelousReportMicroService.DAL.Models
 {
-    class LeadSerchWithOffsetAndFetch
+    public class LeadSerchWithOffsetAndFetch
     {
-        int Offset { get; set; }
-        int Fetch { get; set; }
+        public int Offset { get; set; }
+        public int Fetch { get; set; }
     }
 }
