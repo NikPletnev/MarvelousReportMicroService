@@ -2,8 +2,8 @@
 	@Offset int,
 	@Fetch int
 AS
-SELECT  [Id]
-      ,[ExternalId]
+SELECT
+      [ExternalId] as [Id]
       ,[Name]
       ,[LastName]
       ,[BirthDate]
