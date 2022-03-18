@@ -58,5 +58,21 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 , commandType: CommandType.StoredProcedure)
                 .ToList();
         }
+
+        public List<Lead> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            return connection.
+                Query<Lead>(
+                Queries.GetLeadsByOffsetAndFetchParameters
+                , new
+                {
+                    lead.Offset,
+                    lead.Fetch
+                }
+                , commandType: CommandType.StoredProcedure)
+                .ToList();
+        }
     }
 }
