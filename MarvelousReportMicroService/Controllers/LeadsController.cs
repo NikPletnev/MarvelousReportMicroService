@@ -74,5 +74,18 @@ namespace MarvelousReportMicroService.API.Controllers
             _logger.LogInformation($"Ответ на запрос о получении всех лидов по определенным параметрам");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
+
+        [HttpGet("search-offset-{offset}-fetch-{fetch}")]
+        public ActionResult<List<LeadResponse>> GetLeadWithOffsetAndFetch(int offset, int fetch)
+        {
+            LeadSerchWithOffsetAndFetchRequest leadModel = new LeadSerchWithOffsetAndFetchRequest()
+            {
+                Offset = offset,
+                Fetch = fetch
+            };
+
+            var leads = _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
+            return Ok(_mapper.Map<List<LeadResponse>>(leads));
+        }
     }
 }
