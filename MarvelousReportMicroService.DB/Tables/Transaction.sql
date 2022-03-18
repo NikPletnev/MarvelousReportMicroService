@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[Transaction](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ExternalId] [int] not null unique,
 	[Amount] [decimal](18, 4) NOT NULL,
 	[Type] TINYINT NOT NULL,
 	[AccountId] [int] NOT NULL,
