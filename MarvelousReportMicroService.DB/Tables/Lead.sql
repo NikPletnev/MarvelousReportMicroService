@@ -2,7 +2,7 @@
 CREATE TABLE [dbo].[Lead]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	[ExternalId] int not null,
+	[ExternalId] int not null unique,
 	[Name] varchar(30) NOT NULL,
 	[LastName] varchar(30) NOT NULL,
 	[BirthDate] DATETIME NOT NULL,
