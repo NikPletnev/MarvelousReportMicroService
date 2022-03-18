@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Request\" />
-  </ItemGroup>
-
-  <ItemGroup>
 	  <None Update="NLog.config" CopyToOutputDirectory="Always" />
   </ItemGroup>
 

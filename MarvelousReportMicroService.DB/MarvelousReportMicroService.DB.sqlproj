@@ -70,5 +70,6 @@
     <Build Include="StoredProcedures\GetTransactionsByAccountId.sql" />
     <Build Include="Tables\Service.sql" />
     <Build Include="Tables\ServiceToLead.sql" />
+    <Build Include="StoredProcedures\GetLeadsByOffsetAndFetchParameters.sql" />
   </ItemGroup>
 </Project>

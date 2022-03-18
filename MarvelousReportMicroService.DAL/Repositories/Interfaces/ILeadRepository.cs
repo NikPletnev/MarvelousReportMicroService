@@ -7,5 +7,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
     {
         List<Lead> GetAllLeads();
         List<Lead> GetLeadByParameters(LeadSearch lead);
+        List<Lead> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead);
     }
 }
