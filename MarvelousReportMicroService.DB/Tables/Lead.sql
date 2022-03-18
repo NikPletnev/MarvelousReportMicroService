@@ -10,6 +10,8 @@ CREATE TABLE [dbo].[Lead]
 	[Password] varchar(100) NOT NULL,
 	[Role] TINYINT NOT NULL, 
     [IsBanned] BIT NOT NULL, 
+    [ExternalId] INT NOT NULL, 
     CONSTRAINT AK_Email UNIQUE(Email),
+	CONSTRAINT AK_ExternalId UNIQUE(ExternalId)
 )
 
