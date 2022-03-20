@@ -54,5 +54,22 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 , commandType: CommandType.StoredProcedure)
                 .ToList();
         }
+
+        public async Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            return await Task.Run(() => connection.
+                Query<Lead>(
+                Queries.GetLeadsByOffsetAndFetchParameters
+                , new
+                {
+                    lead.Offset,
+                    lead.Fetch
+                }
+                , commandType: CommandType.StoredProcedure)
+                .ToList());
+        }
+
     }
 }

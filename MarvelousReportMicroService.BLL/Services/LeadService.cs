@@ -28,10 +28,10 @@ namespace MarvelousReportMicroService.BLL.Services
             return _mapper.Map<List<LeadModel>>(leads);
         }
 
-        public List<LeadModel> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model)
+        public  async Task<List<LeadModel>> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model)
         {
             var leads = _leadRepository.GetLeadsByOffsetANdFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetch>(model));
-            return _mapper.Map<List<LeadModel>>(leads);
+            return _mapper.Map<List<LeadModel>>(await leads);
         }
     }
 }

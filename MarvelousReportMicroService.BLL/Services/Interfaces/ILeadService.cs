@@ -7,6 +7,6 @@ namespace MarvelousReportMicroService.BLL.Services
     {
         List<LeadModel> GetAllLeads();
         List<LeadModel> GetLeadByParameters(LeadSearchModel model);
-        List<LeadModel> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model);
+        Task<List<LeadModel>> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model);
     }
 }
