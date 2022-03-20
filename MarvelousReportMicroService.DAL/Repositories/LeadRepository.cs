@@ -1,10 +1,10 @@
 ﻿using MarvelousReportMicroService.DAL.Configuration;
 using MarvelousReportMicroService.DAL.Entityes;
 using MarvelousReportMicroService.DAL.Helpers;
+using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Dapper;
-using MarvelousReportMicroService.DAL.Models;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
@@ -42,34 +42,14 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 , new 
                 {
                     lead.Id,
-                    lead.Name,
-                    lead.LastName,
                     lead.StartBirthDate,
                     lead.EndBirthDate,
-                    lead.Email,
-                    lead.Phone,
                     lead.Role,
                     lead.IsBanned,
                     NameParam = nameParam,
                     LastNameParam = lastNameParam,
                     EmailParam = emailParam,
                     PhoneParam = phoneParam
-                }
-                , commandType: CommandType.StoredProcedure)
-                .ToList();
-        }
-
-        public List<Lead> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
-        {
-            using IDbConnection connection = ProvideConnection();
-
-            return connection.
-                Query<Lead>(
-                Queries.GetLeadsByOffsetAndFetchParameters
-                , new
-                {
-                    lead.Offset,
-                    lead.Fetch
                 }
                 , commandType: CommandType.StoredProcedure)
                 .ToList();

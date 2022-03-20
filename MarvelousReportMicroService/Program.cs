@@ -3,6 +3,7 @@ using MarvelousReportMicroService.API.Extensions;
 using MarvelousReportMicroService.API.Infrastructure;
 using MarvelousReportMicroService.BLL.Configuration;
 using MarvelousReportMicroService.DAL.Configuration;
+using System.Text.Json.Serialization;
 using System.Web.Http;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,13 @@ var config = new ConfigurationBuilder()
            .SetBasePath(logDirectory)
            .AddXmlFile("NLog.config", optional: true, reloadOnChange: true)
            .Build();
+
+builder.Services.AddControllers()
+                .AddJsonOptions(opts =>
+                {
+                    var enumConverter = new JsonStringEnumConverter();
+                    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+                });
 
 // Add services to the container.
 
