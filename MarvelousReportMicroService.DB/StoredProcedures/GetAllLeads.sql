@@ -1,4 +1,14 @@
 ﻿CREATE PROCEDURE [dbo].[GetAllLeads]
 
 AS
-	SELECT * FROM [dbo].[Lead]
+	select
+		[ExternalId] as Id,
+		[Name], 
+		[LastName],
+		[BirthDate],
+		[Email],
+		[Phone],
+		[Password],
+		[Role],
+		[IsBanned]
+	from dbo.[Lead]

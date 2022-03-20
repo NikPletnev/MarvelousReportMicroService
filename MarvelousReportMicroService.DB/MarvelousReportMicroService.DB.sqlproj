@@ -72,4 +72,7 @@
     <Build Include="Tables\ServiceToLead.sql" />
     <Build Include="StoredProcedures\GetLeadsByOffsetAndFetchParameters.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="MarvelousReportMicroService.DB.refactorlog" />
+  </ItemGroup>
 </Project>

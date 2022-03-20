@@ -13,5 +13,6 @@ CREATE TABLE [dbo].[Lead]
     [IsBanned] BIT NOT NULL, 
     [City] varchar(30) NULL, 
     CONSTRAINT AK_Email UNIQUE(Email),
+	CONSTRAINT AK_ExternalId UNIQUE(ExternalId)
 )
 
