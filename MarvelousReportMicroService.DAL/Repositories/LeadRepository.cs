@@ -5,15 +5,19 @@ using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Dapper;
+using SqlKata.Execution;
+using SqlKata;
+using MarvelousReportMicroService.DAL.Enums;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
     public class LeadRepository : BaseRepository, ILeadRepository
     {
+        private readonly QueryFactory _qeryFactory;
 
-        public LeadRepository(IOptions<DbConfiguration> options) : base(options)
+        public LeadRepository(IOptions<DbConfiguration> options, QueryFactory queryFactory) : base(options)
         {
-
+            _qeryFactory = queryFactory;
         }
 
         public List<Lead> GetAllLeads()
@@ -39,7 +43,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
             return connection.
                 Query<Lead>(
                 Queries.GetLeadsByParameters
-                , new 
+                , new
                 {
                     lead.Id,
                     lead.StartBirthDate,
@@ -50,6 +54,34 @@ namespace MarvelousReportMicroService.DAL.Repositories
                     LastNameParam = lastNameParam,
                     EmailParam = emailParam,
                     PhoneParam = phoneParam
+                }
+                , commandType: CommandType.StoredProcedure)
+                .ToList();
+
+            //var phoneQuery = new Query().WhereLike("Phone", phoneParam);
+            //var emailQuery = new Query().WhereLike("Email", emailParam).From(phoneQuery);
+            //var lastNamelQuery = new Query().WhereLike("LastName", lastNameParam).From(emailQuery);
+            //var namelQuery = new Query().WhereLike("Name", nameParam).From(lastNamelQuery);
+
+            //var query = new Query().From(namelQuery);
+
+            //IEnumerable<Lead> leads = _qeryFactory.Query("Lead").Where("Id", 100).Get<Lead>();
+
+            //return (List<Lead>)leads;
+        }
+
+
+        public List<Lead> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            return connection.
+                Query<Lead>(
+                Queries.GetLeadsByOffsetAndFetchParameters
+                , new
+                {
+                    lead.Offset,
+                    lead.Fetch
                 }
                 , commandType: CommandType.StoredProcedure)
                 .ToList();
