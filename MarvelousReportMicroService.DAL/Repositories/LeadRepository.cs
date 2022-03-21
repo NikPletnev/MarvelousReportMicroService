@@ -20,12 +20,12 @@ namespace MarvelousReportMicroService.DAL.Repositories
         {
             using IDbConnection connection = ProvideConnection();
 
-            var leads = await connection.
+            var leads = (await connection.
                 QueryAsync<Lead>(
                 Queries.GetAllLeads,
-                commandType: CommandType.StoredProcedure);
+                commandType: CommandType.StoredProcedure)).ToList();
 
-            return leads.ToList();
+            return leads;
         }
 
         public List<Lead> GetLeadByParameters(LeadSearch lead)
@@ -60,7 +60,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
         {
             using IDbConnection connection = ProvideConnection();
 
-            var leads = await connection.
+            var leads = (await connection.
                 QueryAsync<Lead>(
                 Queries.GetLeadsByOffsetAndFetchParameters,
                 new
@@ -68,9 +68,9 @@ namespace MarvelousReportMicroService.DAL.Repositories
                     lead.Offset,
                     lead.Fetch
                 },
-                commandType: CommandType.StoredProcedure);
+                commandType: CommandType.StoredProcedure)).ToList();
 
-            return leads.ToList();
+            return leads;
         }
     }
 }

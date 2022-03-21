@@ -19,13 +19,13 @@ namespace MarvelousReportMicroService.DAL.Repositories
             using IDbConnection connection = ProvideConnection();
 
             var transactions =
-                await connection
+                (await connection
                     .QueryAsync<Transaction>(
                     Queries.GetTransactionsBetweenDatesByLeadId
                     , new { LeadId, startDate, finishDate }
-                    , commandType: CommandType.StoredProcedure);
+                    , commandType: CommandType.StoredProcedure)).ToList();
 
-            return transactions.ToList();
+            return transactions;
         }
 
         public async Task<List<Transaction>> GetTransactionsByAccountId(int accountId)
@@ -33,13 +33,13 @@ namespace MarvelousReportMicroService.DAL.Repositories
             using IDbConnection connection = ProvideConnection();
 
             var transactions =
-                await connection
+                (await connection
                     .QueryAsync<Transaction>(
                     Queries.GetTransactionsByAccountId
                     , new { accountId }
-                    , commandType: CommandType.StoredProcedure);
+                    , commandType: CommandType.StoredProcedure)).ToList();
 
-            return transactions.ToList();
+            return transactions;
         }
     }
 }
