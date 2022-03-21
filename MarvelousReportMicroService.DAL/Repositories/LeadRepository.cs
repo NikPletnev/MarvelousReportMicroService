@@ -16,15 +16,16 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         }
 
-        public List<Lead> GetAllLeads()
+        public async Task<List<Lead>> GetAllLeads()
         {
             using IDbConnection connection = ProvideConnection();
 
-            return connection.
-                Query<Lead>(
+            var leads = (await connection.
+                QueryAsync<Lead>(
                 Queries.GetAllLeads,
-                commandType: CommandType.StoredProcedure)
-                .ToList();
+                commandType: CommandType.StoredProcedure)).ToList();
+
+            return leads;
         }
 
         public List<Lead> GetLeadByParameters(LeadSearch lead)
@@ -53,6 +54,23 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 }
                 , commandType: CommandType.StoredProcedure)
                 .ToList();
+        }
+
+        public async Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var leads = (await connection.
+                QueryAsync<Lead>(
+                Queries.GetLeadsByOffsetAndFetchParameters,
+                new
+                {
+                    lead.Offset,
+                    lead.Fetch
+                },
+                commandType: CommandType.StoredProcedure)).ToList();
+
+            return leads;
         }
     }
 }

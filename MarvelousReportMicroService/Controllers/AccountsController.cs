@@ -25,23 +25,23 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet("{id}/balance/")]
-        public ActionResult GetAccountBalance(int id)
+        public async Task<ActionResult<decimal>> GetAccountBalance(int id)
         {
             _logger.LogInformation($"Запрос на получение баланса аккаунта с id = {id}");
-            var balance = _accountService.GetAccountBalance(id);
+            var balance = await _accountService.GetAccountBalance(id);
 
             _logger.LogInformation($"Выдан ответ на запрос о получении баланса аккаунта с id = {id}");
             return Ok(balance);
         }
 
         [HttpGet("{id}/transactions")]
-        public ActionResult GetTransactionsByAccountId(int id)
+        public async Task<ActionResult<List<TransactionResponse>>> GetTransactionsByAccountId(int id)
         {
             _logger.LogInformation($"Запрос на получение всех транзакций аккаунта с id = {id}");
-            List<TransactionModel> transactions = _transactionService.GetTransactionsByAccountId(id);
+            List<TransactionModel> transactions = await _transactionService.GetTransactionsByAccountId(id);
 
             _logger.LogInformation($"Выдан ответ на запрос о получении всех транзакций аккаунта с id = {id}");
-            return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
+            return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
     }
 }

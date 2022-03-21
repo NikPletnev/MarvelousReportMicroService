@@ -25,10 +25,10 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllLeads()
+        public async Task<ActionResult<List<LeadResponse>>> GetAllLeads()
         {
             _logger.LogInformation($"Запрос на получение всех лидов");
-            var leads = _leadService.GetAllLeads();
+            var leads = await _leadService.GetAllLeads();
 
             _logger.LogInformation($"Ответ на запрос о получении всех лидов");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
@@ -76,7 +76,7 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet("take-from-{offset}-to-{fetch}")]
-        public ActionResult<List<LeadResponse>> GetLeadWithOffsetAndFetch(int offset, int fetch)
+        public async Task<ActionResult<List<LeadResponse>>> GetLeadWithOffsetAndFetch(int offset, int fetch)
         {
             LeadSerchWithOffsetAndFetchRequest leadModel = new LeadSerchWithOffsetAndFetchRequest()
             {
@@ -84,7 +84,7 @@ namespace MarvelousReportMicroService.API.Controllers
                 Fetch = fetch
             };
 
-            var leads = _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
+            var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
     }

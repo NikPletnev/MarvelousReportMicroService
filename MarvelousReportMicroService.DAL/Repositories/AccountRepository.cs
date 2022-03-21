@@ -13,17 +13,19 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         }
 
-        public decimal GetAccountBalance(int id)
+        public async Task<decimal> GetAccountBalance(int id)
         {
             using IDbConnection connection = ProvideConnection();
 
-            return connection
-                .QuerySingle<decimal>
+            var balance = await connection
+                .QuerySingleAsync<decimal>
                 (
                  Queries.GetAccountBalance,
                  new { Id = id },
                 commandType: CommandType.StoredProcedure
                 );
+
+            return balance;
         }
     }
 }
