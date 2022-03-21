@@ -5,7 +5,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
 {
     public interface ILeadRepository
     {
-        List<Lead> GetAllLeads();
+        Task<List<Lead>> GetAllLeads();
         List<Lead> GetLeadByParameters(LeadSearch lead);
         Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead);
     }

@@ -2,6 +2,6 @@
 {
     public interface IAccountService
     {
-        decimal GetAccountBalance(int id);
+        Task<decimal> GetAccountBalance(int id);
     }
 }

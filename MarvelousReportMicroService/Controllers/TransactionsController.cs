@@ -1,7 +1,6 @@
 ﻿using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 
@@ -23,22 +22,22 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet("by-lead-id/in-range")]
-        public ActionResult GetTransactionsBetweenDatesByLeadId(
+        public async Task<ActionResult<List<TransactionResponse>>> GetTransactionsBetweenDatesByLeadId(
             [FromQuery] int leadId,
             [FromQuery] DateTime startDate,
             [FromQuery] DateTime finishDate)
         {
             _logger.LogInformation($"Запрос на получение транзакций лида за период с {startDate} по {finishDate}");
 
-            List<TransactionModel> transactions =
-                _transactionService
+            var transactions =
+                await _transactionService
                 .GetTransactionsBetweenDatesByLeadId(
                 leadId,
                 startDate,
                 finishDate);
 
             _logger.LogInformation($"Запрос на получение транзакций лида за период с {startDate} по {finishDate} успешно выполнен");
-            return Ok(_mapper.Map<List<TransactionResponse>>(transactions));
+            return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
     }
 }

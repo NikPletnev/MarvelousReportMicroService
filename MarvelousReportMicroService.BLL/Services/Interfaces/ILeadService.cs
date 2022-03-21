@@ -5,7 +5,7 @@ namespace MarvelousReportMicroService.BLL.Services
 {
     public interface ILeadService
     {
-        List<LeadModel> GetAllLeads();
+        Task<List<LeadModel>> GetAllLeads();
         List<LeadModel> GetLeadByParameters(LeadSearchModel model);
         Task<List<LeadModel>> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model);
     }

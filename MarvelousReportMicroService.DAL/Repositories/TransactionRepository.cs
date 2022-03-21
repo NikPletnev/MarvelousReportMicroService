@@ -14,32 +14,32 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         }
 
-        public List<Transaction> GetTransactionsBetweenDatesByLeadId(int LeadId, DateTime startDate, DateTime finishDate)
+        public async Task<List<Transaction>> GetTransactionsBetweenDatesByLeadId(int LeadId, DateTime startDate, DateTime finishDate)
         {
             using IDbConnection connection = ProvideConnection();
 
-            List<Transaction> transactions =
-                connection
-                    .Query<Transaction>(
+            var transactions =
+                await connection
+                    .QueryAsync<Transaction>(
                     Queries.GetTransactionsBetweenDatesByLeadId
                     , new { LeadId, startDate, finishDate }
-                    , commandType: CommandType.StoredProcedure).ToList();
+                    , commandType: CommandType.StoredProcedure);
 
-            return transactions;
+            return transactions.ToList();
         }
 
-        public List<Transaction> GetTransactionsByAccountId(int accountId)
+        public async Task<List<Transaction>> GetTransactionsByAccountId(int accountId)
         {
             using IDbConnection connection = ProvideConnection();
 
-            List<Transaction> transactions =
-                connection
-                    .Query<Transaction>(
+            var transactions =
+                await connection
+                    .QueryAsync<Transaction>(
                     Queries.GetTransactionsByAccountId
                     , new { accountId }
-                    , commandType: CommandType.StoredProcedure).ToList();
+                    , commandType: CommandType.StoredProcedure);
 
-            return transactions;
+            return transactions.ToList();
         }
     }
 }
