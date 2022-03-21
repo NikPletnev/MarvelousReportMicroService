@@ -63,14 +63,13 @@
     <Build Include="Tables\Lead.sql" />
     <Build Include="Tables\Account.sql" />
     <Build Include="Tables\Transaction.sql" />
-    <Build Include="StoredProcedures\GetAllLeads.sql" />
     <Build Include="StoredProcedures\GetTransactionsBetweenDatesByLeadId.sql" />
-    <Build Include="StoredProcedures\GetLeadsByParameters.sql" />
     <Build Include="StoredProcedures\GetAccountBalance.sql" />
     <Build Include="StoredProcedures\GetTransactionsByAccountId.sql" />
     <Build Include="Tables\Service.sql" />
     <Build Include="Tables\ServiceToLead.sql" />
     <Build Include="StoredProcedures\GetLeadsByOffsetAndFetchParameters.sql" />
+    <Build Include="Tables\ServicePayment.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarvelousReportMicroService.DB.refactorlog" />
