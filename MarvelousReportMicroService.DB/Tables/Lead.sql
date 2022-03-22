@@ -10,7 +10,7 @@ CREATE TABLE [dbo].[Lead]
 	[BirthYear] SMALLINT NOT NULL,
 	[Email] varchar(30) NOT NULL,
 	[Phone] varchar(13) NULL,
-	[Password] varchar(100) NOT NULL,
+	[Password] varchar(70) NOT NULL,
 	[Role] TINYINT NOT NULL, 
     [IsBanned] BIT NOT NULL, 
     [City] varchar(30) NULL, 
