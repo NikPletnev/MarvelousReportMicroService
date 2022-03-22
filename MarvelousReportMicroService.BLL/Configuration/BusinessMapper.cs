@@ -9,7 +9,15 @@ namespace MarvelousReportMicroService.BLL.Configuration
     {
             public BusinessMapper()
             {
-                CreateMap<Lead, LeadModel>().ReverseMap();
+            CreateMap<Lead, LeadModel>()
+                .ForMember(
+                dest => dest.BirthDate,
+                opt => opt.MapFrom(src =>
+                    src.BirthYear.HasValue
+                    ? new DateTime(src.BirthYear.Value, src.BirthMonth.Value, src.BirthDay.Value)
+                    : default(DateTime?)
+                )).ReverseMap();
+
                 CreateMap<Account, AccountModel>().ReverseMap();
                 CreateMap<LeadSearchModel, LeadSearch>();
                 CreateMap<LeadSerchWithOffsetAndFetchModel, LeadSerchWithOffsetAndFetch>(); 
