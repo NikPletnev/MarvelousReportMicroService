@@ -4,7 +4,7 @@ namespace MarvelousReportMicroService.DAL.Entityes
 {
     public class Transaction
     {
-        public int Id { get; set; }
+        public int ExternalId { get; set; }
         public DateTime Date { get; set; }
         public TransactionType Type { get; set; }
         public decimal Amount { get; set; }

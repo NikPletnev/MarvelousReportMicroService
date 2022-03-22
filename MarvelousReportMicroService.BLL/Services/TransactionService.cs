@@ -33,5 +33,14 @@ namespace MarvelousReportMicroService.BLL.Services
 
             return _mapper.Map<List<TransactionModel>>(transactions);
         }
+
+        public async Task<List<TransactionModel>> GetServicePayTransactionsByLeadIdBetweenDate(
+            int id, DateTime startDate, DateTime endDate)
+        {
+            List<Transaction> transactions = await _transactionRepository
+                .GetServicePayTransactionsByLeadIdBetweenDate(id, startDate, endDate);
+
+            return _mapper.Map<List<TransactionModel>>(transactions);
+        }
     }
 }

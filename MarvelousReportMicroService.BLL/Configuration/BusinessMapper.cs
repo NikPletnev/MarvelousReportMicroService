@@ -11,7 +11,9 @@ namespace MarvelousReportMicroService.BLL.Configuration
             {
                 CreateMap<Lead, LeadModel>().ReverseMap();
                 CreateMap<Account, AccountModel>().ReverseMap();
-                CreateMap<Transaction, TransactionModel>().ReverseMap();
+                CreateMap<Transaction, TransactionModel>().ForMember(
+                    dest => dest.Id,
+                    opt => opt.MapFrom(src => src.ExternalId)).ReverseMap();
                 CreateMap<LeadSearchModel, LeadSearch>();
                 CreateMap<LeadSerchWithOffsetAndFetchModel, LeadSerchWithOffsetAndFetch>();
             }

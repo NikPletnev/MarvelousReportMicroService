@@ -41,5 +41,25 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             return transactions;
         }
+
+        public async Task<List<Transaction>> GetServicePayTransactionsByLeadIdBetweenDate
+            (int LeadId, DateTime startDate, DateTime endDate)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var transactions =
+               (await connection
+                   .QueryAsync<Transaction>(
+                   Queries.GetServicePayTransactionsByLeadIdBetweenDate
+                   , new 
+                   {
+                       LeadId,
+                       startDate,
+                       endDate
+                   }
+                   , commandType: CommandType.StoredProcedure)).ToList();
+
+            return transactions;
+        }
     }
 }
