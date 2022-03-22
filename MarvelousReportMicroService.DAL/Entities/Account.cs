@@ -1,6 +1,6 @@
 ﻿using Marvelous.Contracts;
 
-namespace MarvelousReportMicroService.DAL.Entityes
+namespace MarvelousReportMicroService.DAL.Entities
 {
     public class Account
     {

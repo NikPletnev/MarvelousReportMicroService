@@ -16,5 +16,6 @@ namespace MarvelousReportMicroService.DAL.Helpers
         public const string GetLeadsByOffsetAndFetchParameters = "GetLeadsByOffsetAndFetchParameters";
         public const string GetServicePayTransactionsByLeadIdBetweenDate = "GetServicePayTransactionsByLeadIdBetweenDate";
         public const string GetLeadsByServiceId = "GetLeadsByServiceId";
+        public const string GetServicesSortedByCountLeads = "GetServicesSortedByCountLeads";
     }
 }

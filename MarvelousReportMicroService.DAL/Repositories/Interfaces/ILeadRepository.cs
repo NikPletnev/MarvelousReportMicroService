@@ -1,4 +1,4 @@
-﻿using MarvelousReportMicroService.DAL.Entityes;
+﻿using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Models;
 
 namespace MarvelousReportMicroService.DAL.Repositories

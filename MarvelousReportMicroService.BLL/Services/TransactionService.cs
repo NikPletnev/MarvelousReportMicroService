@@ -1,7 +1,7 @@
-﻿using AutoMapper;
+﻿using MarvelousReportMicroService.DAL.Repositories;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.BLL.Models;
-using MarvelousReportMicroService.DAL.Entityes;
-using MarvelousReportMicroService.DAL.Repositories;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.BLL.Services
 {

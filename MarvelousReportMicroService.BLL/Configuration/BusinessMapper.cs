@@ -1,7 +1,7 @@
-﻿using AutoMapper;
+﻿using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.BLL.Models;
-using MarvelousReportMicroService.DAL.Entityes;
 using MarvelousReportMicroService.DAL.Models;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.BLL.Configuration
 {
@@ -11,11 +11,16 @@ namespace MarvelousReportMicroService.BLL.Configuration
             {
                 CreateMap<Lead, LeadModel>().ReverseMap();
                 CreateMap<Account, AccountModel>().ReverseMap();
+                CreateMap<LeadSearchModel, LeadSearch>();
+                CreateMap<LeadSerchWithOffsetAndFetchModel, LeadSerchWithOffsetAndFetch>(); 
+
                 CreateMap<Transaction, TransactionModel>().ForMember(
                     dest => dest.Id,
                     opt => opt.MapFrom(src => src.ExternalId)).ReverseMap();
-                CreateMap<LeadSearchModel, LeadSearch>();
-                CreateMap<LeadSerchWithOffsetAndFetchModel, LeadSerchWithOffsetAndFetch>();
-            }
+
+                CreateMap<Service, ServiceModel>().ForMember(
+                    dest => dest.Id,
+                    opt => opt.MapFrom(src => src.ExternalId)).ReverseMap();
+        }
     }
 }

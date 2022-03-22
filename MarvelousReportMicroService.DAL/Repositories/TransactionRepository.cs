@@ -1,5 +1,5 @@
 ﻿using MarvelousReportMicroService.DAL.Configuration;
-using MarvelousReportMicroService.DAL.Entityes;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using Microsoft.Extensions.Options;
 using System.Data;

@@ -1,7 +1,7 @@
-﻿using MarvelousReportMicroService.API.Models;
-using MarvelousReportMicroService.API.Models.Request;
-using MarvelousReportMicroService.BLL.Models;
+﻿using MarvelousReportMicroService.API.Models.Request;
 using MarvelousReportMicroService.BLL.Services;
+using MarvelousReportMicroService.API.Models;
+using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Marvelous.Contracts;

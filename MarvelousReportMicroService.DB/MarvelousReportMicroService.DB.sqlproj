@@ -72,6 +72,7 @@
     <Build Include="Tables\ServicePayment.sql" />
     <Build Include="StoredProcedures\GetServicePayTransactionsByLeadIdBetweenDate.sql" />
     <Build Include="StoredProcedures\GetLeadsByServiceId.sql" />
+    <Build Include="StoredProcedures\GetServicesSortedByCountLeads.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarvelousReportMicroService.DB.refactorlog" />
