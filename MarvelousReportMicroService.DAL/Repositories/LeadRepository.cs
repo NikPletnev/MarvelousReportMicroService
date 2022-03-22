@@ -72,5 +72,19 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             return leads;
         }
+
+        public async Task<List<Lead>> GetLeadsByServiceId(int serviceId)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var Leads =
+               (await connection
+                   .QueryAsync<Lead>(
+                   Queries.GetLeadsByServiceId,
+                   new { serviceId },
+                   commandType: CommandType.StoredProcedure)).ToList();
+
+            return Leads;
+        }
     }
 }

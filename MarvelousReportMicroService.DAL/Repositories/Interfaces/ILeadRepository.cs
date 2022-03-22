@@ -8,5 +8,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
         Task<List<Lead>> GetAllLeads();
         List<Lead> GetLeadByParameters(LeadSearch lead);
         Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead);
+        Task<List<Lead>> GetLeadsByServiceId(int serviceId);
     }
 }

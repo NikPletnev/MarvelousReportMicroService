@@ -87,5 +87,12 @@ namespace MarvelousReportMicroService.API.Controllers
             var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
+
+        [HttpGet("service-subscribers")]
+        public async Task<ActionResult<List<LeadResponse>>> GetLeadsByServiceId([FromQuery] int serviceId)
+        {
+            var leads = await _leadService.GetLeadsByServiceId(serviceId);
+            return Ok(_mapper.Map<List<LeadResponse>>(leads));
+        }
     }
 }

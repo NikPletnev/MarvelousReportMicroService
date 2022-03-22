@@ -33,5 +33,11 @@ namespace MarvelousReportMicroService.BLL.Services
             var leads = await _leadRepository.GetLeadsByOffsetANdFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetch>(model));
             return _mapper.Map<List<LeadModel>>(leads);
         }
+
+        public async Task<List<LeadModel>> GetLeadsByServiceId(int serviceId)
+        {
+            var leads = await _leadRepository.GetLeadsByServiceId(serviceId);
+            return _mapper.Map<List<LeadModel>>(leads);
+        }
     }
 }
