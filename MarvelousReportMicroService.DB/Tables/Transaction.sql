@@ -10,4 +10,4 @@
 (
 	[Id] ASC
 ), 
-    CONSTRAINT [FK_Transaction_ToAccaunts] FOREIGN KEY ([AccountId]) REFERENCES [Account]([Id]))
+    CONSTRAINT [FK_Transaction_ToAccaunts] FOREIGN KEY ([AccountId]) REFERENCES [Account]([ExternalId]))
