@@ -49,6 +49,17 @@
         "REPORT_CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=ReportDb;User ID = student; Password = qwe!23",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "NeRoma": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "LOG_DIRECTORY": "C:/Users/Pletnev/source/repos/MarvelousReportMicroService",
+        "REPORT_CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=ReportDb;User ID = student; Password = qwe!23",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
