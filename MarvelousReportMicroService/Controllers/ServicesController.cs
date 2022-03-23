@@ -23,10 +23,10 @@ namespace MarvelousReportMicroService.API.Controllers
         [HttpGet("desc-by-popularity")]
         public async Task<ActionResult<List<ServiceResponse>>> GetServicesSortedByCountLeads()
         {
-            _logger.LogInformation($"Запрос на получение списка услуг, отсортированных по популярности");
+            _logger.LogInformation($"Request to get a list of services sorted by popularity");
             var services = await _serviceService.GetServicesSortedByCountLeads();
 
-            _logger.LogInformation($"Ответ на запрос о получении списка услуг, отсортированных по популярности");
+            _logger.LogInformation($"Response to a request for a list of services sorted by popularity");
             return Ok(_mapper.Map<List<ServiceResponse>>(services));
         }
     }

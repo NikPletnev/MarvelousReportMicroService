@@ -27,7 +27,7 @@ namespace MarvelousReportMicroService.API.Controllers
             [FromQuery] DateTime startDate,
             [FromQuery] DateTime endDate)
         {
-            _logger.LogInformation($"Запрос на получение транзакций лида за период с {startDate} по {endDate}");
+            _logger.LogInformation($"Request to receive lead transactions for the period from {startDate} to {endDate}");
 
             var transactions =
                 await _transactionService
@@ -36,7 +36,7 @@ namespace MarvelousReportMicroService.API.Controllers
                 startDate,
                 endDate);
 
-            _logger.LogInformation($"Запрос на получение транзакций лида за период с {startDate} по {endDate} успешно выполнен");
+            _logger.LogInformation($"Response to a request to receive lead transactions for the period from {startDate} to {endDate}");
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
 
@@ -46,7 +46,7 @@ namespace MarvelousReportMicroService.API.Controllers
             [FromQuery] DateTime startDate,
             [FromQuery] DateTime endDate)
         {
-            _logger.LogInformation($"Запрос на получение транзакций оплаты подписки лида за период с {startDate} по {endDate}");
+            _logger.LogInformation($"Request to receive lead subscription payment transactions for the period from {startDate} to {endDate}");
 
             var transactions =
                 await _transactionService
@@ -55,7 +55,7 @@ namespace MarvelousReportMicroService.API.Controllers
                 startDate,
                 endDate);
 
-            _logger.LogInformation($"Запрос на получение транзакций оплаты подписки лида за период с {startDate} по {endDate} успешно выполнен");
+            _logger.LogInformation($"Response to a request to receive lead subscription payment transactions for the period from {startDate} to {endDate}");
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
     }
