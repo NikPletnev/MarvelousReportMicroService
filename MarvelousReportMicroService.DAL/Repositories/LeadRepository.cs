@@ -1,5 +1,5 @@
 ﻿using MarvelousReportMicroService.DAL.Configuration;
-using MarvelousReportMicroService.DAL.Entityes;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
@@ -71,6 +71,20 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 commandType: CommandType.StoredProcedure)).ToList();
 
             return leads;
+        }
+
+        public async Task<List<Lead>> GetLeadsByServiceId(int serviceId)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var Leads =
+               (await connection
+                   .QueryAsync<Lead>(
+                   Queries.GetLeadsByServiceId,
+                   new { serviceId },
+                   commandType: CommandType.StoredProcedure)).ToList();
+
+            return Leads;
         }
     }
 }

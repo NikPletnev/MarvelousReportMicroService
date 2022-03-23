@@ -1,7 +1,7 @@
-﻿using MarvelousReportMicroService.API.Models;
-using MarvelousReportMicroService.API.Models.Request;
-using MarvelousReportMicroService.BLL.Models;
+﻿using MarvelousReportMicroService.API.Models.Request;
 using MarvelousReportMicroService.BLL.Services;
+using MarvelousReportMicroService.API.Models;
+using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Marvelous.Contracts;
@@ -27,10 +27,10 @@ namespace MarvelousReportMicroService.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<LeadResponse>>> GetAllLeads()
         {
-            _logger.LogInformation($"Запрос на получение всех лидов");
+            _logger.LogInformation($"Request to get all leads");
             var leads = await _leadService.GetAllLeads();
 
-            _logger.LogInformation($"Ответ на запрос о получении всех лидов");
+            _logger.LogInformation($"Response to request to get all leads");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
@@ -50,7 +50,7 @@ namespace MarvelousReportMicroService.API.Controllers
             [FromQuery] Role? role,
             [FromQuery] bool? isBanned)
         {
-            _logger.LogInformation($"Запрос на получение всех лидов по определенным параметрам");
+            _logger.LogInformation($"Request to get all leads for certain parameters");
 
             LeadSearchRequest leadModel = new LeadSearchRequest()
             {
@@ -71,7 +71,7 @@ namespace MarvelousReportMicroService.API.Controllers
 
             List<LeadModel> leads = _leadService.GetLeadByParameters(_mapper.Map<LeadSearchModel>(leadModel));
 
-            _logger.LogInformation($"Ответ на запрос о получении всех лидов по определенным параметрам");
+            _logger.LogInformation($"Response to a request to get all leads for certain parameters");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
@@ -84,7 +84,21 @@ namespace MarvelousReportMicroService.API.Controllers
                 Fetch = fetch
             };
 
+            _logger.LogInformation($"Request to get for {offset} leads starting with {fetch}");
+
             var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
+
+            _logger.LogInformation($"Response to a request to get for {offset} leads starting with {fetch}");
+            return Ok(_mapper.Map<List<LeadResponse>>(leads));
+        }
+
+        [HttpGet("service-subscribers")]
+        public async Task<ActionResult<List<LeadResponse>>> GetLeadsByServiceId([FromQuery] int serviceId)
+        {
+            _logger.LogInformation($"Request to get all service({serviceId}) subscribers");
+            var leads = await _leadService.GetLeadsByServiceId(serviceId);
+
+            _logger.LogInformation($"Response to a request to get all service({serviceId}) subscribers");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
     }

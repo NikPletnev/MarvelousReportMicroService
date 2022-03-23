@@ -25,18 +25,37 @@ namespace MarvelousReportMicroService.API.Controllers
         public async Task<ActionResult<List<TransactionResponse>>> GetTransactionsBetweenDatesByLeadId(
             [FromQuery] int leadId,
             [FromQuery] DateTime startDate,
-            [FromQuery] DateTime finishDate)
+            [FromQuery] DateTime endDate)
         {
-            _logger.LogInformation($"Запрос на получение транзакций лида за период с {startDate} по {finishDate}");
+            _logger.LogInformation($"Request to receive lead transactions for the period from {startDate} to {endDate}");
 
             var transactions =
                 await _transactionService
                 .GetTransactionsBetweenDatesByLeadId(
                 leadId,
                 startDate,
-                finishDate);
+                endDate);
 
-            _logger.LogInformation($"Запрос на получение транзакций лида за период с {startDate} по {finishDate} успешно выполнен");
+            _logger.LogInformation($"Response to a request to receive lead transactions for the period from {startDate} to {endDate}");
+            return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
+        }
+
+        [HttpGet("lead-payment")]
+        public async Task<ActionResult<List<TransactionResponse>>> GetServicePayTransactionsByLeadIdBetweenDate(
+            [FromQuery] int leadId,
+            [FromQuery] DateTime startDate,
+            [FromQuery] DateTime endDate)
+        {
+            _logger.LogInformation($"Request to receive lead subscription payment transactions for the period from {startDate} to {endDate}");
+
+            var transactions =
+                await _transactionService
+                .GetServicePayTransactionsByLeadIdBetweenDate(
+                leadId,
+                startDate,
+                endDate);
+
+            _logger.LogInformation($"Response to a request to receive lead subscription payment transactions for the period from {startDate} to {endDate}");
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
     }

@@ -1,5 +1,5 @@
-﻿create procedure [dbo].[GetTransactionsByAccountId]
+﻿CREATE PROCEDURE [dbo].[GetTransactionsByAccountId]
 	@AccountId integer
 as
-	select Id, Amount, [Type], AccountId, [Date], Currency from [dbo].[Transaction]
-	where AccountId = @AccountId
+	select A.[ExternalId], A.[Amount], A.[Type], A.[AccountId], A.[Date], A.[Currency] from [dbo].[Transaction] as A
+	where A.AccountId = @AccountId

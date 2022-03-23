@@ -1,5 +1,5 @@
 ﻿using MarvelousReportMicroService.DAL.Configuration;
-using MarvelousReportMicroService.DAL.Entityes;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using Microsoft.Extensions.Options;
 using System.Data;
@@ -38,6 +38,26 @@ namespace MarvelousReportMicroService.DAL.Repositories
                     Queries.GetTransactionsByAccountId
                     , new { accountId }
                     , commandType: CommandType.StoredProcedure)).ToList();
+
+            return transactions;
+        }
+
+        public async Task<List<Transaction>> GetServicePayTransactionsByLeadIdBetweenDate
+            (int LeadId, DateTime startDate, DateTime endDate)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var transactions =
+               (await connection
+                   .QueryAsync<Transaction>(
+                   Queries.GetServicePayTransactionsByLeadIdBetweenDate
+                   , new 
+                   {
+                       LeadId,
+                       startDate,
+                       endDate
+                   }
+                   , commandType: CommandType.StoredProcedure)).ToList();
 
             return transactions;
         }

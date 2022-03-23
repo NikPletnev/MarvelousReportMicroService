@@ -1,4 +1,4 @@
-﻿using MarvelousReportMicroService.DAL.Entityes;
+﻿using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Models;
 
 namespace MarvelousReportMicroService.DAL.Repositories
@@ -8,5 +8,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
         Task<List<Lead>> GetAllLeads();
         List<Lead> GetLeadByParameters(LeadSearch lead);
         Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead);
+        Task<List<Lead>> GetLeadsByServiceId(int serviceId);
     }
 }

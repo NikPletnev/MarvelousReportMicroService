@@ -1,7 +1,7 @@
-﻿using AutoMapper;
+﻿using MarvelousReportMicroService.DAL.Repositories;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.BLL.Models;
-using MarvelousReportMicroService.DAL.Entityes;
-using MarvelousReportMicroService.DAL.Repositories;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -30,6 +30,15 @@ namespace MarvelousReportMicroService.BLL.Services
         {
             List<Transaction> transactions = await _transactionRepository
                 .GetTransactionsByAccountId(id);
+
+            return _mapper.Map<List<TransactionModel>>(transactions);
+        }
+
+        public async Task<List<TransactionModel>> GetServicePayTransactionsByLeadIdBetweenDate(
+            int id, DateTime startDate, DateTime endDate)
+        {
+            List<Transaction> transactions = await _transactionRepository
+                .GetServicePayTransactionsByLeadIdBetweenDate(id, startDate, endDate);
 
             return _mapper.Map<List<TransactionModel>>(transactions);
         }

@@ -11,6 +11,7 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<ILeadService, LeadService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IServiceService, ServiceService>();
         }
 
         public static void RegisterProjectRepositories(this IServiceCollection services)
@@ -18,6 +19,7 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
         }
 
         public static void RegisterLogger(this IServiceCollection service, IConfiguration config)
