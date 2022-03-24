@@ -3,6 +3,7 @@ using MarvelousReportMicroService.DAL.Helpers;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Dapper;
+using MarvelousReportMicroService.DAL.Entities;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
@@ -26,6 +27,25 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 );
 
             return balance;
+        }
+
+        public async Task AddAccount(Account account)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            await connection
+                   .QueryAsync<Account>(
+                   Queries.AddAccount
+                   , new
+                   {
+                       Externalid = account.Id,
+                       account.Name,
+                       account.CurrencyType,
+                       account.Lead,
+                       account.LockDate,
+                       account.IsBlocked
+                   }
+                   , commandType: CommandType.StoredProcedure);
         }
     }
 }

@@ -16,5 +16,6 @@ namespace MarvelousReportMicroService.DAL.Entities
         public List<Account>? Accounts { get; set; }
         public Role? Role { get; set; }
         public bool? IsBanned { get; set; }
+        public string? City { get; set; }
     }
 }

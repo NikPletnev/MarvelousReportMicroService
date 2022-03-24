@@ -17,6 +17,7 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<LeadSerchWithOffsetAndFetchModel, LeadSerchWithOffsetAndFetchRequest>().ReverseMap();
             CreateMap<ServiceModel, ServiceResponse>().ReverseMap();
             CreateMap<ITransactionExchangeModel, TransactionModel>().ReverseMap();
+            CreateMap<ILeadFullExchangeModel, LeadModel>().ReverseMap();
         }
     }
 }

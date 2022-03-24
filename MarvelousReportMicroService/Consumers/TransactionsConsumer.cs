@@ -5,7 +5,7 @@ using Marvelous.Contracts.RequestModels;
 using MassTransit;
 using AutoMapper;
 
-namespace TransactionStore.API.Consumers
+namespace MarvelousReportMicroService.API.Consumers
 {
     public class TransactionsConsumer : IConsumer<ITransactionExchangeModel>
     {
@@ -22,7 +22,7 @@ namespace TransactionStore.API.Consumers
 
         public async Task Consume(ConsumeContext<ITransactionExchangeModel> context) //ITransactionExchangeModel
         {
-            _logger.LogInformation($"Getting transaction {context.Message.Amount}");
+            _logger.LogInformation($"Getting transaction {context.Message.Id}");
             await _transactionService.AddTransaction(_mapper.Map<TransactionModel>(context.Message));
         }
     }

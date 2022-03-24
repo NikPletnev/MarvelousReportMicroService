@@ -1,8 +1,8 @@
-﻿using MarvelousReportMicroService.BLL.Services;
+﻿using MarvelousReportMicroService.API.Consumers;
+using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.DAL.Repositories;
 using MassTransit;
 using NLog.Extensions.Logging;
-using TransactionStore.API.Consumers;
 
 namespace MarvelousReportMicroService.API.Extensions
 {
@@ -40,6 +40,8 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<TransactionsConsumer>();
+                x.AddConsumer<LeadConsumer>();
+                x.AddConsumer<AccountConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host("rabbitmq://80.78.240.16", hst =>
@@ -52,6 +54,18 @@ namespace MarvelousReportMicroService.API.Extensions
                     {
                         e.ConfigureConsumer<TransactionsConsumer>(context);
                     });
+
+                    cfg.ReceiveEndpoint("leadQueue", e =>
+                    {
+                        e.ConfigureConsumer<LeadConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint("accountQueue", e =>
+                    {
+                        e.ConfigureConsumer<AccountConsumer>(context);
+                    });
+
+
                 });
             });
         }

@@ -18,5 +18,7 @@ namespace MarvelousReportMicroService.DAL.Helpers
         public const string GetLeadsByServiceId = "GetLeadsByServiceId";
         public const string GetServicesSortedByCountLeads = "GetServicesSortedByCountLeads";
         public const string AddTransaction = "AddTransaction";
+        public const string AddLead = "AddLead";
+        public const string AddAccount = "AddAccount";
     }
 }

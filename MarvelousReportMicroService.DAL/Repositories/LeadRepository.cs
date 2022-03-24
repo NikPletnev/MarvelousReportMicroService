@@ -86,5 +86,32 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             return Leads;
         }
+
+
+        public async Task AddLead(Lead lead)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            await connection
+                   .QueryAsync<Lead>(
+                   Queries.AddLead
+                   , new
+                   {
+                       Externalid = lead.Id,
+                       lead.Name,
+                       lead.LastName,
+                       lead.BirthDay,
+                       lead.BirthMonth,
+                       lead.BirthYear,
+                       lead.Email,
+                       lead.Phone,
+                       lead.Password,
+                       lead.Role,
+                       lead.IsBanned,
+                       lead.City
+                   }
+                   , commandType: CommandType.StoredProcedure);
+        }
+
     }
 }

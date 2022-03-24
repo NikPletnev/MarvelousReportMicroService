@@ -66,10 +66,9 @@ namespace MarvelousReportMicroService.DAL.Repositories
         {
             using IDbConnection connection = ProvideConnection();
 
-            var transactions =
-               (await connection
+            await connection
                    .QueryAsync<Transaction>(
-                   Queries.GetServicePayTransactionsByLeadIdBetweenDate
+                   Queries.AddTransaction
                    , new
                    {
                        transaction.ExternalId,
@@ -79,7 +78,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
                        transaction.Currency,
                        transaction.Date
                    }
-                   , commandType: CommandType.StoredProcedure)).ToList();
+                   , commandType: CommandType.StoredProcedure);
         }
     }
 }
