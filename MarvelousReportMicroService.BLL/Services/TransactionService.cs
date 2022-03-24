@@ -43,9 +43,9 @@ namespace MarvelousReportMicroService.BLL.Services
             return _mapper.Map<List<TransactionModel>>(transactions);
         }
 
-        public async void AddTransaction(TransactionModel model)
+        public async Task AddTransaction(TransactionModel model)
         {
-            _transactionRepository.AddTransaction(_mapper.Map<Transaction>(model));
+            await _transactionRepository.AddTransaction(_mapper.Map<Transaction>(model));
         }
     }
 }

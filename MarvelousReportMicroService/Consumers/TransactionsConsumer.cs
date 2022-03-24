@@ -1,12 +1,13 @@
 ﻿using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.BLL.Models;
+using Marvelous.Contracts.ExchangeModels;
 using Marvelous.Contracts.RequestModels;
 using MassTransit;
 using AutoMapper;
 
 namespace TransactionStore.API.Consumers
 {
-    public class TransactionsConsumer : IConsumer<TransactionRequestModel>
+    public class TransactionsConsumer : IConsumer<ITransactionExchangeModel>
     {
         private readonly IMapper _mapper;
         private readonly ILogger<TransactionsConsumer> _logger;
@@ -19,11 +20,10 @@ namespace TransactionStore.API.Consumers
             _transactionService = transactionService;
         }
 
-        public Task Consume(ConsumeContext<TransactionRequestModel> context)
+        public async Task Consume(ConsumeContext<ITransactionExchangeModel> context) //ITransactionExchangeModel
         {
-            _logger.LogInformation("Getting transaction");
-            _transactionService.AddTransaction(_mapper.Map<TransactionModel>(context.Message));
-            return Task.CompletedTask;
+            _logger.LogInformation($"Getting transaction {context.Message.Amount}");
+            await _transactionService.AddTransaction(_mapper.Map<TransactionModel>(context.Message));
         }
     }
 }

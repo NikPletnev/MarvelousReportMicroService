@@ -1,4 +1,4 @@
-﻿using Marvelous.Contracts;
+﻿using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.API.Models
 {
