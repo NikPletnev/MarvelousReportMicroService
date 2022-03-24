@@ -55,11 +55,37 @@ namespace MarvelousReportMicroService.DAL.Repositories
             //    }
             //    , commandType: CommandType.StoredProcedure)
             //    .ToList();
-
-
             var query = new Query("Lead");
+            List<Query> listQuery = new List<Query>();
+            
 
-            if(lead.Id != null)
+            foreach (var prop in lead.GetType().GetProperties())
+            {
+                if (prop.GetValue(lead) != null)
+                {
+                    if (listQuery.Count != 0)
+                    {
+                        var nestedQuery = new Query(nestedQuery).WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead)).As(prop.Name);
+                        listQuery.Add(nestedQuery);
+                    }
+                    else
+                    {
+                        var nestedQuery = new Query("Lead").WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead)).As(prop.Name);
+                        listQuery.Add(nestedQuery);
+
+                    }
+                }
+
+            }
+
+
+
+          
+
+            query = new Query("Name").From(namelQuery);
+
+
+            if (lead.Id != null)
             {
                 query = query.Where("Id", lead.Id);
             }
@@ -107,34 +133,8 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             query = query.As("Query");
 
-            //var phoneQuery = new Query("Lead").WhereLike("Phone", phoneParam).As("Email");
-            //var emailQuery = new Query("Phone").WhereLike("Email", emailParam).From(phoneQuery).As("Email");
-            //var lastNamelQuery = new Query("Email").WhereLike("LastName", lastNameParam).From(emailQuery).As("LastName");
-            //var namelQuery = new Query("LastName").WhereLike("Name", nameParam).From(lastNamelQuery).As("Name");
 
 
-            //var query = new Query("BirthDate")
-            //.Where(q =>
-            //    q.WhereNull("Id")
-            //    .OrWhereNotNull("Id")
-            //    .Where("Id", lead.Id))
-            //.Where(q =>
-            //    q.WhereNull("Role")
-            //    .OrWhereNotNull("Role")
-            //    .Where("Role", lead.Role))
-            //.Where(q =>
-            //    q.WhereNull("IsBanned")
-            //    .OrWhereNotNull("IsBanned")
-            //    .Where("IsBanned", lead.IsBanned))
-            //.Where(q =>
-            //    q.WhereNull("BirthDate")
-            //    .OrWhereNotNull("BirthDate")
-            //    .Where("BirthDate", ">", lead.StartBirthDate))
-            //.Where(q =>
-            //    q.WhereNull("BirthDate")
-            //    .OrWhereNotNull("BirthDate")
-            //    .Where("BirthDate", "<", lead.EndBirthDate))
-            //    .From(namelQuery).As("Query");
             IEnumerable<Lead> leads = _qeryFactory.Query("Query").From(query).Get<Lead>();
 
             return (List<Lead>)leads;
