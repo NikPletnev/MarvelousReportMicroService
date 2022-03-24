@@ -1,6 +1,8 @@
 ﻿using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.DAL.Repositories;
+using MassTransit;
 using NLog.Extensions.Logging;
+using TransactionStore.API.Consumers;
 
 namespace MarvelousReportMicroService.API.Extensions
 {
@@ -30,6 +32,22 @@ namespace MarvelousReportMicroService.API.Extensions
                 loggingBuilder.ClearProviders();
                 loggingBuilder.SetMinimumLevel(LogLevel.Information);
                 loggingBuilder.AddNLog(config);
+            });
+        }
+
+        public static void AddMassTransit(this IServiceCollection services)
+        {
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<TransactionsConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.ReceiveEndpoint("transactionQueue", e =>
+                    {
+                        e.ConfigureConsumer<TransactionsConsumer>(context);
+                    });
+                });
             });
         }
     }
