@@ -1,4 +1,4 @@
-﻿using Marvelous.Contracts;
+﻿using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.API.Models
 {
@@ -13,5 +13,6 @@ namespace MarvelousReportMicroService.API.Models
         public List<AccountResponse> Accounts { get; set; }
         public Role Role { get; set; }
         public bool IsBanned { get; set; }
+        public string? City { get; set; }
     }
 }

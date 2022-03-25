@@ -61,5 +61,24 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             return transactions;
         }
+
+        public async Task AddTransaction(Transaction transaction)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            await connection
+                   .QueryAsync<Transaction>(
+                   Queries.AddTransaction
+                   , new
+                   {
+                       transaction.ExternalId,
+                       transaction.Amount,
+                       transaction.AccountId,
+                       transaction.Type,
+                       transaction.Currency,
+                       transaction.Date
+                   }
+                   , commandType: CommandType.StoredProcedure);
+        }
     }
 }

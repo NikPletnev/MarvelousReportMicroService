@@ -1,5 +1,7 @@
-﻿using MarvelousReportMicroService.BLL.Services;
+﻿using MarvelousReportMicroService.API.Consumers;
+using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.DAL.Repositories;
+using MassTransit;
 using NLog.Extensions.Logging;
 
 namespace MarvelousReportMicroService.API.Extensions
@@ -30,6 +32,41 @@ namespace MarvelousReportMicroService.API.Extensions
                 loggingBuilder.ClearProviders();
                 loggingBuilder.SetMinimumLevel(LogLevel.Information);
                 loggingBuilder.AddNLog(config);
+            });
+        }
+
+        public static void AddMassTransit(this IServiceCollection services)
+        {
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<TransactionsConsumer>();
+                x.AddConsumer<LeadConsumer>();
+                x.AddConsumer<AccountConsumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq://80.78.240.16", hst =>
+                    {
+                        hst.Username("nafanya");
+                        hst.Password("qwe!23");
+                    });
+
+                    cfg.ReceiveEndpoint("transactionQueue", e =>
+                    {
+                        e.ConfigureConsumer<TransactionsConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint("leadQueue", e =>
+                    {
+                        e.ConfigureConsumer<LeadConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint("accountQueue", e =>
+                    {
+                        e.ConfigureConsumer<AccountConsumer>(context);
+                    });
+
+
+                });
             });
         }
     }

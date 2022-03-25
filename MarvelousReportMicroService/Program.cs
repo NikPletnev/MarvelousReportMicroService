@@ -43,6 +43,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.RegisterProjectServices();
 builder.Services.RegisterProjectRepositories();
 builder.Services.RegisterLogger(config);
+builder.Services.AddMassTransit();
 
 var app = builder.Build();
 

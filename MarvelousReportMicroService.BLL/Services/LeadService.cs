@@ -2,7 +2,7 @@
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Models;
 using AutoMapper;
-
+using MarvelousReportMicroService.DAL.Entities;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -38,6 +38,10 @@ namespace MarvelousReportMicroService.BLL.Services
         {
             var leads = await _leadRepository.GetLeadsByServiceId(serviceId);
             return _mapper.Map<List<LeadModel>>(leads);
+        }
+        public async Task AddLead(LeadModel model)
+        {
+            await _leadRepository.AddLead(_mapper.Map<Lead>(model));
         }
     }
 }

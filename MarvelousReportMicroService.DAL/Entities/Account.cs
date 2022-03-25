@@ -1,4 +1,4 @@
-﻿using Marvelous.Contracts;
+﻿using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.DAL.Entities
 {
@@ -7,7 +7,7 @@ namespace MarvelousReportMicroService.DAL.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public Currency CurrencyType { get; set; }
-        public Lead Lead { get; set; }
+        public int LeadId { get; set; }
         public bool IsBlocked { get; set; }
         public DateTime? LockDate { get; set; }
     }
