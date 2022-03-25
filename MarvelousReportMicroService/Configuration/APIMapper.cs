@@ -1,6 +1,7 @@
 ﻿using MarvelousReportMicroService.API.Models.Request;
 using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
+using Marvelous.Contracts.ExchangeModels;
 using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Configuration
@@ -15,6 +16,9 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<LeadSearchModel, LeadSearchRequest>().ReverseMap();
             CreateMap<LeadSerchWithOffsetAndFetchModel, LeadSerchWithOffsetAndFetchRequest>().ReverseMap();
             CreateMap<ServiceModel, ServiceResponse>().ReverseMap();
+            CreateMap<ITransactionExchangeModel, TransactionModel>().ReverseMap();
+            CreateMap<ILeadFullExchangeModel, LeadModel>().ReverseMap();
+            CreateMap<IAccountExchangeModel, AccountModel>().ReverseMap();
         }
     }
 }

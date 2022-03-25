@@ -1,4 +1,4 @@
-﻿using Marvelous.Contracts;
+﻿using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.BLL.Models
 {
@@ -14,5 +14,7 @@ namespace MarvelousReportMicroService.BLL.Models
         public List<AccountModel> Accounts { get; set; }
         public Role Role { get; set; }
         public bool IsBanned { get; set; }
+        public string? City { get; set; }
+
     }
 }

@@ -3,8 +3,8 @@ using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Enums;
+using Marvelous.Contracts.Enums;
 using Microsoft.AspNetCore.Mvc;
-using Marvelous.Contracts;
 using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Controllers

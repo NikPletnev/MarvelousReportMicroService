@@ -7,5 +7,6 @@ namespace MarvelousReportMicroService.BLL.Services
         Task<List<TransactionModel>> GetServicePayTransactionsByLeadIdBetweenDate(int id, DateTime startDate, DateTime endDate);
         Task<List<TransactionModel>> GetTransactionsBetweenDatesByLeadId(int id, DateTime startDate, DateTime finishDate);
         Task<List<TransactionModel>> GetTransactionsByAccountId(int id);
+        Task AddTransaction(TransactionModel model);
     }
 }

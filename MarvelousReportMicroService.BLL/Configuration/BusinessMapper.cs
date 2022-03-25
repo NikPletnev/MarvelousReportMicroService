@@ -16,7 +16,23 @@ namespace MarvelousReportMicroService.BLL.Configuration
                     src.BirthYear.HasValue
                     ? new DateTime(src.BirthYear.Value, src.BirthMonth.Value, src.BirthDay.Value)
                     : default(DateTime?)
-                )).ReverseMap();
+                ));
+            CreateMap<LeadModel, Lead>()
+                .ForMember(
+                dest => dest.BirthDay,
+                opt => opt.MapFrom(src =>
+                src.BirthDate.Value.Day
+                ))
+                .ForMember(
+                dest => dest.BirthMonth,
+                opt => opt.MapFrom(src =>
+                src.BirthDate.Value.Month
+                ))
+                .ForMember(
+                dest => dest.BirthYear,
+                opt => opt.MapFrom(src =>
+                src.BirthDate.Value.Year
+                ));
 
                 CreateMap<Account, AccountModel>().ReverseMap();
                 CreateMap<LeadSearchModel, LeadSearch>();
