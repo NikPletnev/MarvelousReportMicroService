@@ -1,13 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[GetServicesSortedByCountLeads]
 AS
-	SELECT s.ExternalId,
-	min(s.[Name]) [Name],
-	min(s.[Description]) [Description],
-	min(s.Price) Price,
-	min(s.[Type]) [Type],
-	count(sl.LeadId) as [members count]
-from [ServiceToLead] as sl
-	inner join [dbo].[Service] as s
-	on s.ExternalId = sl.ServiceId
-	group by s.ExternalId
-	order by [members count] desc
+select s.Id, s.Name, s.Description, s.Price, s.Type, s.IsDeleted , Counts.Subscrubers
+from 
+(select ServiceId, COUNT(*) As Subscrubers
+from [ServiceToLead]
+group by ServiceId)
+as Counts 
+inner join [Service] as s on Counts.ServiceId = s.Id
+
+
