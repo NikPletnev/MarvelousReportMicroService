@@ -10,5 +10,6 @@ namespace MarvelousReportMicroService.BLL.Models
         public decimal Amount { get; set; }
         public int AccountId { get; set; }
         public Currency Currency { get; set; }
+        public int Rate { get; set; }
     }
 }

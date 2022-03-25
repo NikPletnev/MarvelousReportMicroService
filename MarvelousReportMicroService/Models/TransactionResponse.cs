@@ -10,5 +10,6 @@ namespace MarvelousReportMicroService.API.Models
         public decimal Amount { get; set; }
         public int AccountId { get; set; }
         public Currency Currency { get; set; }
+        public decimal Rate { get; set; }
     }
 }

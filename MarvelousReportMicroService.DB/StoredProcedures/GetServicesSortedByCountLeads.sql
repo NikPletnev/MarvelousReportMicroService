@@ -7,7 +7,7 @@ AS
 	min(s.[Type]) [Type],
 	count(sl.LeadId) as [members count]
 from [ServiceToLead] as sl
-	inner join [Service] as s
+	inner join [dbo].[Service] as s
 	on s.ExternalId = sl.ServiceId
 	group by s.ExternalId
 	order by [members count] desc
