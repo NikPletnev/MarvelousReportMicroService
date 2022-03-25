@@ -76,7 +76,8 @@ namespace MarvelousReportMicroService.DAL.Repositories
                        transaction.AccountId,
                        transaction.Type,
                        transaction.Currency,
-                       transaction.Date
+                       transaction.Date,
+                       transaction.Rate
                    }
                    , commandType: CommandType.StoredProcedure);
         }
