@@ -23,7 +23,13 @@ namespace MarvelousReportMicroService.API.Consumers
 
         public async Task Consume(ConsumeContext<IAccountExchangeModel> context)
         {
-            _logger.LogInformation($"Getting lead {context.Message.Id}");
+            _logger.LogInformation($"Getting acc {context.Message.Id}");
+            var model = _mapper.Map<AccountModel>(context.Message);
+            foreach (var item in model.GetType().GetProperties())
+            {
+                _logger.LogInformation($"{item.Name}: {item.GetValue(model)}");
+            }
+            _logger.LogInformation($"");
             await _accountService.AddAccount(_mapper.Map<AccountModel>(context.Message));
         }
     }

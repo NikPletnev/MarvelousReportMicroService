@@ -1,16 +1,16 @@
 ﻿CREATE PROCEDURE [dbo].[AddLead]
 	@ExternalId integer,
-	@Name varchar,
-	@LastName varchar,
+	@Name varchar(20),
+	@LastName varchar(20),
 	@BirthDay tinyint,
-	@BirthMount tinyint,
+	@BirthMounth tinyint,
 	@BirthYear smallint,
-	@Email varchar,
-	@Phone varchar,
-	@Password varchar,
+	@Email varchar(30),
+	@Phone varchar(13),
+	@Password varchar(70),
 	@Role tinyint,
 	@IsBanned bit,
-	@City varchar
+	@City varchar(30)
 AS
 	insert into [dbo].[Lead] 
 	([ExternalId], 
@@ -25,7 +25,7 @@ AS
 	[Role],
 	[IsBanned],
 	[City])
-values (@ExternalId, @Name, @LastName, @BirthDay, @BirthMount, @BirthYear, @Email, @Phone, @Password, @Role, @IsBanned, @City)
+values (@ExternalId, @Name, @LastName, @BirthDay, @BirthMounth, @BirthYear, @Email, @Phone, @Password, @Role, @IsBanned, @City)
 
 
 

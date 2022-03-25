@@ -41,7 +41,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
                        Externalid = account.Id,
                        account.Name,
                        account.CurrencyType,
-                       account.Lead,
+                       account.LeadId,
                        account.LockDate,
                        account.IsBlocked
                    }

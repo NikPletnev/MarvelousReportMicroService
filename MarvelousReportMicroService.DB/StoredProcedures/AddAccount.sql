@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[AddAccount]
 	@ExternalId integer,
-	@Name varchar,
+	@Name varchar(20),
     @CurrencyType TINYINT, 
     @LeadId INT,
     @LockDate DATETIME,

@@ -101,7 +101,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
                        lead.Name,
                        lead.LastName,
                        lead.BirthDay,
-                       lead.BirthMonth,
+                       BirthMounth = lead.BirthMonth,
                        lead.BirthYear,
                        lead.Email,
                        lead.Phone,

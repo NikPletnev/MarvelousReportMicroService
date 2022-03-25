@@ -24,6 +24,12 @@ namespace MarvelousReportMicroService.API.Consumers
         public async Task Consume(ConsumeContext<ILeadFullExchangeModel> context) 
         {
             _logger.LogInformation($"Getting lead {context.Message.Id}");
+            var model = _mapper.Map<LeadModel>(context.Message);
+            foreach (var item in model.GetType().GetProperties())
+            {
+                _logger.LogInformation($"{item.Name}: {item.GetValue(model)}");
+            }
+            _logger.LogInformation($"");
             await _leadService.AddLead(_mapper.Map<LeadModel>(context.Message));
         }
     }

@@ -18,6 +18,7 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<ServiceModel, ServiceResponse>().ReverseMap();
             CreateMap<ITransactionExchangeModel, TransactionModel>().ReverseMap();
             CreateMap<ILeadFullExchangeModel, LeadModel>().ReverseMap();
+            CreateMap<IAccountExchangeModel, AccountModel>().ReverseMap();
         }
     }
 }
