@@ -6,7 +6,7 @@
 	[AccountId] int NOT NULL,
 	[Date] [datetime2](2) NOT NULL,
 	[Currency] TINYINT NOT NULL,
-	[Rate] TINYINT NULL,
+	[Rate] smallint NULL,
  CONSTRAINT [PK_Transaction] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
