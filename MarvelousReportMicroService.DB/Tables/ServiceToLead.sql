@@ -3,7 +3,6 @@
   [Id] INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
   [ExternalId] int not null unique,
   [Price] decimal(10,0) NOT NULL,
-  [Type] TINYINT NOT NULL,
   [Status] TINYINT NOT NULL,
   [Period] TINYINT NULL,
   [ServiceId] int NOT NULL,
