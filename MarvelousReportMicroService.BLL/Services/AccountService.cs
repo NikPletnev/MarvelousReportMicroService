@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MarvelousReportMicroService.BLL.Models;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Repositories;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,15 @@ namespace MarvelousReportMicroService.BLL.Services
             _mapper = mapper;
         }
 
-        public decimal GetAccountBalance(int id)
+        public async Task<decimal> GetAccountBalance(int id)
         {
-            var balance = _accountRepository.GetAccountBalance(id);
+            var balance = await _accountRepository.GetAccountBalance(id);
             return balance;
+        }
+
+        public async Task AddAccount(AccountModel model)
+        {
+            await _accountRepository.AddAccount(_mapper.Map<Account>(model));
         }
 
     }

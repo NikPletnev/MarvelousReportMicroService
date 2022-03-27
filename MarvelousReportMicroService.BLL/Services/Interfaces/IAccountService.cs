@@ -1,7 +1,10 @@
-﻿namespace MarvelousReportMicroService.BLL.Services
+﻿using MarvelousReportMicroService.BLL.Models;
+
+namespace MarvelousReportMicroService.BLL.Services
 {
     public interface IAccountService
     {
-        decimal GetAccountBalance(int id);
+        Task AddAccount(AccountModel model);
+        Task<decimal> GetAccountBalance(int id);
     }
 }

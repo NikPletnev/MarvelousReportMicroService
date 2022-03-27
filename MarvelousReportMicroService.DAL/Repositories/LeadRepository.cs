@@ -1,5 +1,5 @@
 ﻿using MarvelousReportMicroService.DAL.Configuration;
-using MarvelousReportMicroService.DAL.Entityes;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
@@ -20,15 +20,16 @@ namespace MarvelousReportMicroService.DAL.Repositories
             _qeryFactory = queryFactory;
         }
 
-        public List<Lead> GetAllLeads()
+        public async Task<List<Lead>> GetAllLeads()
         {
             using IDbConnection connection = ProvideConnection();
 
-            return connection.
-                Query<Lead>(
+            var leads = (await connection.
+                QueryAsync<Lead>(
                 Queries.GetAllLeads,
-                commandType: CommandType.StoredProcedure)
-                .ToList();
+                commandType: CommandType.StoredProcedure)).ToList();
+
+            return leads;
         }
 
         public List<Lead> GetLeadByParameters(LeadSearch lead)
@@ -86,9 +87,62 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 .ToList();
         }
 
-        private Query GetSqlKataQurry(string table, string column, string param)
+        public async Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
         {
-            return new Query(table).WhereLike(column, param);
+            using IDbConnection connection = ProvideConnection();
+
+            var leads = (await connection.
+                QueryAsync<Lead>(
+                Queries.GetLeadsByOffsetAndFetchParameters,
+                new
+                {
+                    lead.Offset,
+                    lead.Fetch
+                },
+                commandType: CommandType.StoredProcedure)).ToList();
+
+            return leads;
         }
+
+        public async Task<List<Lead>> GetLeadsByServiceId(int serviceId)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var Leads =
+               (await connection
+                   .QueryAsync<Lead>(
+                   Queries.GetLeadsByServiceId,
+                   new { serviceId },
+                   commandType: CommandType.StoredProcedure)).ToList();
+
+            return Leads;
+        }
+
+
+        public async Task AddLead(Lead lead)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            await connection
+                   .QueryAsync<Lead>(
+                   Queries.AddLead
+                   , new
+                   {
+                       Externalid = lead.Id,
+                       lead.Name,
+                       lead.LastName,
+                       lead.BirthDay,
+                       BirthMounth = lead.BirthMonth,
+                       lead.BirthYear,
+                       lead.Email,
+                       lead.Phone,
+                       lead.Password,
+                       lead.Role,
+                       lead.IsBanned,
+                       lead.City
+                   }
+                   , commandType: CommandType.StoredProcedure);
+        }
+
     }
 }

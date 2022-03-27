@@ -1,10 +1,13 @@
-﻿using MarvelousReportMicroService.DAL.Entityes;
+﻿using MarvelousReportMicroService.DAL.Entities;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
     public interface ITransactionRepository
     {
-        List<Transaction> GetTransactionsBetweenDatesByLeadId(int id, DateTime startDate, DateTime finishDate);
-        List<Transaction> GetTransactionsByAccountId(int accountId);
+        Task<List<Transaction>> GetServicePayTransactionsByLeadIdBetweenDate(int LeadId, DateTime startDate, DateTime endDate);
+        Task<List<Transaction>> GetTransactionsBetweenDatesByLeadId(int id, DateTime startDate, DateTime finishDate);
+        Task<List<Transaction>> GetTransactionsByAccountId(int accountId);
+        Task AddTransaction(Transaction transaction);
+
     }
 }

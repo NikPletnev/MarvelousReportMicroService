@@ -6,13 +6,17 @@ SELECT
       [ExternalId] as [Id],
       [Name],
       [LastName],
-      [BirthDate],
+      [BirthDay],
+      [BirthMonth],
+      [BirthYear],
       [Email],
       [Phone],
       [Password],
       [Role],
       [IsBanned],
       [City]
-  FROM [ReportDb].[dbo].[Lead] ORDER by [Id]
+  FROM [ReportDb].[dbo].[Lead] 
+  Where [Role] != 1
+  ORDER by [Id]
   OFFSET @Offset ROWS  Fetch next @Fetch rows only 
 

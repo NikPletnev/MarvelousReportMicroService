@@ -1,7 +1,10 @@
-﻿namespace MarvelousReportMicroService.DAL.Repositories
+﻿using MarvelousReportMicroService.DAL.Entities;
+
+namespace MarvelousReportMicroService.DAL.Repositories
 {
     public interface IAccountRepository
     {
-        decimal GetAccountBalance(int id);
+        Task AddAccount(Account account);
+        Task<decimal> GetAccountBalance(int id);
     }
 }

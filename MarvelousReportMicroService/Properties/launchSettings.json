@@ -15,7 +15,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "LOG_DIRECTORY": "./log.txt",
+        "LOG_DIRECTORY": "",
         "REPORT_CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=ReportDb;User ID = student; Password = qwe!23",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -49,9 +49,8 @@
         "REPORT_CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=ReportDb;User ID = student; Password = qwe!23",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-
     },
-    "Nikita": {
+    "NeRoma": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

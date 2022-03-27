@@ -1,5 +1,5 @@
 ﻿using MarvelousReportMicroService.DAL.Configuration;
-using MarvelousReportMicroService.DAL.Entityes;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using Microsoft.Extensions.Options;
 using System.Data;
@@ -14,32 +14,72 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         }
 
-        public List<Transaction> GetTransactionsBetweenDatesByLeadId(int LeadId, DateTime startDate, DateTime finishDate)
+        public async Task<List<Transaction>> GetTransactionsBetweenDatesByLeadId(int LeadId, DateTime startDate, DateTime finishDate)
         {
             using IDbConnection connection = ProvideConnection();
 
-            List<Transaction> transactions =
-                connection
-                    .Query<Transaction>(
+            var transactions =
+                (await connection
+                    .QueryAsync<Transaction>(
                     Queries.GetTransactionsBetweenDatesByLeadId
                     , new { LeadId, startDate, finishDate }
-                    , commandType: CommandType.StoredProcedure).ToList();
+                    , commandType: CommandType.StoredProcedure)).ToList();
 
             return transactions;
         }
 
-        public List<Transaction> GetTransactionsByAccountId(int accountId)
+        public async Task<List<Transaction>> GetTransactionsByAccountId(int accountId)
         {
             using IDbConnection connection = ProvideConnection();
 
-            List<Transaction> transactions =
-                connection
-                    .Query<Transaction>(
+            var transactions =
+                (await connection
+                    .QueryAsync<Transaction>(
                     Queries.GetTransactionsByAccountId
                     , new { accountId }
-                    , commandType: CommandType.StoredProcedure).ToList();
+                    , commandType: CommandType.StoredProcedure)).ToList();
 
             return transactions;
+        }
+
+        public async Task<List<Transaction>> GetServicePayTransactionsByLeadIdBetweenDate
+            (int LeadId, DateTime startDate, DateTime endDate)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var transactions =
+               (await connection
+                   .QueryAsync<Transaction>(
+                   Queries.GetServicePayTransactionsByLeadIdBetweenDate
+                   , new 
+                   {
+                       LeadId,
+                       startDate,
+                       endDate
+                   }
+                   , commandType: CommandType.StoredProcedure)).ToList();
+
+            return transactions;
+        }
+
+        public async Task AddTransaction(Transaction transaction)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            await connection
+                   .QueryAsync<Transaction>(
+                   Queries.AddTransaction
+                   , new
+                   {
+                       transaction.ExternalId,
+                       transaction.Amount,
+                       transaction.AccountId,
+                       transaction.Type,
+                       transaction.Currency,
+                       transaction.Date,
+                       transaction.Rate
+                   }
+                   , commandType: CommandType.StoredProcedure);
         }
     }
 }

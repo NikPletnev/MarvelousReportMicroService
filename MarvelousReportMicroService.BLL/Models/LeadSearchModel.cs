@@ -1,5 +1,5 @@
-﻿using Marvelous.Contracts;
-using MarvelousReportMicroService.DAL.Enums;
+﻿using MarvelousReportMicroService.DAL.Enums;
+using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.BLL.Models
 {

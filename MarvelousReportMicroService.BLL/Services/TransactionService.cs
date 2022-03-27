@@ -1,7 +1,7 @@
-﻿using AutoMapper;
+﻿using MarvelousReportMicroService.DAL.Repositories;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.BLL.Models;
-using MarvelousReportMicroService.DAL.Entityes;
-using MarvelousReportMicroService.DAL.Repositories;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -15,23 +15,37 @@ namespace MarvelousReportMicroService.BLL.Services
             _mapper = mapper;
         }
 
-        public List<TransactionModel> GetTransactionsBetweenDatesByLeadId(
-            int id
-            , DateTime startDate
-            , DateTime finishDate)
+        public async Task<List<TransactionModel>> GetTransactionsBetweenDatesByLeadId(
+            int id,
+            DateTime startDate,
+            DateTime finishDate)
         {
-            List<Transaction> transactions = _transactionRepository
+            List<Transaction> transactions = await _transactionRepository
                 .GetTransactionsBetweenDatesByLeadId(id, startDate, finishDate);
 
             return _mapper.Map<List<TransactionModel>>(transactions);
         }
 
-        public List<TransactionModel> GetTransactionsByAccountId(int id)
+        public async Task<List<TransactionModel>> GetTransactionsByAccountId(int id)
         {
-            List<Transaction> transactions = _transactionRepository
+            List<Transaction> transactions = await _transactionRepository
                 .GetTransactionsByAccountId(id);
 
             return _mapper.Map<List<TransactionModel>>(transactions);
+        }
+
+        public async Task<List<TransactionModel>> GetServicePayTransactionsByLeadIdBetweenDate(
+            int id, DateTime startDate, DateTime endDate)
+        {
+            List<Transaction> transactions = await _transactionRepository
+                .GetServicePayTransactionsByLeadIdBetweenDate(id, startDate, endDate);
+
+            return _mapper.Map<List<TransactionModel>>(transactions);
+        }
+
+        public async Task AddTransaction(TransactionModel model)
+        {
+            await _transactionRepository.AddTransaction(_mapper.Map<Transaction>(model));
         }
     }
 }

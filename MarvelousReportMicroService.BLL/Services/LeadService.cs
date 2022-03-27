@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using MarvelousReportMicroService.DAL.Repositories;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Models;
-using MarvelousReportMicroService.DAL.Repositories;
-
+using AutoMapper;
+using MarvelousReportMicroService.DAL.Entities;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -16,9 +16,9 @@ namespace MarvelousReportMicroService.BLL.Services
             _mapper = mapper;
         }
 
-        public List<LeadModel> GetAllLeads()
+        public async Task<List<LeadModel>> GetAllLeads()
         {
-            var leads = _leadRepository.GetAllLeads();
+            var leads = await _leadRepository.GetAllLeads();
             return _mapper.Map<List<LeadModel>>(leads);
         }
 
@@ -28,10 +28,20 @@ namespace MarvelousReportMicroService.BLL.Services
             return _mapper.Map<List<LeadModel>>(leads);
         }
 
-        public List<LeadModel> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model)
+        public async Task<List<LeadModel>> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model)
         {
-            var leads = _leadRepository.GetLeadsByOffsetANdFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetch>(model));
+            var leads = await _leadRepository.GetLeadsByOffsetANdFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetch>(model));
             return _mapper.Map<List<LeadModel>>(leads);
+        }
+
+        public async Task<List<LeadModel>> GetLeadsByServiceId(int serviceId)
+        {
+            var leads = await _leadRepository.GetLeadsByServiceId(serviceId);
+            return _mapper.Map<List<LeadModel>>(leads);
+        }
+        public async Task AddLead(LeadModel model)
+        {
+            await _leadRepository.AddLead(_mapper.Map<Lead>(model));
         }
     }
 }
