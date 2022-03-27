@@ -33,109 +33,38 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         public List<Lead> GetLeadByParameters(LeadSearch lead)
         {
-            string nameParam = GenerateParamString.Generate(lead.NameParam, lead.Name);
-            string lastNameParam = GenerateParamString.Generate(lead.LastNameParam, lead.LastName);
-            string emailParam = GenerateParamString.Generate(lead.EmailParam, lead.Email);
-            string phoneParam = GenerateParamString.Generate(lead.PhoneParam, lead.Phone);
+            lead.Name = GenerateParamString.Generate(lead.NameParam, lead.Name);
+            lead.NameParam = null;
+            lead.LastName = GenerateParamString.Generate(lead.LastNameParam, lead.LastName);
+            lead.LastNameParam = null;
+            lead.Email = GenerateParamString.Generate(lead.EmailParam, lead.Email);
+            lead.EmailParam = null;
+            lead.Phone = GenerateParamString.Generate(lead.PhoneParam, lead.Phone);
+            lead.PhoneParam = null;
 
-            //return connection.
-            //    Query<Lead>(
-            //    Queries.GetLeadsByParameters
-            //    , new
-            //    {
-            //        lead.Id,
-            //        lead.StartBirthDate,
-            //        lead.EndBirthDate,
-            //        lead.Role,
-            //        lead.IsBanned,
-            //        NameParam = nameParam,
-            //        LastNameParam = lastNameParam,
-            //        EmailParam = emailParam,
-            //        PhoneParam = phoneParam
-            //    }
-            //    , commandType: CommandType.StoredProcedure)
-            //    .ToList();
             var query = new Query("Lead");
-            List<Query> listQuery = new List<Query>();
-            
+            string lastQueryName = "";
+            Query nestedQuery = null;
 
             foreach (var prop in lead.GetType().GetProperties())
             {
                 if (prop.GetValue(lead) != null)
                 {
-                    if (listQuery.Count != 0)
+                    if (nestedQuery != null)
                     {
-                        var nestedQuery = new Query(nestedQuery).WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead)).As(prop.Name);
-                        listQuery.Add(nestedQuery);
+                        nestedQuery = new Query(lastQueryName).WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead).ToString()).From(nestedQuery).As(prop.Name);
+
                     }
                     else
                     {
-                        var nestedQuery = new Query("Lead").WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead)).As(prop.Name);
-                        listQuery.Add(nestedQuery);
-
+                        nestedQuery = new Query("Lead").WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead).ToString()).As(prop.Name);
                     }
+                    lastQueryName = prop.Name;
                 }
 
             }
 
-
-
-          
-
-            query = new Query("Name").From(namelQuery);
-
-
-            if (lead.Id != null)
-            {
-                query = query.Where("Id", lead.Id);
-            }
-
-            if (lead.StartBirthDate != null && lead.EndBirthDate != null)
-            {
-                query = query
-                    .Where("BirthDay", ">", lead.StartBirthDate.Value.Day)
-                    .Where("BirthMonth", ">", lead.StartBirthDate.Value.Month)
-                    .Where("BirthYear", ">", lead.StartBirthDate.Value.Year)
-                    .Where("BirthDay", "<", lead.EndBirthDate.Value.Day)
-                    .Where("BirthMonth", "<", lead.EndBirthDate.Value.Month)
-                    .Where("BirthYear", "<", lead.EndBirthDate.Value.Year);
-            }
-
-            if (lead.Role != null)
-            {
-                query = query.Where("Role", lead.Role);
-            }
-
-            if (lead.IsBanned != null)
-            {
-                query = query.Where("IsBanned", lead.IsBanned);
-            }
-
-            if (lead.NameParam != null)
-            {
-                query = query.WhereLike("Name", nameParam);
-            }
-
-            if (lead.LastNameParam != null)
-            {
-                query = query.WhereLike("LastName", lastNameParam);
-            }
-
-            if (lead.EmailParam != null)
-            {
-                query = query.WhereLike("Email", emailParam);
-            }
-
-            if (lead.PhoneParam != null)
-            {
-                query = query.WhereLike("Phone", phoneParam);
-            }
-
-            query = query.As("Query");
-
-
-
-            IEnumerable<Lead> leads = _qeryFactory.Query("Query").From(query).Get<Lead>();
+            IEnumerable<Lead> leads = _qeryFactory.Query(lastQueryName).From(nestedQuery).Get<Lead>();
 
             return (List<Lead>)leads;
         }

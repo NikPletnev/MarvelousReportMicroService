@@ -17,7 +17,7 @@ namespace MarvelousReportMicroService.DAL.Helpers
                 case LeadSearchParams.Equals:
                     return $"{searchedString}";
                 default:
-                    return $"%{searchedString}%";
+                    return null;
             }
         }
     }
