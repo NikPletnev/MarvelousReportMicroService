@@ -34,22 +34,13 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         public List<Lead> GetLeadByParameters(LeadSearch lead)
         {
-            lead.Name = GenerateParamString.Generate(lead.NameParam, lead.Name);
-            lead.NameParam = null;
-            lead.LastName = GenerateParamString.Generate(lead.LastNameParam, lead.LastName);
-            lead.LastNameParam = null;
-            lead.Email = GenerateParamString.Generate(lead.EmailParam, lead.Email);
-            lead.EmailParam = null;
-            lead.Phone = GenerateParamString.Generate(lead.PhoneParam, lead.Phone);
-            lead.PhoneParam = null;
-
             var query = new Query("Lead");
             string lastQueryName = "";
             Query nestedQuery = null;
 
             foreach (var prop in lead.GetType().GetProperties())
             {
-                if (prop.GetValue(lead) != null)
+                if (prop.GetValue(lead) != null && prop.Name != "StartBirthDate" && prop.Name != "EndBirthDate")
                 {
                     if (nestedQuery != null)
                     {
@@ -62,29 +53,30 @@ namespace MarvelousReportMicroService.DAL.Repositories
                     }
                     lastQueryName = prop.Name;
                 }
-
             }
+            //if (lead.StartBirthDate != null)
+            //{
+            //    nestedQuery = new Query(lastQueryName)
+            //        .Where("BirthDay", ">", lead.StartBirthDate.Value.Day)
+            //        .Where("BirthMonth", ">", lead.StartBirthDate.Value.Month)
+            //        .Where("BirthYear", ">", lead.StartBirthDate.Value.Year)
+            //        .From(nestedQuery).As("StartBirthDate");
+            //    lastQueryName = "StartBirthDate";
+            //}
+            //if (lead.EndBirthDate != null)
+            //{
+            //    nestedQuery = new Query(lastQueryName)
+            //        .Where("BirthDay", "<", lead.EndBirthDate.Value.Day)
+            //        .Where("BirthMonth", "<", lead.EndBirthDate.Value.Month)
+            //        .Where("BirthYear", "<", lead.EndBirthDate.Value.Year)
+            //        .From(nestedQuery).As("EndBirthDate");
+            //    lastQueryName = "EndBirthDate";
+            //}
+
 
             IEnumerable<Lead> leads = _qeryFactory.Query(lastQueryName).From(nestedQuery).Get<Lead>();
 
             return (List<Lead>)leads;
-        }
-
-
-        public List<Lead> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
-        {
-            using IDbConnection connection = ProvideConnection();
-
-            return connection.
-                Query<Lead>(
-                Queries.GetLeadsByOffsetAndFetchParameters
-                , new
-                {
-                    lead.Offset,
-                    lead.Fetch
-                }
-                , commandType: CommandType.StoredProcedure)
-                .ToList();
         }
 
         public async Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)

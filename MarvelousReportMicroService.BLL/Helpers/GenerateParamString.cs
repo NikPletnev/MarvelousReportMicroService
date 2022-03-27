@@ -1,6 +1,6 @@
 ﻿using MarvelousReportMicroService.DAL.Enums;
 
-namespace MarvelousReportMicroService.DAL.Helpers
+namespace MarvelousReportMicroService.BLL.Helpers
 {
     public static class GenerateParamString
     {
