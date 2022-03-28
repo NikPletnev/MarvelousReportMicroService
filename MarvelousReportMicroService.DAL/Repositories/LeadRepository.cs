@@ -138,7 +138,17 @@ namespace MarvelousReportMicroService.DAL.Repositories
                    },
                    commandType: CommandType.StoredProcedure);
         }
+        public async Task<int> GetLeadsCountByRole(int role)
+        {
+            using IDbConnection connection = ProvideConnection();
 
+            var count = await connection
+                   .QueryFirstAsync<int>(
+                   Queries.GetLeadsCountByRole,
+                   new { role },
+                   commandType: CommandType.StoredProcedure);
+            return count;
+        }
 
         private Query GetSqlKataBirthDateQuery(DateTime? dateParam, string sign, Query nestedQuery, string lastQueryName)
         {
