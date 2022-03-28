@@ -1,6 +1,6 @@
 ﻿using MarvelousReportMicroService.DAL.Enums;
 
-namespace MarvelousReportMicroService.DAL.Helpers
+namespace MarvelousReportMicroService.BLL.Helpers
 {
     public static class GenerateParamString
     {
@@ -17,7 +17,7 @@ namespace MarvelousReportMicroService.DAL.Helpers
                 case LeadSearchParams.Equals:
                     return $"{searchedString}";
                 default:
-                    return $"%{searchedString}%";
+                    return null;
             }
         }
     }
