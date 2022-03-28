@@ -1,12 +1,13 @@
 ﻿CREATE PROCEDURE [dbo].[AddTransaction]
-	@ExternalId integer,
+	@ExternalId int,
 	@Amount decimal,
 	@AccountId integer,
 	@Type tinyint,
 	@Currency tinyint,
-	@Date date,
-    @Rate smallint
+	@Date datetime2,
+    @Rate smallint,
+	@RecipientId int
 
 AS
-	insert into [dbo].[Transaction] ([ExternalId], [Amount], [AccountId], [Type], [Date], [Currency], [Rate])
-	values (@ExternalId, @Amount, @AccountId, @Type, @Currency, @Date, @Rate)
+	insert into [dbo].[Transaction] ([ExternalId], [Amount], [AccountId], [Type], [Date], [Currency], [Rate], [RecipientId])
+	values (@ExternalId, @Amount, @AccountId, @Type, @Date, @Currency, @Rate, @RecipientId)

@@ -10,7 +10,7 @@ AS
 	l.[Role],
 	l.BirthDay,
 	l.BirthMonth,
-	l.BirthYear,
+	l.BirthDate,
 	l.City,
 	l.[Password],
 	l.IsBanned from [dbo].[ServiceToLead] as s
