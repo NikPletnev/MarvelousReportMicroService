@@ -58,5 +58,17 @@ namespace MarvelousReportMicroService.API.Controllers
             _logger.LogInformation($"Response to a request to receive lead subscription payment transactions for the period from {startDate} to {endDate}");
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
+
+        [HttpGet("count-transaction-without-withdrawal")]
+        public async Task<ActionResult<int>> GetCountLeadTransactionWithoutWithdrawal(
+            [FromQuery] int leadId,
+            [FromQuery] DateTime startDate)
+        {
+            _logger.LogInformation($"Request to receive count transaction without withdrawal for the period from {startDate}");
+            var count = await _transactionService.GetCountLeadTransactionWithoutWithdrawal(leadId, startDate);
+
+            _logger.LogInformation($"Request to receive count transaction without withdrawal for the period from {startDate}");
+            return Ok(count);
+        }
     }
 }

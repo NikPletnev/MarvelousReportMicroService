@@ -20,6 +20,7 @@ namespace MarvelousReportMicroService.DAL.Helpers
         public const string AddTransaction = "AddTransaction";
         public const string AddLead = "AddLead";
         public const string AddAccount = "AddAccount";
+        public const string GetCountLeadTransactionWithoutWithdrawal = "GetCountLeadTransactionWithoutWithdrawal";
         public const string GetLeadsCountByRole = "GetLeadsCountByRole";
     }
 }
