@@ -7,7 +7,7 @@ CREATE TABLE [dbo].[Lead]
 	[LastName] varchar(20) NOT NULL,
 	[BirthDay] TINYINT NOT NULL,
 	[BirthMonth] TINYINT NOT NULL,
-	[BirthYear] SMALLINT NOT NULL,
+	[BirthDate] DATE NOT NULL,
 	[Email] varchar(30) NOT NULL,
 	[Phone] varchar(13) NULL,
 	[Password] varchar(70) NOT NULL,
