@@ -8,7 +8,7 @@ SELECT
       [LastName],
       [BirthDay],
       [BirthMonth],
-      [BirthYear],
+      [BirthDate],
       [Email],
       [Phone],
       [Password],
