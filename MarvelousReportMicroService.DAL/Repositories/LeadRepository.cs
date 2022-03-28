@@ -1,10 +1,10 @@
-﻿using MarvelousReportMicroService.DAL.Configuration;
+﻿using Dapper;
+using MarvelousReportMicroService.DAL.Configuration;
 using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
 using System.Data;
-using Dapper;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
@@ -40,7 +40,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
             return connection.
                 Query<Lead>(
                 Queries.GetLeadsByParameters
-                , new 
+                , new
                 {
                     lead.Id,
                     lead.StartBirthDate,
@@ -112,6 +112,16 @@ namespace MarvelousReportMicroService.DAL.Repositories
                    }
                    , commandType: CommandType.StoredProcedure);
         }
+        public async Task<int> GetLeadsCountByRole(int role)
+        {
+            using IDbConnection connection = ProvideConnection();
 
+            var count = await connection
+                   .QueryFirstAsync<int>(
+                   Queries.GetLeadsCountByRole,
+                   new { role },
+                   commandType: CommandType.StoredProcedure);
+            return count;
+        }
     }
 }
