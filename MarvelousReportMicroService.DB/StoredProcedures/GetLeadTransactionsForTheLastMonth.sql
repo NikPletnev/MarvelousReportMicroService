@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetLeadsByServiceId]
+﻿CREATE PROCEDURE [dbo].[GetLeadTransactionsForTheLastMonth]
  @leadId int,
  @startOfCurrentMonth DATETIME
 as
