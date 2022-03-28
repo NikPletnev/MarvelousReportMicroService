@@ -1,13 +1,12 @@
-﻿using MarvelousReportMicroService.DAL.Configuration;
+﻿using Dapper;
+using MarvelousReportMicroService.DAL.Configuration;
 using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
-using System.Data;
-using Dapper;
-using SqlKata.Execution;
 using SqlKata;
-using MarvelousReportMicroService.DAL.Enums;
+using SqlKata.Execution;
+using System.Data;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
@@ -34,47 +33,42 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         public List<Lead> GetLeadByParameters(LeadSearch lead)
         {
-            var query = new Query("Lead");
             string lastQueryName = "Lead";
-            Query nestedQuery =  null;
-
+            Query nestedQuery = null;
+            string sign;
             foreach (var prop in lead.GetType().GetProperties())
             {
-                if (prop.GetValue(lead) != null && prop.Name != "StartBirthDate" && prop.Name != "EndBirthDate")
+                if (prop.GetValue(lead) != null)
                 {
-                    if (nestedQuery != null)
+                    if (prop.Name == "StartBirthDate" || prop.Name == "EndBirthDate")
                     {
-                        nestedQuery = new Query(lastQueryName).WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead).ToString()).From(nestedQuery).As(prop.Name);
-
+                        sign = prop.Name == "StartBirthDate" ? ">" : "<";
+                        nestedQuery = GetSqlKataBirthDateQuery((DateTime?)prop.GetValue(lead), sign, nestedQuery, lastQueryName);
+                        nestedQuery = nestedQuery.As(nameof(prop.Name));
+                        lastQueryName = nameof(prop.Name);
                     }
                     else
                     {
-                        nestedQuery = new Query("Lead").WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead).ToString()).As(prop.Name);
+                        if (nestedQuery != null)
+                        {
+                            nestedQuery = new Query(lastQueryName)
+                                .WhereLike(prop.Name
+                                .Replace("name", ""), prop.GetValue(lead)
+                                .ToString()).From(nestedQuery)
+                                .As(prop.Name);
+                        }
+                        else
+                        {
+                            nestedQuery = new Query("Lead")
+                                .WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead)
+                                .ToString())
+                                .As(prop.Name);
+                        }
+                        lastQueryName = prop.Name;
                     }
-                    lastQueryName = prop.Name;
-                }
-            }
-            if (lead.StartBirthDate != null)
-            {
-                var birthDatenestedQuery = new Query(lastQueryName).Where("BirthDate", ">", lead.StartBirthDate.Value);
-                if (nestedQuery != null)
-                {
-                    birthDatenestedQuery = birthDatenestedQuery.From(nestedQuery);
-                }
-                nestedQuery = birthDatenestedQuery.As("StartBirthDate");
-                lastQueryName = "StartBirthDate";
-            }
-            if (lead.EndBirthDate != null)
-            {
-                var birthDatenestedQuery = new Query(lastQueryName).Where("BirthDate", "<", lead.EndBirthDate.Value);
-                if (nestedQuery != null)
-                {
-                    birthDatenestedQuery = birthDatenestedQuery.From(nestedQuery);
-                }
-                nestedQuery = birthDatenestedQuery.As("EndBirthDate");
-                lastQueryName = "EndBirthDate";
-            }
 
+                }
+            }
             IEnumerable<Lead> leads = _qeryFactory.Query(lastQueryName).From(nestedQuery).Get<Lead>();
 
             return (List<Lead>)leads;
@@ -118,8 +112,8 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             await connection
                    .QueryAsync<Lead>(
-                   Queries.AddLead
-                   , new
+                   Queries.AddLead,
+                   new
                    {
                        Externalid = lead.Id,
                        lead.Name,
@@ -133,9 +127,19 @@ namespace MarvelousReportMicroService.DAL.Repositories
                        lead.Role,
                        lead.IsBanned,
                        lead.City
-                   }
-                   , commandType: CommandType.StoredProcedure);
+                   },
+                   commandType: CommandType.StoredProcedure);
         }
 
+
+        private Query GetSqlKataBirthDateQuery(DateTime? dateParam, string sign, Query nestedQuery, string lastQueryName)
+        {
+            var birthDateNestedQuery = new Query(lastQueryName).Where("BirthDate", sign, dateParam);
+            if (nestedQuery != null)
+            {
+                birthDateNestedQuery = birthDateNestedQuery.From(nestedQuery);
+            }
+            return birthDateNestedQuery;
+        }
     }
 }

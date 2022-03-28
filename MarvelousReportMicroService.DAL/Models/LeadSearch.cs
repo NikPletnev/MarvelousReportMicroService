@@ -12,7 +12,7 @@ namespace MarvelousReportMicroService.DAL.Models
         public DateTime? EndBirthDate { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
-        public Role? Role { get; set; }
-        public bool? IsBanned { get; set; }
+        public int? Role { get; set; }
+        public int? IsBanned { get; set; }
     }
 }
