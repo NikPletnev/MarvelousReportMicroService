@@ -17,3 +17,5 @@ inner join [ReportDb].[dbo].[Lead] as l on a.LeadId = l.ExternalId
 WHERE t.Date >= DATEADD(month, -1, @startOfCurrentMonth) 
       AND t.Date < @startOfCurrentMonth
 	  AND l.ExternalId = @leadId
+	  AND t.Type = 1
+	  AND t.Type = 2
