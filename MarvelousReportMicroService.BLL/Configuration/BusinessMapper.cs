@@ -9,14 +9,7 @@ namespace MarvelousReportMicroService.BLL.Configuration
     {
             public BusinessMapper()
             {
-            CreateMap<Lead, LeadModel>()
-                .ForMember(
-                dest => dest.BirthDate,
-                opt => opt.MapFrom(src =>
-                    src.BirthYear.HasValue
-                    ? new DateTime(src.BirthYear.Value, src.BirthMonth.Value, src.BirthDay.Value)
-                    : default(DateTime?)
-                ));
+            CreateMap<Lead, LeadModel>();
             CreateMap<LeadModel, Lead>()
                 .ForMember(
                 dest => dest.BirthDay,
@@ -29,9 +22,9 @@ namespace MarvelousReportMicroService.BLL.Configuration
                 src.BirthDate.Value.Month
                 ))
                 .ForMember(
-                dest => dest.BirthYear,
+                dest => dest.BirthDate,
                 opt => opt.MapFrom(src =>
-                src.BirthDate.Value.Year
+                src.BirthDate
                 ));
 
                 CreateMap<Account, AccountModel>().ReverseMap();

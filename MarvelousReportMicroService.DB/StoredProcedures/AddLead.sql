@@ -4,7 +4,7 @@
 	@LastName varchar(20),
 	@BirthDay tinyint,
 	@BirthMounth tinyint,
-	@BirthYear smallint,
+	@BirthDate date,
 	@Email varchar(30),
 	@Phone varchar(13),
 	@Password varchar(70),
@@ -18,14 +18,14 @@ AS
 	[LastName], 
 	[BirthDay], 
 	[BirthMonth], 
-	[BirthYear], 
+	[BirthDate], 
 	[Email],
 	[Phone],
 	[Password],
 	[Role],
 	[IsBanned],
 	[City])
-values (@ExternalId, @Name, @LastName, @BirthDay, @BirthMounth, @BirthYear, @Email, @Phone, @Password, @Role, @IsBanned, @City)
+values (@ExternalId, @Name, @LastName, @BirthDay, @BirthMounth, @BirthDate, @Email, @Phone, @Password, @Role, @IsBanned, @City)
 
 
 
