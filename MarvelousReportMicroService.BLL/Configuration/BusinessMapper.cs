@@ -31,6 +31,9 @@ namespace MarvelousReportMicroService.BLL.Configuration
                 CreateMap<Account, AccountModel>().ReverseMap();
                 CreateMap<LeadSearchModel, LeadSearch>()
                 .ForMember(
+                    dest => dest.ExternalId,
+                    opt => opt.MapFrom(src => src.Id))
+                .ForMember(
                     dest => dest.Name,
                     opt => opt.MapFrom(src => GenerateParamString.Generate(src.NameParam, src.Name)))
                 .ForMember(

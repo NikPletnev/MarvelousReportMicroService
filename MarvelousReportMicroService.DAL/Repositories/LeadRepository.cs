@@ -52,15 +52,14 @@ namespace MarvelousReportMicroService.DAL.Repositories
                         if (nestedQuery != null)
                         {
                             nestedQuery = new Query(lastQueryName)
-                                .WhereLike(prop.Name
-                                .Replace("name", ""), prop.GetValue(lead)
+                                .WhereLike(prop.Name, prop.GetValue(lead)
                                 .ToString()).From(nestedQuery)
                                 .As(prop.Name);
                         }
                         else
                         {
                             nestedQuery = new Query("Lead")
-                                .WhereLike(prop.Name.Replace("name", ""), prop.GetValue(lead)
+                                .WhereLike(prop.Name, prop.GetValue(lead)
                                 .ToString())
                                 .As(prop.Name);
                         }
@@ -69,7 +68,16 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
                 }
             }
-            IEnumerable<Lead> leads = _qeryFactory.Query(lastQueryName).From(nestedQuery).Get<Lead>();
+            IEnumerable<Lead> leads;
+            if (nestedQuery != null)
+            {
+                leads = _qeryFactory.Query(lastQueryName).From(nestedQuery).Get<Lead>();
+            }
+            else
+            {
+                leads = _qeryFactory.Query(lastQueryName).Get<Lead>();
+            }
+            
 
             return (List<Lead>)leads;
         }
