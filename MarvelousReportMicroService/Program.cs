@@ -1,10 +1,9 @@
 using MarvelousReportMicroService.API.Configuration;
-using MarvelousReportMicroService.API.Extensions;
 using MarvelousReportMicroService.API.Infrastructure;
 using MarvelousReportMicroService.BLL.Configuration;
 using MarvelousReportMicroService.DAL.Configuration;
+using MarvelousReportMicroService.API.Extensions;
 using System.Text.Json.Serialization;
-using System.Web.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +41,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.RegisterProjectServices();
 builder.Services.RegisterProjectRepositories();
+builder.Services.RegisterSqlKata(connString);
 builder.Services.RegisterLogger(config);
 builder.Services.AddMassTransit();
 
