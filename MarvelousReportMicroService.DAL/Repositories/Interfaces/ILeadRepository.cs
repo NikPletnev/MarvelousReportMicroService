@@ -11,5 +11,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
         Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead);
         Task<List<Lead>> GetLeadsByServiceId(int serviceId);
         Task<int> GetLeadsCountByRole(int role);
+
     }
 }
