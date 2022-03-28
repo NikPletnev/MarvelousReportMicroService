@@ -8,6 +8,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
         Task<List<Transaction>> GetTransactionsBetweenDatesByLeadId(int id, DateTime startDate, DateTime finishDate);
         Task<List<Transaction>> GetTransactionsByAccountId(int accountId);
         Task AddTransaction(Transaction transaction);
-
+        Task<List<Transaction>> GetLeadTransactionsForTheLastMonth(int leadId);
     }
 }

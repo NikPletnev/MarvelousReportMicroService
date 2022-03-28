@@ -47,5 +47,12 @@ namespace MarvelousReportMicroService.BLL.Services
         {
             await _transactionRepository.AddTransaction(_mapper.Map<Transaction>(model));
         }
+
+        public async Task<List<TransactionModel>> GetLeadTransactionsForTheLastMonth(int leadId)
+        {
+            List<Transaction> transactions = await _transactionRepository.GetLeadTransactionsForTheLastMonth(leadId);
+
+            return _mapper.Map<List<TransactionModel>>(transactions);
+        }
     }
 }

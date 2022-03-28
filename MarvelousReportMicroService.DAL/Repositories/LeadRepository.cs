@@ -109,9 +109,8 @@ namespace MarvelousReportMicroService.DAL.Repositories
                        lead.Role,
                        lead.IsBanned,
                        lead.City
-                   }
-                   , commandType: CommandType.StoredProcedure);
+                   },
+                   commandType: CommandType.StoredProcedure);
         }
-
     }
 }
