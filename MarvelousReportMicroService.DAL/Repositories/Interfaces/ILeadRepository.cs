@@ -10,5 +10,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
         List<Lead> GetLeadByParameters(LeadSearch lead);
         Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead);
         Task<List<Lead>> GetLeadsByServiceId(int serviceId);
+        Task<List<Lead>> GetBirthdayLead(int day, int month);
     }
 }

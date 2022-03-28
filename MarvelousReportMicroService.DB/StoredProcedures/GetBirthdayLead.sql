@@ -5,9 +5,9 @@ AS
 	SELECT l.ExternalId,
 		   l.[Name],
 		   l.LastName,
-		   --l.BitrhDate, --добавить это после мержа дева сюда
+		   l.BirthDate,
 		   l.Email,
 		   l.Phone,
 		   l.City
 	from [dbo].[Lead] l
-	where l.BirthDay = @Day and l.BirthMonth = @Month
+	where l.BirthDay = @Day and l.BirthMonth = @Month and l.IsBanned = 0

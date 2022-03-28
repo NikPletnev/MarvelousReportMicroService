@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MarvelousReportMicroService.DAL.Helpers
+﻿namespace MarvelousReportMicroService.DAL.Helpers
 {
     public static class Queries
     {
@@ -20,5 +14,6 @@ namespace MarvelousReportMicroService.DAL.Helpers
         public const string AddTransaction = "AddTransaction";
         public const string AddLead = "AddLead";
         public const string AddAccount = "AddAccount";
+        public const string GetBirthdayLead = "GetBirthdayLead";
     }
 }

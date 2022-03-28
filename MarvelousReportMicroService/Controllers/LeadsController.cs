@@ -101,5 +101,17 @@ namespace MarvelousReportMicroService.API.Controllers
             _logger.LogInformation($"Response to a request to get all service({serviceId}) subscribers");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
+
+        [HttpGet("bithday-by-date")]
+        public async Task<ActionResult<List<LeadResponse>>> GetBirthdayLead(
+            [FromQuery]int day = 0,
+            [FromQuery]int month = 0)
+        {
+            _logger.LogInformation($"Request to get all birthdy {month}\\{day} leads");
+            var leads = await _leadService.GetBirthdayLead(day, month);
+
+            _logger.LogInformation($"Response to a request to get all get all birthdy {month}\\{day} leads");
+            return Ok(_mapper.Map<List<LeadResponse>>(leads));
+        }
     }
 }

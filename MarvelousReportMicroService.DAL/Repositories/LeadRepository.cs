@@ -113,5 +113,18 @@ namespace MarvelousReportMicroService.DAL.Repositories
                    , commandType: CommandType.StoredProcedure);
         }
 
+        public async Task<List<Lead>> GetBirthdayLead(int day, int month)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var Leads =
+               (await connection
+                   .QueryAsync<Lead>(
+                   Queries.GetBirthdayLead,
+                   new { day, month },
+                   commandType: CommandType.StoredProcedure)).ToList();
+
+            return Leads;
+        }
     }
 }
