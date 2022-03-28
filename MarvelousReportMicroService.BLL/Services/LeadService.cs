@@ -45,6 +45,23 @@ namespace MarvelousReportMicroService.BLL.Services
             await _leadRepository.AddLead(_mapper.Map<Lead>(model));
         }
 
+        public async Task<List<LeadModel>> GetBirthdayLead(int day, int month)
+        {
+            if (day == 0)
+            {
+                day = DateTime.Today.Day;
+            }
+
+            if (month == 0)
+            {
+                month = DateTime.Today.Month;
+            }
+
+            var leads = await _leadRepository.GetBirthdayLead(day, month);
+            return _mapper.Map<List<LeadModel>>(leads);
+
+        }
+
         public async Task<int> GetLeadsCountByRole(Role role)
         {
             var leads = await _leadRepository.GetLeadsCountByRole((int)role);

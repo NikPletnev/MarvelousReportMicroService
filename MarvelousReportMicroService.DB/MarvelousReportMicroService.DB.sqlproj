@@ -80,6 +80,7 @@
     <Build Include="StoredProcedures\AddTransaction.sql" />
     <Build Include="StoredProcedures\AddLead.sql" />
     <Build Include="StoredProcedures\AddAccount.sql" />
+    <Build Include="StoredProcedures\GetBirthdayLead.sql" />
     <Build Include="StoredProcedures\GetCountLeadTransactionWithoutWithdrawal.sql" />
     <Build Include="StoredProcedures\GetLeadsCountByRole.sql" />
   </ItemGroup>
