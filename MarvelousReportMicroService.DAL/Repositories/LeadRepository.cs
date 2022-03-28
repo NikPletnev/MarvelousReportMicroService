@@ -35,8 +35,8 @@ namespace MarvelousReportMicroService.DAL.Repositories
         public List<Lead> GetLeadByParameters(LeadSearch lead)
         {
             var query = new Query("Lead");
-            string lastQueryName = "";
-            Query nestedQuery = null;
+            string lastQueryName = "Lead";
+            Query nestedQuery =  null;
 
             foreach (var prop in lead.GetType().GetProperties())
             {
@@ -54,25 +54,26 @@ namespace MarvelousReportMicroService.DAL.Repositories
                     lastQueryName = prop.Name;
                 }
             }
-            //if (lead.StartBirthDate != null)
-            //{
-            //    nestedQuery = new Query(lastQueryName)
-            //        .Where("BirthDay", ">", lead.StartBirthDate.Value.Day)
-            //        .Where("BirthMonth", ">", lead.StartBirthDate.Value.Month)
-            //        .Where("BirthYear", ">", lead.StartBirthDate.Value.Year)
-            //        .From(nestedQuery).As("StartBirthDate");
-            //    lastQueryName = "StartBirthDate";
-            //}
-            //if (lead.EndBirthDate != null)
-            //{
-            //    nestedQuery = new Query(lastQueryName)
-            //        .Where("BirthDay", "<", lead.EndBirthDate.Value.Day)
-            //        .Where("BirthMonth", "<", lead.EndBirthDate.Value.Month)
-            //        .Where("BirthYear", "<", lead.EndBirthDate.Value.Year)
-            //        .From(nestedQuery).As("EndBirthDate");
-            //    lastQueryName = "EndBirthDate";
-            //}
-
+            if (lead.StartBirthDate != null)
+            {
+                var birthDatenestedQuery = new Query(lastQueryName).Where("BirthDate", ">", lead.StartBirthDate.Value);
+                if (nestedQuery != null)
+                {
+                    birthDatenestedQuery = birthDatenestedQuery.From(nestedQuery);
+                }
+                nestedQuery = birthDatenestedQuery.As("StartBirthDate");
+                lastQueryName = "StartBirthDate";
+            }
+            if (lead.EndBirthDate != null)
+            {
+                var birthDatenestedQuery = new Query(lastQueryName).Where("BirthDate", "<", lead.EndBirthDate.Value);
+                if (nestedQuery != null)
+                {
+                    birthDatenestedQuery = birthDatenestedQuery.From(nestedQuery);
+                }
+                nestedQuery = birthDatenestedQuery.As("EndBirthDate");
+                lastQueryName = "EndBirthDate";
+            }
 
             IEnumerable<Lead> leads = _qeryFactory.Query(lastQueryName).From(nestedQuery).Get<Lead>();
 
