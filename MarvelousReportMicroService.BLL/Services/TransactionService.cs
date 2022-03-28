@@ -43,6 +43,12 @@ namespace MarvelousReportMicroService.BLL.Services
             return _mapper.Map<List<TransactionModel>>(transactions);
         }
 
+        public async Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId, DateTime startDate)
+        {
+            return await _transactionRepository.GetCountLeadTransactionWithoutWithdrawal(leadId, startDate);
+        }
+
+
         public async Task AddTransaction(TransactionModel model)
         {
             await _transactionRepository.AddTransaction(_mapper.Map<Transaction>(model));

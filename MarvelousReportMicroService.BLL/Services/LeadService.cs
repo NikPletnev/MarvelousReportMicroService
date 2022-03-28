@@ -3,6 +3,7 @@ using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Models;
 using AutoMapper;
 using MarvelousReportMicroService.DAL.Entities;
+using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -42,6 +43,29 @@ namespace MarvelousReportMicroService.BLL.Services
         public async Task AddLead(LeadModel model)
         {
             await _leadRepository.AddLead(_mapper.Map<Lead>(model));
+        }
+
+        public async Task<List<LeadModel>> GetBirthdayLead(int day, int month)
+        {
+            if (day == 0)
+            {
+                day = DateTime.Today.Day;
+            }
+
+            if (month == 0)
+            {
+                month = DateTime.Today.Month;
+            }
+
+            var leads = await _leadRepository.GetBirthdayLead(day, month);
+            return _mapper.Map<List<LeadModel>>(leads);
+
+        }
+
+        public async Task<int> GetLeadsCountByRole(Role role)
+        {
+            var leads = await _leadRepository.GetLeadsCountByRole((int)role);
+            return leads;
         }
     }
 }

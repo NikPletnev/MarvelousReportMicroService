@@ -1,19 +1,22 @@
-﻿using MarvelousReportMicroService.DAL.Configuration;
+﻿using Dapper;
+using MarvelousReportMicroService.DAL.Configuration;
 using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
+using SqlKata;
+using SqlKata.Execution;
 using System.Data;
-using Dapper;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
     public class LeadRepository : BaseRepository, ILeadRepository
     {
+        private readonly QueryFactory _qeryFactory;
 
-        public LeadRepository(IOptions<DbConfiguration> options) : base(options)
+        public LeadRepository(IOptions<DbConfiguration> options, QueryFactory queryFactory) : base(options)
         {
-
+            _qeryFactory = queryFactory;
         }
 
         public async Task<List<Lead>> GetAllLeads()
@@ -30,30 +33,53 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         public List<Lead> GetLeadByParameters(LeadSearch lead)
         {
-            using IDbConnection connection = ProvideConnection();
-
-            string nameParam = GenerateParamString.Generate(lead.NameParam, lead.Name);
-            string lastNameParam = GenerateParamString.Generate(lead.LastNameParam, lead.LastName);
-            string emailParam = GenerateParamString.Generate(lead.EmailParam, lead.Email);
-            string phoneParam = GenerateParamString.Generate(lead.PhoneParam, lead.Phone);
-
-            return connection.
-                Query<Lead>(
-                Queries.GetLeadsByParameters
-                , new 
+            string lastQueryName = "Lead";
+            Query nestedQuery = null;
+            string sign;
+            foreach (var prop in lead.GetType().GetProperties())
+            {
+                if (prop.GetValue(lead) != null)
                 {
-                    lead.Id,
-                    lead.StartBirthDate,
-                    lead.EndBirthDate,
-                    lead.Role,
-                    lead.IsBanned,
-                    NameParam = nameParam,
-                    LastNameParam = lastNameParam,
-                    EmailParam = emailParam,
-                    PhoneParam = phoneParam
+                    if (prop.Name == "StartBirthDate" || prop.Name == "EndBirthDate")
+                    {
+                        sign = prop.Name == "StartBirthDate" ? ">" : "<";
+                        nestedQuery = GetSqlKataBirthDateQuery((DateTime?)prop.GetValue(lead), sign, nestedQuery, lastQueryName);
+                        nestedQuery = nestedQuery.As(nameof(prop.Name));
+                        lastQueryName = nameof(prop.Name);
+                    }
+                    else
+                    {
+                        if (nestedQuery != null)
+                        {
+                            nestedQuery = new Query(lastQueryName)
+                                .WhereLike(prop.Name, prop.GetValue(lead)
+                                .ToString()).From(nestedQuery)
+                                .As(prop.Name);
+                        }
+                        else
+                        {
+                            nestedQuery = new Query("Lead")
+                                .WhereLike(prop.Name, prop.GetValue(lead)
+                                .ToString())
+                                .As(prop.Name);
+                        }
+                        lastQueryName = prop.Name;
+                    }
+
                 }
-                , commandType: CommandType.StoredProcedure)
-                .ToList();
+            }
+            IEnumerable<Lead> leads;
+            if (nestedQuery != null)
+            {
+                leads = _qeryFactory.Query(lastQueryName).From(nestedQuery).Get<Lead>();
+            }
+            else
+            {
+                leads = _qeryFactory.Query(lastQueryName).Get<Lead>();
+            }
+            
+
+            return (List<Lead>)leads;
         }
 
         public async Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
@@ -94,8 +120,8 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
             await connection
                    .QueryAsync<Lead>(
-                   Queries.AddLead
-                   , new
+                   Queries.AddLead,
+                   new
                    {
                        Externalid = lead.Id,
                        lead.Name,
@@ -111,6 +137,40 @@ namespace MarvelousReportMicroService.DAL.Repositories
                        lead.City
                    },
                    commandType: CommandType.StoredProcedure);
+        }
+        public async Task<int> GetLeadsCountByRole(int role)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var count = await connection
+                   .QueryFirstAsync<int>(
+                   Queries.GetLeadsCountByRole,
+                   new { role },
+                   commandType: CommandType.StoredProcedure);
+            return count;
+        }
+
+        private Query GetSqlKataBirthDateQuery(DateTime? dateParam, string sign, Query nestedQuery, string lastQueryName)
+        {
+            var birthDateNestedQuery = new Query(lastQueryName).Where("BirthDate", sign, dateParam);
+            if (nestedQuery != null)
+            {
+                birthDateNestedQuery = birthDateNestedQuery.From(nestedQuery);
+            }
+            return birthDateNestedQuery;
+        }
+        public async Task<List<Lead>> GetBirthdayLead(int day, int month)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var Leads =
+               (await connection
+                   .QueryAsync<Lead>(
+                   Queries.GetBirthdayLead,
+                   new { day, month },
+                   commandType: CommandType.StoredProcedure)).ToList();
+
+            return Leads;
         }
     }
 }

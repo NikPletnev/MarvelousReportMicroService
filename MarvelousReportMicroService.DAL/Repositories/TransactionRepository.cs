@@ -62,6 +62,21 @@ namespace MarvelousReportMicroService.DAL.Repositories
             return transactions;
         }
 
+        public async Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId, DateTime startDate)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            return (await connection
+                .QuerySingleAsync<int>(
+                Queries.GetCountLeadTransactionWithoutWithdrawal,
+                new
+                {
+                    leadId,
+                    startDate
+                },
+                commandType: CommandType.StoredProcedure));
+        }
+
         public async Task AddTransaction(Transaction transaction)
         {
             using IDbConnection connection = ProvideConnection();
