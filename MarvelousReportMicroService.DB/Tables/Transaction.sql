@@ -7,7 +7,6 @@
 	[Date] [datetime2](2) NOT NULL,
 	[Currency] TINYINT NOT NULL,
 	[Rate] smallint NULL,
- [RecipientId] INT NULL, 
     CONSTRAINT [PK_Transaction] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

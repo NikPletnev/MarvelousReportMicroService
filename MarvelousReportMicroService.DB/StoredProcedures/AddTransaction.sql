@@ -5,9 +5,7 @@
 	@Type tinyint,
 	@Currency tinyint,
 	@Date datetime2,
-    @Rate smallint,
-	@RecipientId int
-
+    @Rate smallint
 AS
-	insert into [dbo].[Transaction] ([ExternalId], [Amount], [AccountId], [Type], [Date], [Currency], [Rate], [RecipientId])
-	values (@ExternalId, @Amount, @AccountId, @Type, @Date, @Currency, @Rate, @RecipientId)
+	insert into [dbo].[Transaction] ([ExternalId], [Amount], [AccountId], [Type], [Date], [Currency], [Rate])
+	values (@ExternalId, @Amount, @AccountId, @Type, @Date, @Currency, @Rate)
