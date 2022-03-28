@@ -75,8 +75,8 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
-        [HttpGet("take-from-{offset}-to-{fetch}")]
-        public async Task<ActionResult<List<LeadResponse>>> GetLeadWithOffsetAndFetch(int offset, int fetch)
+        [HttpGet("take-leads-in-range")]
+        public async Task<ActionResult<List<LeadResponse>>> GetLeadWithOffsetAndFetch([FromQuery] int offset, [FromQuery] int fetch)
         {
             LeadSerchWithOffsetAndFetchRequest leadModel = new LeadSerchWithOffsetAndFetchRequest()
             {
@@ -112,6 +112,15 @@ namespace MarvelousReportMicroService.API.Controllers
 
             _logger.LogInformation($"Response to a request to get all get all birthdy {month}\\{day} leads");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
+        }
+
+        [HttpGet("count-leads")]
+        public async Task<ActionResult> GetLeadsCountByRole([FromQuery] Role role)
+        {
+            _logger.LogInformation($"Request to get count of leads by role");
+            var leads = await _leadService.GetLeadsCountByRole(role);
+            _logger.LogInformation("Response to get count of leads by role");
+            return Ok(leads);
         }
     }
 }

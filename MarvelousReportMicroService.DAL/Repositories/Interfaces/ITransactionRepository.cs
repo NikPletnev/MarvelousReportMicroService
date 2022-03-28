@@ -6,6 +6,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
     {
         Task<List<Transaction>> GetServicePayTransactionsByLeadIdBetweenDate(int LeadId, DateTime startDate, DateTime endDate);
         Task<List<Transaction>> GetTransactionsBetweenDatesByLeadId(int id, DateTime startDate, DateTime finishDate);
+        Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId, DateTime startDate);
         Task<List<Transaction>> GetTransactionsByAccountId(int accountId);
         Task AddTransaction(Transaction transaction);
 

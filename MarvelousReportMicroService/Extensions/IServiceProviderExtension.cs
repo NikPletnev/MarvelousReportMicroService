@@ -1,8 +1,12 @@
 ﻿using MarvelousReportMicroService.API.Consumers;
 using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.DAL.Repositories;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using MassTransit;
 using NLog.Extensions.Logging;
+using SqlKata.Compilers;
+using SqlKata.Execution;
+using System.Data.SqlClient;
 
 namespace MarvelousReportMicroService.API.Extensions
 {
@@ -33,6 +37,19 @@ namespace MarvelousReportMicroService.API.Extensions
                 loggingBuilder.SetMinimumLevel(LogLevel.Information);
                 loggingBuilder.AddNLog(config);
             });
+        }
+
+        public static void RegisterSqlKata(this IServiceCollection service, string connectionString)
+        {
+            service.AddScoped(
+                provider =>
+                {
+                    var connection = new SqlConnection(connectionString);
+                    var compiler = new SqlServerCompiler();
+                    var queryFactory = new QueryFactory(connection, compiler);
+
+                    return queryFactory;
+                });
         }
 
         public static void AddMassTransit(this IServiceCollection services)

@@ -1,4 +1,5 @@
-﻿using MarvelousReportMicroService.BLL.Models;
+﻿using Marvelous.Contracts.Enums;
+using MarvelousReportMicroService.BLL.Models;
 
 
 namespace MarvelousReportMicroService.BLL.Services
@@ -11,5 +12,6 @@ namespace MarvelousReportMicroService.BLL.Services
         Task<List<LeadModel>> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model);
         Task<List<LeadModel>> GetLeadsByServiceId(int serviceId);
         Task<List<LeadModel>> GetBirthdayLead(int day, int month);
+        Task<int> GetLeadsCountByRole(Role role);
     }
 }

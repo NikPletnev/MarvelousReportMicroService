@@ -44,7 +44,11 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
     <WarningLevel>4</WarningLevel>
+    <SqlCodeAnalysisRules>
+    </SqlCodeAnalysisRules>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -77,6 +81,8 @@
     <Build Include="StoredProcedures\AddLead.sql" />
     <Build Include="StoredProcedures\AddAccount.sql" />
     <Build Include="StoredProcedures\GetBirthdayLead.sql" />
+    <Build Include="StoredProcedures\GetCountLeadTransactionWithoutWithdrawal.sql" />
+    <Build Include="StoredProcedures\GetLeadsCountByRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarvelousReportMicroService.DB.refactorlog" />
