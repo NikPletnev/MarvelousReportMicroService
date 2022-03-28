@@ -17,5 +17,6 @@
         public const string GetBirthdayLead = "GetBirthdayLead";
         public const string GetCountLeadTransactionWithoutWithdrawal = "GetCountLeadTransactionWithoutWithdrawal";
         public const string GetLeadsCountByRole = "GetLeadsCountByRole";
+        public const string GetLeadTransactionsForTheLastMonth = "GetLeadTransactionsForTheLastMonth";
     }
 }

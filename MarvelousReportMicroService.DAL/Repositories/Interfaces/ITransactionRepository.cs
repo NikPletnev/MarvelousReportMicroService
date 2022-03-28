@@ -9,6 +9,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
         Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId, DateTime startDate);
         Task<List<Transaction>> GetTransactionsByAccountId(int accountId);
         Task AddTransaction(Transaction transaction);
-
+        Task<List<Transaction>> GetLeadTransactionsForTheLastMonth(int leadId);
     }
 }

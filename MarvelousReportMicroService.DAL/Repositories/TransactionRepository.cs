@@ -96,5 +96,19 @@ namespace MarvelousReportMicroService.DAL.Repositories
                    }
                    , commandType: CommandType.StoredProcedure);
         }
+
+        public async Task<List<Transaction>> GetLeadTransactionsForTheLastMonth(int leadId)
+        {
+            using IDbConnection connection = ProvideConnection();
+            var startOfCurrentMonth = DateTime.Now;
+
+            var transactions = (await connection.
+                QueryAsync<Transaction>(
+                Queries.GetLeadTransactionsForTheLastMonth,
+                new { leadId, startOfCurrentMonth },
+                commandType: CommandType.StoredProcedure)).ToList();
+
+            return transactions;
+        }
     }
 }
