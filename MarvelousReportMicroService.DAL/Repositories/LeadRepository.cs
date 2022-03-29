@@ -40,11 +40,10 @@ namespace MarvelousReportMicroService.DAL.Repositories
             {
                 if (prop.GetValue(lead) != null)
                 {
-                    if (prop.Name == "StartBirthDate" || prop.Name == "EndBirthDate")
+                    if (prop.Name == nameof(LeadSearch.StartBirthDate) || prop.Name == nameof(LeadSearch.EndBirthDate))
                     {
-                        sign = prop.Name == "StartBirthDate" ? ">" : "<";
-                        nestedQuery = GetSqlKataBirthDateQuery((DateTime?)prop.GetValue(lead), sign, nestedQuery, lastQueryName);
-                        nestedQuery = nestedQuery.As(nameof(prop.Name));
+                        sign = prop.Name == nameof(LeadSearch.StartBirthDate) ? ">" : "<";
+                        nestedQuery = GetSqlKataBirthDateQuery((DateTime?)prop.GetValue(lead), sign, nestedQuery, lastQueryName).As(nameof(prop.Name));
                         lastQueryName = nameof(prop.Name);
                     }
                     else
@@ -152,13 +151,14 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         private Query GetSqlKataBirthDateQuery(DateTime? dateParam, string sign, Query nestedQuery, string lastQueryName)
         {
-            var birthDateNestedQuery = new Query(lastQueryName).Where("BirthDate", sign, dateParam);
+            var birthDateNestedQuery = new Query(lastQueryName).Where(nameof(Lead.BirthDate), sign, dateParam);
             if (nestedQuery != null)
             {
                 birthDateNestedQuery = birthDateNestedQuery.From(nestedQuery);
             }
             return birthDateNestedQuery;
         }
+
         public async Task<List<Lead>> GetBirthdayLead(int day, int month)
         {
             using IDbConnection connection = ProvideConnection();

@@ -81,8 +81,6 @@ namespace MarvelousReportMicroService.API.Extensions
                     {
                         e.ConfigureConsumer<AccountConsumer>(context);
                     });
-
-
                 });
             });
         }
