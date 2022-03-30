@@ -12,9 +12,10 @@ namespace MarvelousReportMicroService.DAL.SqlKataQueries
 {
     public static  class LeadQueries
     {
+        const string sqlTableName = "Lead";
         public static IEnumerable<Lead> GetLeadsBySearchParams(LeadSearch searchParams, QueryFactory queryFactory)
         {
-            string lastQueryName = "Lead";
+            string lastQueryName = sqlTableName;
             Query nestedQuery = null;
             string sign;
             foreach (var prop in searchParams.GetType().GetProperties())
@@ -38,7 +39,7 @@ namespace MarvelousReportMicroService.DAL.SqlKataQueries
                         }
                         else
                         {
-                            nestedQuery = new Query("Lead")
+                            nestedQuery = new Query(sqlTableName)
                                 .WhereLike(prop.Name, prop.GetValue(searchParams)
                                 .ToString())
                                 .As(prop.Name);
