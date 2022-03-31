@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Consumers
 {
-    public class TransactionsConsumer : IConsumer<ITransactionExchangeModel>
+    public class TransactionsConsumer : IConsumer<TransactionExchangeModel>
     {
         private readonly IMapper _mapper;
         private readonly ILogger<TransactionsConsumer> _logger;
@@ -20,7 +20,7 @@ namespace MarvelousReportMicroService.API.Consumers
             _transactionService = transactionService;
         }
 
-        public async Task Consume(ConsumeContext<ITransactionExchangeModel> context) //ITransactionExchangeModel
+        public async Task Consume(ConsumeContext<TransactionExchangeModel> context) //ITransactionExchangeModel
         {
             _logger.LogInformation($"Getting transaction {context.Message.Id}");
             await _transactionService.AddTransaction(_mapper.Map<TransactionModel>(context.Message));
