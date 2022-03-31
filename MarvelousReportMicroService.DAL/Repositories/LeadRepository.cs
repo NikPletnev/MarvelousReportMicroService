@@ -31,52 +31,9 @@ namespace MarvelousReportMicroService.DAL.Repositories
             return leads;
         }
 
-        public List<Lead> GetLeadByParameters(LeadSearch lead)
+        public List<Lead> GetLeadByParameters(LeadSearch searchParams)
         {
-            string lastQueryName = "Lead";
-            Query nestedQuery = null;
-            string sign;
-            foreach (var prop in lead.GetType().GetProperties())
-            {
-                if (prop.GetValue(lead) != null)
-                {
-                    if (prop.Name == nameof(LeadSearch.StartBirthDate) || prop.Name == nameof(LeadSearch.EndBirthDate))
-                    {
-                        sign = prop.Name == nameof(LeadSearch.StartBirthDate) ? ">" : "<";
-                        nestedQuery = GetSqlKataBirthDateQuery((DateTime?)prop.GetValue(lead), sign, nestedQuery, lastQueryName).As(nameof(prop.Name));
-                        lastQueryName = nameof(prop.Name);
-                    }
-                    else
-                    {
-                        if (nestedQuery != null)
-                        {
-                            nestedQuery = new Query(lastQueryName)
-                                .WhereLike(prop.Name, prop.GetValue(lead)
-                                .ToString()).From(nestedQuery)
-                                .As(prop.Name);
-                        }
-                        else
-                        {
-                            nestedQuery = new Query("Lead")
-                                .WhereLike(prop.Name, prop.GetValue(lead)
-                                .ToString())
-                                .As(prop.Name);
-                        }
-                        lastQueryName = prop.Name;
-                    }
-
-                }
-            }
-            IEnumerable<Lead> leads;
-            if (nestedQuery != null)
-            {
-                leads = _qeryFactory.Query(lastQueryName).From(nestedQuery).Get<Lead>();
-            }
-            else
-            {
-                leads = _qeryFactory.Query(lastQueryName).Get<Lead>();
-            }
-            
+            var leads = SqlKataQueries.LeadQueries.GetLeadsBySearchParams(searchParams, _qeryFactory);
 
             return (List<Lead>)leads;
         }
@@ -147,16 +104,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
                    new { role },
                    commandType: CommandType.StoredProcedure);
             return count;
-        }
-
-        private Query GetSqlKataBirthDateQuery(DateTime? dateParam, string sign, Query nestedQuery, string lastQueryName)
-        {
-            var birthDateNestedQuery = new Query(lastQueryName).Where(nameof(Lead.BirthDate), sign, dateParam);
-            if (nestedQuery != null)
-            {
-                birthDateNestedQuery = birthDateNestedQuery.From(nestedQuery);
-            }
-            return birthDateNestedQuery;
         }
 
         public async Task<List<Lead>> GetBirthdayLead(int day, int month)
