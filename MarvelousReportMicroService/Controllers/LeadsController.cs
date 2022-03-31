@@ -6,6 +6,7 @@ using MarvelousReportMicroService.DAL.Enums;
 using Marvelous.Contracts.Enums;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Marvelous.Contracts.ExchangeModels;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
@@ -121,6 +122,17 @@ namespace MarvelousReportMicroService.API.Controllers
             var leads = await _leadService.GetLeadsCountByRole(role);
             _logger.LogInformation("Response to get count of leads by role");
             return Ok(leads);
+        }
+
+        [HttpGet("auth")]
+        [ProducesResponseType(typeof(LeadAuthExchangeModel), 200)]
+        public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeadsToAuth()
+        {
+            _logger.LogInformation($"Request to get all leads for auth");
+            var leads = await _leadService.GetAllLeads();
+
+            _logger.LogInformation($"Response to get all leads for auth");
+            return Ok(_mapper.Map<List<LeadAuthExchangeModel>>(leads));
         }
     }
 }

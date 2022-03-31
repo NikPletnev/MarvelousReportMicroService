@@ -15,9 +15,13 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<LeadSearchModel, LeadSearchRequest>().ReverseMap();
             CreateMap<LeadSerchWithOffsetAndFetchModel, LeadSerchWithOffsetAndFetchRequest>().ReverseMap();
             CreateMap<ServiceModel, ServiceResponse>().ReverseMap();
-            CreateMap<ILeadFullExchangeModel, LeadModel>().ReverseMap();
-            CreateMap<IAccountExchangeModel, AccountModel>().ReverseMap();
-            CreateMap<ITransactionExchangeModel, TransactionModel>().ForMember(
+            CreateMap<LeadModel, LeadAuthExchangeModel>()
+                .ForMember(
+                dest => dest.HashPassword,
+                opt => opt.MapFrom(src => src.Password));
+            CreateMap<LeadFullExchangeModel, LeadModel>().ReverseMap();
+            CreateMap<AccountExchangeModel, AccountModel>().ReverseMap();
+            CreateMap<TransactionExchangeModel, TransactionModel>().ForMember(
                 dest => dest.Rate,
                 opt => opt.MapFrom(src => src.RubRate * 1000));
 

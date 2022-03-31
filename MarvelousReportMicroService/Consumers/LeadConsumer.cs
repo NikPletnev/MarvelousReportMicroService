@@ -8,7 +8,7 @@ using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Consumers
 {
-    public class LeadConsumer : IConsumer<ILeadFullExchangeModel>
+    public class LeadConsumer : IConsumer<LeadFullExchangeModel>
     {
         private readonly IMapper _mapper;
         private readonly ILogger<LeadConsumer> _logger;
@@ -21,7 +21,7 @@ namespace MarvelousReportMicroService.API.Consumers
             _leadService = leadService;
         }
 
-        public async Task Consume(ConsumeContext<ILeadFullExchangeModel> context) 
+        public async Task Consume(ConsumeContext<LeadFullExchangeModel> context) 
         {
             _logger.LogInformation($"Getting lead {context.Message.Id}");
             var model = _mapper.Map<LeadModel>(context.Message);

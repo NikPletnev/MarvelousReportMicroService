@@ -8,7 +8,7 @@ using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Consumers
 {
-    public class AccountConsumer : IConsumer<IAccountExchangeModel>
+    public class AccountConsumer : IConsumer<AccountExchangeModel>
     {
         private readonly IMapper _mapper;
         private readonly ILogger<AccountConsumer> _logger;
@@ -21,7 +21,7 @@ namespace MarvelousReportMicroService.API.Consumers
             _accountService = accountService;
         }
 
-        public async Task Consume(ConsumeContext<IAccountExchangeModel> context)
+        public async Task Consume(ConsumeContext<AccountExchangeModel> context)
         {
             _logger.LogInformation($"Getting acc {context.Message.Id}");
             var model = _mapper.Map<AccountModel>(context.Message);
