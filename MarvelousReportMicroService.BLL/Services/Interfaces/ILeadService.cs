@@ -13,5 +13,7 @@ namespace MarvelousReportMicroService.BLL.Services
         Task<List<LeadModel>> GetLeadsByServiceId(int serviceId);
         Task<List<LeadModel>> GetBirthdayLead(int day, int month);
         Task<int> GetLeadsCountByRole(Role role);
+        Task<int?> GetLeadIdIfExist(int id);
+        Task UpdateLead(LeadModel model);
     }
 }

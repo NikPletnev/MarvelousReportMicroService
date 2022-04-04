@@ -25,12 +25,17 @@ namespace MarvelousReportMicroService.API.Consumers
         {
             _logger.LogInformation($"Getting lead {context.Message.Id}");
             var model = _mapper.Map<LeadModel>(context.Message);
-            foreach (var item in model.GetType().GetProperties())
-            {
-                _logger.LogInformation($"{item.Name}: {item.GetValue(model)}");
-            }
             _logger.LogInformation($"");
-            await _leadService.AddLead(_mapper.Map<LeadModel>(context.Message));
+            var leadModel = _mapper.Map<LeadModel>(context.Message);
+            if (await _leadService.GetLeadIdIfExist(leadModel.Id) == null)
+            {
+                await _leadService.AddLead(leadModel);
+            }
+            else
+            {
+                await _leadService.UpdateLead(leadModel);
+            }
+            
         }
     }
 }
