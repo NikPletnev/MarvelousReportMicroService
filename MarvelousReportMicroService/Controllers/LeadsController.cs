@@ -26,16 +26,6 @@ namespace MarvelousReportMicroService.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet(ReportingUrls.Auth)]
-        public async Task<ActionResult<List<LeadResponse>>> GetAllLeads()
-        {
-            _logger.LogInformation($"Request to get all leads");
-            var leads = await _leadService.GetAllLeads();
-
-            _logger.LogInformation($"Response to request to get all leads");
-            return Ok(_mapper.Map<List<LeadResponse>>(leads));
-        }
-
         [HttpGet("search")]
         public ActionResult<List<LeadResponse>> GetLeadByParameters(
             [FromQuery] int? id,
@@ -125,9 +115,9 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(leads);
         }
 
-        [HttpGet("auth")]
+        [HttpGet(ReportingUrls.ApiLeads)]
         [ProducesResponseType(typeof(LeadAuthExchangeModel), 200)]
-        public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeadsToAuth()
+        public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeads()
         {
             _logger.LogInformation($"Request to get all leads for auth");
             var leads = await _leadService.GetAllLeads();
