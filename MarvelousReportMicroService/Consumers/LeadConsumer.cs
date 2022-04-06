@@ -25,15 +25,16 @@ namespace MarvelousReportMicroService.API.Consumers
         {
             _logger.LogInformation($"Getting lead {context.Message.Id}");
             var model = _mapper.Map<LeadModel>(context.Message);
-            _logger.LogInformation($"");
             var leadModel = _mapper.Map<LeadModel>(context.Message);
             if (await _leadService.GetLeadIdIfExist(leadModel.Id) == null)
             {
                 await _leadService.AddLead(leadModel);
+                _logger.LogInformation($"Lead added");
             }
             else
             {
                 await _leadService.UpdateLead(leadModel);
+                _logger.LogInformation($"Lead updated");
             }
             
         }
