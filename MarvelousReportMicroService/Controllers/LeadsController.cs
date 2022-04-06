@@ -6,8 +6,8 @@ using MarvelousReportMicroService.DAL.Enums;
 using Marvelous.Contracts.ExchangeModels;
 using Marvelous.Contracts.Enums;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
 using Marvelous.Contracts.Urls;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
@@ -76,42 +76,43 @@ namespace MarvelousReportMicroService.API.Controllers
                 Fetch = fetch
             };
 
-            _logger.LogInformation($"Request to get for {offset} leads starting with {fetch}");
+            _logger.LogInformation($"Request to get for {fetch} leads starting with {offset}");
 
             var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
 
-            _logger.LogInformation($"Response to a request to get for {offset} leads starting with {fetch}");
+            _logger.LogInformation($"Response to a request to get for {fetch} leads starting with {offset}");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
         [HttpGet("service-subscribers")]
         public async Task<ActionResult<List<LeadResponse>>> GetLeadsByServiceId([FromQuery] int serviceId)
         {
-            _logger.LogInformation($"Request to get all service({serviceId}) subscribers");
+            _logger.LogInformation($"Request to get all service(id = {serviceId}) subscribers");
             var leads = await _leadService.GetLeadsByServiceId(serviceId);
 
-            _logger.LogInformation($"Response to a request to get all service({serviceId}) subscribers");
+            _logger.LogInformation($"Response to a request to get all service(id = {serviceId}) subscribers");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
-        [HttpGet("bithday-by-date")]
+        [HttpGet("birthday-by-date")]
         public async Task<ActionResult<List<LeadResponse>>> GetBirthdayLead(
             [FromQuery]int day = 0,
             [FromQuery]int month = 0)
         {
-            _logger.LogInformation($"Request to get all birthdy {month}\\{day} leads");
+            _logger.LogInformation($"Request to get all birthady {month}\\{day} leads");
             var leads = await _leadService.GetBirthdayLead(day, month);
 
-            _logger.LogInformation($"Response to a request to get all get all birthdy {month}\\{day} leads");
+            _logger.LogInformation($"Response to a request to get all get all birthday {month}\\{day} leads in quantity = {leads.Count}");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
         [HttpGet("count-leads")]
         public async Task<ActionResult> GetLeadsCountByRole([FromQuery] Role role)
         {
-            _logger.LogInformation($"Request to get count of leads by role");
+            _logger.LogInformation($"Request to get count of leads by role = {role}");
             var leads = await _leadService.GetLeadsCountByRole(role);
-            _logger.LogInformation("Response to get count of leads by role");
+
+            _logger.LogInformation($"Response to get count of leads by role = {role}");
             return Ok(leads);
         }
 
@@ -119,10 +120,10 @@ namespace MarvelousReportMicroService.API.Controllers
         [ProducesResponseType(typeof(LeadAuthExchangeModel), 200)]
         public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeads()
         {
-            _logger.LogInformation($"Request to get all leads for auth");
+            _logger.LogInformation($"Request to get all leads");
             var leads = await _leadService.GetAllLeads();
 
-            _logger.LogInformation($"Response to get all leads for auth");
+            _logger.LogInformation($"Response to get all leads in quantity = {leads.Count}");
             return Ok(_mapper.Map<List<LeadAuthExchangeModel>>(leads));
         }
 
