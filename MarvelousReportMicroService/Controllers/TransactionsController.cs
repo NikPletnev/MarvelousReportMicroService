@@ -35,7 +35,9 @@ namespace MarvelousReportMicroService.API.Controllers
                 startDate,
                 endDate);
 
-            _logger.LogInformation($"Response to a request to receive lead transactions for the period from {startDate} to {endDate}");
+            _logger.LogInformation(
+                $"Response to a request to receive lead transactions for the period from {startDate} to {endDate} " +
+                $"in quantity = {transactions.Count}");
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
 
@@ -55,7 +57,8 @@ namespace MarvelousReportMicroService.API.Controllers
                 endDate);
 
             _logger.LogInformation(
-                $"Response to a request to receive lead subscription payment transactions for the period from {startDate} to {endDate}");
+                $"Response to a request to receive lead subscription payment transactions for the period from {startDate} to {endDate} " +
+                $"in quantity = {transactions.Count}");
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
 
