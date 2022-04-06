@@ -1,9 +1,9 @@
 ﻿using MarvelousReportMicroService.DAL.Repositories;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Models;
-using AutoMapper;
-using MarvelousReportMicroService.DAL.Entities;
 using Marvelous.Contracts.Enums;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
