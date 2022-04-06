@@ -115,7 +115,7 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(leads);
         }
 
-        [HttpGet(ReportingUrls.ApiLeads)]
+        [HttpGet(ReportingUrls.GetAllLeads)]
         [ProducesResponseType(typeof(LeadAuthExchangeModel), 200)]
         public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeads()
         {
@@ -124,6 +124,16 @@ namespace MarvelousReportMicroService.API.Controllers
 
             _logger.LogInformation($"Response to get all leads for auth");
             return Ok(_mapper.Map<List<LeadAuthExchangeModel>>(leads));
+        }
+
+        [HttpGet("debtors")]
+        public async Task<ActionResult<List<LeadResponse>>> GetLeadsWithNegativeBalance()
+        {
+            _logger.LogInformation($"Request to get all leads with negative balance");
+            var leads = await _leadService.GetLeadsWithNegativeBalance();
+
+            _logger.LogInformation($"Response to get all leads with negative balance");
+            return Ok(_mapper.Map<LeadResponse>(leads));
         }
     }
 }

@@ -14,5 +14,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
         Task<int> GetLeadsCountByRole(int role);
         Task UpdateLead(Lead lead);
         Task<int?> GetLeadIdIfExsist(int id);
+        Task<List<Lead>> GetLeadsWithNegativeBalance();
     }
 }

@@ -20,5 +20,6 @@
         public const string GetLeadTransactionsForTheLastMonth = "GetLeadTransactionsForTheLastMonth";
         public const string UpdateLead = "UpdateLead";
         public const string GetLeadById = "GetLeadById";
+        public const string GetLeadsWithNegativeBalance = "GetLeadsWithNegativeBalance";
     }
 }

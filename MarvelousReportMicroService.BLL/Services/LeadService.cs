@@ -1,9 +1,9 @@
 ﻿using MarvelousReportMicroService.DAL.Repositories;
+using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Models;
-using AutoMapper;
-using MarvelousReportMicroService.DAL.Entities;
 using Marvelous.Contracts.Enums;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -76,6 +76,12 @@ namespace MarvelousReportMicroService.BLL.Services
         public async Task<int?> GetLeadIdIfExist(int id)
         {
             return await _leadRepository.GetLeadIdIfExsist(id);
+        }
+
+        public async Task<List<LeadModel>> GetLeadsWithNegativeBalance()
+        {
+            List<Lead> leads =  await _leadRepository.GetLeadsWithNegativeBalance();
+            return _mapper.Map<List<LeadModel>>(leads);
         }
     }
 }

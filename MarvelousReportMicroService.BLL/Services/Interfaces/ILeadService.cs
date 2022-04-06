@@ -15,5 +15,6 @@ namespace MarvelousReportMicroService.BLL.Services
         Task<int> GetLeadsCountByRole(Role role);
         Task<int?> GetLeadIdIfExist(int id);
         Task UpdateLead(LeadModel model);
+        Task<List<LeadModel>> GetLeadsWithNegativeBalance();
     }
 }
