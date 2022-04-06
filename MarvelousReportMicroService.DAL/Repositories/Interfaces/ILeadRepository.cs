@@ -12,5 +12,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
         Task<List<Lead>> GetLeadsByServiceId(int serviceId);
         Task<List<Lead>> GetBirthdayLead(int day, int month);
         Task<int> GetLeadsCountByRole(int role);
+        Task UpdateLead(Lead lead);
+        Task<int?> GetLeadIdIfExsist(int id);
     }
 }

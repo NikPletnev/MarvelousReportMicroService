@@ -67,5 +67,15 @@ namespace MarvelousReportMicroService.BLL.Services
             var leads = await _leadRepository.GetLeadsCountByRole((int)role);
             return leads;
         }
+
+        public async Task UpdateLead(LeadModel model)
+        {
+            await _leadRepository.UpdateLead(_mapper.Map<Lead>(model));
+        }
+
+        public async Task<int?> GetLeadIdIfExist(int id)
+        {
+            return await _leadRepository.GetLeadIdIfExsist(id);
+        }
     }
 }
