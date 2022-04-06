@@ -1,12 +1,11 @@
-﻿using Dapper;
-using MarvelousReportMicroService.DAL.Configuration;
+﻿using MarvelousReportMicroService.DAL.Configuration;
 using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
 using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
-using SqlKata;
 using SqlKata.Execution;
 using System.Data;
+using Dapper;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
@@ -158,6 +157,19 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 );
 
             return leadId;
+        }
+
+        public async Task<List<Lead>> GetLeadsWithNegativeBalance()
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var Leads =
+               (await connection
+                   .QueryAsync<Lead>(
+                   Queries.GetLeadsWithNegativeBalance,
+                   commandType: CommandType.StoredProcedure)).ToList();
+
+            return Leads;
         }
     }
 }

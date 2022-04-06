@@ -77,5 +77,11 @@ namespace MarvelousReportMicroService.BLL.Services
         {
             return await _leadRepository.GetLeadIdIfExsist(id);
         }
+
+        public async Task<List<LeadModel>> GetLeadsWithNegativeBalance()
+        {
+            List<Lead> leads =  await _leadRepository.GetLeadsWithNegativeBalance();
+            return _mapper.Map<List<LeadModel>>(leads);
+        }
     }
 }
