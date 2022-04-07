@@ -1,8 +1,8 @@
 ﻿using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Models;
-using AutoMapper;
 using MarvelousReportMicroService.BLL.Helpers;
+using AutoMapper;
 
 namespace MarvelousReportMicroService.BLL.Configuration
 {
@@ -11,6 +11,9 @@ namespace MarvelousReportMicroService.BLL.Configuration
             public BusinessMapper()
             {
             CreateMap<Lead, LeadModel>();
+
+            CreateMap<LeadStatusUpdateModel, LeadStatusUpdate>().ReverseMap();
+
             CreateMap<LeadModel, Lead>()
                 .ForMember(
                 dest => dest.BirthDay,

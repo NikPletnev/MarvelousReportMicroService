@@ -68,7 +68,7 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet("take-leads-in-range")]
-        public async Task<ActionResult<List<LeadResponse>>> GetLeadWithOffsetAndFetch([FromQuery] int offset, [FromQuery] int fetch)
+        public async Task<ActionResult<List<LeadStatusUpdateResponse>>> GetLeadWithOffsetAndFetch([FromQuery] int offset, [FromQuery] int fetch)
         {
             LeadSerchWithOffsetAndFetchRequest leadModel = new LeadSerchWithOffsetAndFetchRequest()
             {
@@ -81,7 +81,7 @@ namespace MarvelousReportMicroService.API.Controllers
             var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
 
             _logger.LogInformation($"Response to a request to get for {fetch} leads starting with {offset}");
-            return Ok(_mapper.Map<List<LeadResponse>>(leads));
+            return Ok(_mapper.Map<List<LeadStatusUpdateResponse>>(leads));
         }
 
         [HttpGet("service-subscribers")]
