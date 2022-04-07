@@ -14,6 +14,12 @@ namespace MarvelousReportMicroService.BLL.Configuration
 
             CreateMap<LeadStatusUpdateModel, LeadStatusUpdate>().ReverseMap();
 
+            CreateMap<ShortTransaction, ShortTransactionModel>()
+                .ForMember(
+                dest => dest.Rate,
+                opt => opt.MapFrom(src => ((decimal)src.Rate) / 1000)
+                );
+
             CreateMap<LeadModel, Lead>()
                 .ForMember(
                 dest => dest.BirthDay,

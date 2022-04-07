@@ -9,6 +9,6 @@ namespace MarvelousReportMicroService.BLL.Services
         Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId);
         Task<List<TransactionModel>> GetTransactionsByAccountId(int id);
         Task AddTransaction(TransactionModel model);
-        Task<List<TransactionModel>> GetLeadTransactionsForTheLastMonth(int leadId);
+        Task<List<ShortTransactionModel>> GetLeadTransactionsForTheLastMonth(int leadId);
     }
 }

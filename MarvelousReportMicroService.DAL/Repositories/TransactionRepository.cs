@@ -1,6 +1,7 @@
 ﻿using MarvelousReportMicroService.DAL.Configuration;
 using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Helpers;
+using MarvelousReportMicroService.DAL.Models;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Dapper;
@@ -96,13 +97,13 @@ namespace MarvelousReportMicroService.DAL.Repositories
                    , commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<List<Transaction>> GetLeadTransactionsForTheLastMonth(int leadId)
+        public async Task<List<ShortTransaction>> GetLeadTransactionsForTheLastMonth(int leadId)
         {
             using IDbConnection connection = ProvideConnection();
             var startOfCurrentMonth = DateTime.Now;
 
             var transactions = (await connection.
-                QueryAsync<Transaction>(
+                QueryAsync<ShortTransaction>(
                 Queries.GetLeadTransactionsForTheLastMonth,
                 new { leadId, startOfCurrentMonth },
                 commandType: CommandType.StoredProcedure)).ToList();

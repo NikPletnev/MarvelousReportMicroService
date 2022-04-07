@@ -75,14 +75,14 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet("by-leadId-last-month")]
-        public async Task<ActionResult<List<TransactionResponse>>> GetLeadTransactionsForTheLastMonth([FromQuery] int leadId)
+        public async Task<ActionResult<List<ShortTransactionResponse>>> GetLeadTransactionsForTheLastMonth([FromQuery] int leadId)
         {
             _logger.LogInformation($"Request to receive transactions for the last month by lead id = {leadId}");
             var transactions = await _transactionService.GetLeadTransactionsForTheLastMonth(leadId);
 
             _logger.LogInformation(
                 $"Response to receive transactions for the last month by lead id = {leadId} in quantity = {transactions.Count}");
-            return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
+            return Ok(_mapper.Map<List<ShortTransactionResponse>>(transactions.ToList()));
         }
     }
 }

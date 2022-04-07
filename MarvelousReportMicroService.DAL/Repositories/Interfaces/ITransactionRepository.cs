@@ -1,4 +1,5 @@
 ﻿using MarvelousReportMicroService.DAL.Entities;
+using MarvelousReportMicroService.DAL.Models;
 
 namespace MarvelousReportMicroService.DAL.Repositories
 {
@@ -9,6 +10,6 @@ namespace MarvelousReportMicroService.DAL.Repositories
         Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId);
         Task<List<Transaction>> GetTransactionsByAccountId(int accountId);
         Task AddTransaction(Transaction transaction);
-        Task<List<Transaction>> GetLeadTransactionsForTheLastMonth(int leadId);
+        Task<List<ShortTransaction>> GetLeadTransactionsForTheLastMonth(int leadId);
     }
 }

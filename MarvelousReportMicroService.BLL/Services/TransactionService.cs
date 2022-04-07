@@ -1,5 +1,6 @@
 ﻿using MarvelousReportMicroService.DAL.Repositories;
 using MarvelousReportMicroService.DAL.Entities;
+using MarvelousReportMicroService.DAL.Models;
 using MarvelousReportMicroService.BLL.Models;
 using AutoMapper;
 
@@ -54,11 +55,11 @@ namespace MarvelousReportMicroService.BLL.Services
             await _transactionRepository.AddTransaction(_mapper.Map<Transaction>(model));
         }
 
-        public async Task<List<TransactionModel>> GetLeadTransactionsForTheLastMonth(int leadId = 0)
+        public async Task<List<ShortTransactionModel>> GetLeadTransactionsForTheLastMonth(int leadId = 0)
         {
-            List<Transaction> transactions = await _transactionRepository.GetLeadTransactionsForTheLastMonth(leadId);
+            List<ShortTransaction> transactions = await _transactionRepository.GetLeadTransactionsForTheLastMonth(leadId);
 
-            return _mapper.Map<List<TransactionModel>>(transactions);
+            return _mapper.Map<List<ShortTransactionModel>>(transactions);
         }
     }
 }
