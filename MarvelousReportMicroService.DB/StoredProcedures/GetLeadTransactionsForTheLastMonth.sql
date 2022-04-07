@@ -2,15 +2,9 @@
  @leadId int,
  @startOfCurrentMonth DATETIME
 as
-SELECT t.ExternalId,
+SELECT
        t.Amount,
-	   t.Type,
-	   t.AccountId,
-	   t.Date,
-	   t.Currency,
-	   t.Rate,
-	   a.ExternalId as AccountId,
-	   a.LeadId
+	   t.Rate
 FROM [ReportDb].[dbo].[Transaction] as t
 inner join [ReportDb].[dbo].[Account] as a on t.AccountId = a.ExternalId
 WHERE t.Date >= DATEADD(month, -1, @startOfCurrentMonth) 

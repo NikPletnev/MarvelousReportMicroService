@@ -37,12 +37,12 @@ namespace MarvelousReportMicroService.DAL.Repositories
             return (List<Lead>)leads;
         }
 
-        public async Task<List<Lead>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
+        public async Task<List<LeadStatusUpdate>> GetLeadsByOffsetANdFetchParameters(LeadSerchWithOffsetAndFetch lead)
         {
             using IDbConnection connection = ProvideConnection();
 
             var leads = (await connection.
-                QueryAsync<Lead>(
+                QueryAsync<LeadStatusUpdate>(
                 Queries.GetLeadsByOffsetAndFetchParameters,
                 new
                 {
