@@ -64,14 +64,13 @@ namespace MarvelousReportMicroService.API.Controllers
 
         [HttpGet("count-transaction-without-withdrawal")]
         public async Task<ActionResult<int>> GetCountLeadTransactionWithoutWithdrawal(
-            [FromQuery] int leadId,
-            [FromQuery] DateTime startDate)
+            [FromQuery] int leadId)
         {
-            _logger.LogInformation($"Request to receive count transaction without withdrawal for the period from {startDate}");
-            var count = await _transactionService.GetCountLeadTransactionWithoutWithdrawal(leadId, startDate);
+            _logger.LogInformation($"Request to receive count transaction without withdrawal by leadId = {leadId} for last two months");
+            var count = await _transactionService.GetCountLeadTransactionWithoutWithdrawal(leadId);
 
             _logger.LogInformation(
-                $"Request to receive count transaction without withdrawal for the period from {startDate} in quantity = {count}");
+                $"Request to receive count transaction without withdrawal by leadId = {leadId} for last two months in quantity = {count}");
             return Ok(count);
         }
 

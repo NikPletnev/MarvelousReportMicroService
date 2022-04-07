@@ -62,7 +62,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
             return transactions;
         }
 
-        public async Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId, DateTime startDate)
+        public async Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId)
         {
             using IDbConnection connection = ProvideConnection();
 
@@ -71,8 +71,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
                 Queries.GetCountLeadTransactionWithoutWithdrawal,
                 new
                 {
-                    leadId,
-                    startDate
+                    leadId
                 },
                 commandType: CommandType.StoredProcedure));
         }
