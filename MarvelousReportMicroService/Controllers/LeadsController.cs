@@ -6,13 +6,13 @@ using MarvelousReportMicroService.DAL.Enums;
 using Marvelous.Contracts.ExchangeModels;
 using Marvelous.Contracts.Enums;
 using Microsoft.AspNetCore.Mvc;
-using Marvelous.Contracts.Urls;
 using AutoMapper;
+using Marvelous.Contracts.Endpoints;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
-    [Route(ReportingUrls.ApiLeads)]
+    [Route(ReportingEndpoints.ApiLeads)]
     public class LeadsController : Controller
     {
         private readonly ILeadService _leadService;
@@ -116,12 +116,15 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(leads);
         }
 
-        [HttpGet(ReportingUrls.GetAllLeads)]
+        [HttpGet(ReportingEndpoints.GetAllLeads)]
+
         [ProducesResponseType(typeof(LeadAuthExchangeModel), 200)]
         public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeads()
         {
+            var token = HttpContext.Request.Headers.Authorization[0];
+
             _logger.LogInformation($"Request to get all leads");
-            var leads = await _leadService.GetAllLeads();
+            var leads = await _leadService.GetAllLeads(token);
 
             _logger.LogInformation($"Response to get all leads in quantity = {leads.Count}");
             return Ok(_mapper.Map<List<LeadAuthExchangeModel>>(leads));

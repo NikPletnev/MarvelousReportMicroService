@@ -4,21 +4,27 @@ using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Models;
 using Marvelous.Contracts.Enums;
 using AutoMapper;
+using MarvelousReportMicroService.BLL.Helpers;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
     public class LeadService : ILeadService
     {
         private readonly ILeadRepository _leadRepository;
+        private readonly IAuthRequest _authRequest;
         private readonly IMapper _mapper;
-        public LeadService(ILeadRepository leadRepository, IMapper mapper)
+        public LeadService(ILeadRepository leadRepository, IAuthRequest auth, IMapper mapper)
         {
             _leadRepository = leadRepository;
+            _authRequest = auth;
             _mapper = mapper;
         }
 
-        public async Task<List<LeadModel>> GetAllLeads()
+        public async Task<List<LeadModel>> GetAllLeads(string token)
         {
+            if (!await _authRequest.GetRestResponse(token))
+                throw new Exception(); // отловить на промежуточном по
+
             var leads = await _leadRepository.GetAllLeads();
             return _mapper.Map<List<LeadModel>>(leads);
         }
