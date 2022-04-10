@@ -5,6 +5,7 @@ using MarvelousReportMicroService.DAL.Models;
 using Marvelous.Contracts.Enums;
 using AutoMapper;
 using MarvelousReportMicroService.BLL.Helpers;
+using MarvelousReportMicroService.BLL.Exceptions;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -23,7 +24,7 @@ namespace MarvelousReportMicroService.BLL.Services
         public async Task<List<LeadModel>> GetAllLeads(string token)
         {
             if (!await _authRequest.GetRestResponse(token))
-                throw new Exception(); // отловить на промежуточном по
+                throw new ForbiddenException("invalid token");
 
             var leads = await _leadRepository.GetAllLeads();
             return _mapper.Map<List<LeadModel>>(leads);

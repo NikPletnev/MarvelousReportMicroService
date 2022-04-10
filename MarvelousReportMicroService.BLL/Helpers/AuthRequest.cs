@@ -1,6 +1,7 @@
 ﻿using Marvelous.Contracts.Autentificator;
 using Marvelous.Contracts.Endpoints;
 using Marvelous.Contracts.Enums;
+using MarvelousReportMicroService.BLL.Exceptions;
 using Microsoft.Extensions.Logging;
 using RestSharp;
 
@@ -52,18 +53,11 @@ namespace MarvelousReportMicroService.BLL.Helpers
 
         private bool CheckTransactionError(RestResponse response)
         {
-            bool result = false;
-
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
-                _logger.LogWarning(response.ErrorException.Message);
+                throw new ForbiddenException(response.ErrorException.Message);
             }
-            else if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                result = true;
-            }
-
-            return result;
+            return true;
         }
     }
 }

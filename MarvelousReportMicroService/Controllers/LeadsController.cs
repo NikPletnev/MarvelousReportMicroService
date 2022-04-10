@@ -117,7 +117,6 @@ namespace MarvelousReportMicroService.API.Controllers
         }
 
         [HttpGet(ReportingEndpoints.GetAllLeads)]
-
         [ProducesResponseType(typeof(LeadAuthExchangeModel), 200)]
         public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeads()
         {
