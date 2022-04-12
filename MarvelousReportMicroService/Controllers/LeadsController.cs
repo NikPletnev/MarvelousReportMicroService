@@ -76,9 +76,11 @@ namespace MarvelousReportMicroService.API.Controllers
                 Fetch = fetch
             };
 
+            var token = HttpContext.Request.Headers.Authorization[0];
+
             _logger.LogInformation($"Request to get for {fetch} leads starting with {offset}");
 
-            var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
+            var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel), token);
 
             _logger.LogInformation($"Response to a request to get for {fetch} leads starting with {offset}");
             return Ok(_mapper.Map<List<LeadStatusUpdateResponse>>(leads));

@@ -36,8 +36,13 @@ namespace MarvelousReportMicroService.BLL.Services
             return _mapper.Map<List<LeadModel>>(leads);
         }
 
-        public async Task<List<LeadStatusUpdateModel>> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model)
+        public async Task<List<LeadStatusUpdateModel>> GetLeadsByOffsetAndFetchParameters(
+            LeadSerchWithOffsetAndFetchModel model,
+            string token)
         {
+            if (!await _authRequest.GetRestResponse(token))
+                throw new ForbiddenException("invalid token");
+
             var leads = await _leadRepository.GetLeadsByOffsetANdFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetch>(model));
             return _mapper.Map<List<LeadStatusUpdateModel>>(leads);
         }
