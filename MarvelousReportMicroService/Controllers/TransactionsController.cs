@@ -2,6 +2,7 @@
 using MarvelousReportMicroService.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
@@ -71,8 +72,11 @@ namespace MarvelousReportMicroService.API.Controllers
         public async Task<ActionResult<int>> GetCountLeadTransactionWithoutWithdrawal(
             [FromQuery] int leadId)
         {
+
             _logger.LogInformation($"Request to receive count transaction without withdrawal by leadId = " +
                 $"{leadId} for last two months");
+
+            await CheckMicroservice(Microservice.MarvelousAccountChecking);
             var count = await _transactionService.GetCountLeadTransactionWithoutWithdrawal(leadId);
 
             _logger.LogInformation(
@@ -82,12 +86,19 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(count);
         }
 
+        private Task CheckMicroservice(object marvelousAuth)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpGet("by-leadId-last-month")]
         public async Task<ActionResult<List<ShortTransactionResponse>>> GetLeadTransactionsForTheLastMonth(
             [FromQuery] int leadId)
         {
 
             _logger.LogInformation($"Request to receive transactions for the last month by lead id = {leadId}");
+
+            await CheckMicroservice(Microservice.MarvelousAccountChecking);
             var transactions = await _transactionService.GetLeadTransactionsForTheLastMonth(leadId);
 
             _logger.LogInformation(

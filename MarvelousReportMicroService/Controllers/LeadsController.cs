@@ -84,6 +84,7 @@ namespace MarvelousReportMicroService.API.Controllers
 
             _logger.LogInformation($"Request to get for {fetch} leads starting with {offset}");
 
+            await CheckMicroservice(Microservice.MarvelousAccountChecking);
             var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
 
             _logger.LogInformation($"Response to a request to get for {fetch} leads starting with {offset}");
