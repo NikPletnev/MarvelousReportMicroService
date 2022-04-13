@@ -12,7 +12,7 @@ builder.Services.AddAutoMapper(typeof(BusinessMapper).Assembly, typeof(APIMapper
 
 const string _connectionStringVariableName = "REPORT_CONNECTION_STRING";
 const string _logDirectoryVariableName = "LOG_DIRECTORY";
-const string auth = "https://piter-education.ru:6042";
+const string auth = "IDENTITY_SERVICE_URL";
 
 string connString = builder.Configuration.GetValue<string>(_connectionStringVariableName);
 string logDirectory = builder.Configuration.GetValue<string>(_logDirectoryVariableName);
