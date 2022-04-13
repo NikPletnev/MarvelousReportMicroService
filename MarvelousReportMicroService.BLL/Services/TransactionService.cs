@@ -4,7 +4,6 @@ using MarvelousReportMicroService.DAL.Models;
 using MarvelousReportMicroService.BLL.Models;
 using AutoMapper;
 using MarvelousReportMicroService.BLL.Helpers;
-using MarvelousReportMicroService.BLL.Exceptions;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -12,13 +11,13 @@ namespace MarvelousReportMicroService.BLL.Services
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IMapper _mapper;
-        private readonly IAuthRequest _authRequest;
+        private readonly IRequestHelper _requestHelper;
 
-        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper, IAuthRequest authRequest)
+        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper, IRequestHelper authRequest)
         {
             _transactionRepository = transactionRepository;
             _mapper = mapper;
-            _authRequest = authRequest;
+            _requestHelper = authRequest;
         }
 
         public async Task<List<TransactionModel>> GetTransactionsBetweenDatesByLeadId(
@@ -49,11 +48,8 @@ namespace MarvelousReportMicroService.BLL.Services
             return _mapper.Map<List<TransactionModel>>(transactions);
         }
 
-        public async Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId, string token)
+        public async Task<int> GetCountLeadTransactionWithoutWithdrawal(int leadId)
         {
-            if (!await _authRequest.GetRestResponse(token))
-                throw new ForbiddenException("invalid token");
-
             return await _transactionRepository.GetCountLeadTransactionWithoutWithdrawal(leadId);
         }
 
@@ -63,11 +59,8 @@ namespace MarvelousReportMicroService.BLL.Services
             await _transactionRepository.AddTransaction(_mapper.Map<Transaction>(model));
         }
 
-        public async Task<List<ShortTransactionModel>> GetLeadTransactionsForTheLastMonth(string token, int leadId = 0)
+        public async Task<List<ShortTransactionModel>> GetLeadTransactionsForTheLastMonth(int leadId = 0)
         {
-            if (!await _authRequest.GetRestResponse(token))
-                throw new ForbiddenException("invalid token");
-
             List<ShortTransaction> transactions = await _transactionRepository.GetLeadTransactionsForTheLastMonth(leadId);
 
             return _mapper.Map<List<ShortTransactionModel>>(transactions);

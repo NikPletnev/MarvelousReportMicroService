@@ -12,20 +12,17 @@ namespace MarvelousReportMicroService.BLL.Services
     public class LeadService : ILeadService
     {
         private readonly ILeadRepository _leadRepository;
-        private readonly IAuthRequest _authRequest;
+        private readonly IRequestHelper _requestHelper;
         private readonly IMapper _mapper;
-        public LeadService(ILeadRepository leadRepository, IAuthRequest auth, IMapper mapper)
+        public LeadService(ILeadRepository leadRepository, IRequestHelper auth, IMapper mapper)
         {
             _leadRepository = leadRepository;
-            _authRequest = auth;
+            _requestHelper = auth;
             _mapper = mapper;
         }
 
-        public async Task<List<LeadModel>> GetAllLeads(string token)
+        public async Task<List<LeadModel>> GetAllLeads()
         {
-            if (!await _authRequest.GetRestResponse(token))
-                throw new ForbiddenException("invalid token");
-
             var leads = await _leadRepository.GetAllLeads();
             return _mapper.Map<List<LeadModel>>(leads);
         }
@@ -37,12 +34,8 @@ namespace MarvelousReportMicroService.BLL.Services
         }
 
         public async Task<List<LeadStatusUpdateModel>> GetLeadsByOffsetAndFetchParameters(
-            LeadSerchWithOffsetAndFetchModel model,
-            string token)
+            LeadSerchWithOffsetAndFetchModel model)
         {
-            if (!await _authRequest.GetRestResponse(token))
-                throw new ForbiddenException("invalid token");
-
             var leads = await _leadRepository.GetLeadsByOffsetANdFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetch>(model));
             return _mapper.Map<List<LeadStatusUpdateModel>>(leads);
         }

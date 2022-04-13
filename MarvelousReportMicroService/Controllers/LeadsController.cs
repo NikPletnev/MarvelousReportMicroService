@@ -8,22 +8,28 @@ using Marvelous.Contracts.Enums;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Marvelous.Contracts.Endpoints;
+using MarvelousReportMicroService.API.Extensions;
+using MarvelousReportMicroService.BLL.Helpers;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
     [Route(ReportingEndpoints.ApiLeads)]
-    public class LeadsController : Controller
+    public class LeadsController : AdvancedController
     {
         private readonly ILeadService _leadService;
         private readonly IMapper _mapper;
-        private readonly ILogger<LeadsController> _logger;
 
-        public LeadsController(IMapper mapper, ILeadService leadService, ILogger<LeadsController> logger)
+        public LeadsController(
+            IMapper mapper,
+            ILeadService leadService,
+            ILogger<LeadsController> logger,
+            IConfiguration configuration,
+            IRequestHelper requestHelper) 
+            : base(configuration, requestHelper, logger)
         {
             _leadService = leadService;
             _mapper = mapper;
-            _logger = logger;
         }
 
         [HttpGet("search")]
@@ -76,11 +82,9 @@ namespace MarvelousReportMicroService.API.Controllers
                 Fetch = fetch
             };
 
-            var token = HttpContext.Request.Headers.Authorization[0];
-
             _logger.LogInformation($"Request to get for {fetch} leads starting with {offset}");
 
-            var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel), token);
+            var leads = await _leadService.GetLeadsByOffsetAndFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetchModel>(leadModel));
 
             _logger.LogInformation($"Response to a request to get for {fetch} leads starting with {offset}");
             return Ok(_mapper.Map<List<LeadStatusUpdateResponse>>(leads));
@@ -121,11 +125,11 @@ namespace MarvelousReportMicroService.API.Controllers
         [HttpGet(ReportingEndpoints.GetAllLeads)]
         [ProducesResponseType(typeof(LeadAuthExchangeModel), 200)]
         public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeads()
-        {
-            var token = HttpContext.Request.Headers.Authorization[0];
+        {   
+            await CheckMicroservice(Microservice.MarvelousAuth);
 
             _logger.LogInformation($"Request to get all leads");
-            var leads = await _leadService.GetAllLeads(token);
+            var leads = await _leadService.GetAllLeads();
 
             _logger.LogInformation($"Response to get all leads in quantity = {leads.Count}");
             return Ok(_mapper.Map<List<LeadAuthExchangeModel>>(leads));

@@ -4,6 +4,7 @@ using MarvelousReportMicroService.BLL.Configuration;
 using MarvelousReportMicroService.DAL.Configuration;
 using MarvelousReportMicroService.API.Extensions;
 using System.Text.Json.Serialization;
+using Marvelous.Contracts.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddAutoMapper(typeof(BusinessMapper).Assembly, typeof(APIMapper
 
 string _connectionStringVariableName = "REPORT_CONNECTION_STRING";
 string _logDirectoryVariableName = "LOG_DIRECTORY";
+var auth = "https://piter-education.ru:6042";
 
 string connString = builder.Configuration.GetValue<string>(_connectionStringVariableName);
 string logDirectory = builder.Configuration.GetValue<string>(_logDirectoryVariableName);
@@ -52,6 +54,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseMiddleware<GlobalExeptionHandler>();
+
+app.Configuration[Microservice.MarvelousAuth.ToString()] = auth;
 
 app.UseHttpsRedirection();
 

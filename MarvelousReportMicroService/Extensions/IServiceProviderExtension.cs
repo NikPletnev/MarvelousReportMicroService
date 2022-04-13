@@ -18,7 +18,7 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IServiceService, ServiceService>();
-            services.AddScoped<IAuthRequest, AuthRequest>();
+            services.AddScoped<IRequestHelper, RequestHelper>();
         }
 
         public static void RegisterProjectRepositories(this IServiceCollection services)

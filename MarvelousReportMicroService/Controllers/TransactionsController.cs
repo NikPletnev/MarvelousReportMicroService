@@ -71,11 +71,9 @@ namespace MarvelousReportMicroService.API.Controllers
         public async Task<ActionResult<int>> GetCountLeadTransactionWithoutWithdrawal(
             [FromQuery] int leadId)
         {
-            var token = HttpContext.Request.Headers.Authorization[0];
-
             _logger.LogInformation($"Request to receive count transaction without withdrawal by leadId = " +
                 $"{leadId} for last two months");
-            var count = await _transactionService.GetCountLeadTransactionWithoutWithdrawal(leadId, token);
+            var count = await _transactionService.GetCountLeadTransactionWithoutWithdrawal(leadId);
 
             _logger.LogInformation(
                 $"Request to receive count transaction without withdrawal by leadId = " +
@@ -88,10 +86,9 @@ namespace MarvelousReportMicroService.API.Controllers
         public async Task<ActionResult<List<ShortTransactionResponse>>> GetLeadTransactionsForTheLastMonth(
             [FromQuery] int leadId)
         {
-            var token = HttpContext.Request.Headers.Authorization[0];
 
             _logger.LogInformation($"Request to receive transactions for the last month by lead id = {leadId}");
-            var transactions = await _transactionService.GetLeadTransactionsForTheLastMonth(leadId, token);
+            var transactions = await _transactionService.GetLeadTransactionsForTheLastMonth(leadId);
 
             _logger.LogInformation(
                 $"Response to receive transactions for the last month by lead id = {leadId} in quantity = {transactions.Count}");
