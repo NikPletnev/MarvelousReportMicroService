@@ -3,6 +3,7 @@ using MarvelousReportMicroService.DAL.Entities;
 using MarvelousReportMicroService.DAL.Models;
 using MarvelousReportMicroService.BLL.Models;
 using AutoMapper;
+using MarvelousReportMicroService.BLL.Helpers;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
@@ -10,10 +11,13 @@ namespace MarvelousReportMicroService.BLL.Services
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IMapper _mapper;
-        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper)
+        private readonly IRequestHelper _requestHelper;
+
+        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper, IRequestHelper authRequest)
         {
             _transactionRepository = transactionRepository;
             _mapper = mapper;
+            _requestHelper = authRequest;
         }
 
         public async Task<List<TransactionModel>> GetTransactionsBetweenDatesByLeadId(

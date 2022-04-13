@@ -2,6 +2,7 @@
 using MarvelousReportMicroService.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
@@ -13,7 +14,9 @@ namespace MarvelousReportMicroService.API.Controllers
         private readonly ILogger<TransactionsController> _logger;
         private readonly IMapper _mapper;
 
-        public TransactionsController(IMapper mapper, ILogger<TransactionsController> logger, ITransactionService transactionService)
+        public TransactionsController(IMapper mapper,
+            ILogger<TransactionsController> logger,
+            ITransactionService transactionService)
         {
             _mapper = mapper;
             _logger = logger;
@@ -47,7 +50,9 @@ namespace MarvelousReportMicroService.API.Controllers
             [FromQuery] DateTime startDate,
             [FromQuery] DateTime endDate)
         {
-            _logger.LogInformation($"Request to receive lead subscription payment transactions for the period from {startDate} to {endDate}");
+            _logger.LogInformation($"Request to receive lead subscription payment transactions for the period from " +
+                $"{startDate} to {endDate}");
+
 
             var transactions =
                 await _transactionService
@@ -57,7 +62,8 @@ namespace MarvelousReportMicroService.API.Controllers
                 endDate);
 
             _logger.LogInformation(
-                $"Response to a request to receive lead subscription payment transactions for the period from {startDate} to {endDate} " +
+                $"Response to a request to receive lead subscription payment transactions for the period from " +
+                $"{startDate} to {endDate} " +
                 $"in quantity = {transactions.Count}");
             return Ok(_mapper.Map<List<TransactionResponse>>(transactions.ToList()));
         }
@@ -66,18 +72,33 @@ namespace MarvelousReportMicroService.API.Controllers
         public async Task<ActionResult<int>> GetCountLeadTransactionWithoutWithdrawal(
             [FromQuery] int leadId)
         {
-            _logger.LogInformation($"Request to receive count transaction without withdrawal by leadId = {leadId} for last two months");
+
+            _logger.LogInformation($"Request to receive count transaction without withdrawal by leadId = " +
+                $"{leadId} for last two months");
+
+            await CheckMicroservice(Microservice.MarvelousAccountChecking);
             var count = await _transactionService.GetCountLeadTransactionWithoutWithdrawal(leadId);
 
             _logger.LogInformation(
-                $"Request to receive count transaction without withdrawal by leadId = {leadId} for last two months in quantity = {count}");
+                $"Request to receive count transaction without withdrawal by leadId = " +
+                $"{leadId} for last two months in quantity = {count}");
+
             return Ok(count);
         }
 
-        [HttpGet("by-leadId-last-month")]
-        public async Task<ActionResult<List<ShortTransactionResponse>>> GetLeadTransactionsForTheLastMonth([FromQuery] int leadId)
+        private Task CheckMicroservice(object marvelousAuth)
         {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("by-leadId-last-month")]
+        public async Task<ActionResult<List<ShortTransactionResponse>>> GetLeadTransactionsForTheLastMonth(
+            [FromQuery] int leadId)
+        {
+
             _logger.LogInformation($"Request to receive transactions for the last month by lead id = {leadId}");
+
+            await CheckMicroservice(Microservice.MarvelousAccountChecking);
             var transactions = await _transactionService.GetLeadTransactionsForTheLastMonth(leadId);
 
             _logger.LogInformation(

@@ -4,16 +4,20 @@ using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.DAL.Models;
 using Marvelous.Contracts.Enums;
 using AutoMapper;
+using MarvelousReportMicroService.BLL.Helpers;
+using MarvelousReportMicroService.BLL.Exceptions;
 
 namespace MarvelousReportMicroService.BLL.Services
 {
     public class LeadService : ILeadService
     {
         private readonly ILeadRepository _leadRepository;
+        private readonly IRequestHelper _requestHelper;
         private readonly IMapper _mapper;
-        public LeadService(ILeadRepository leadRepository, IMapper mapper)
+        public LeadService(ILeadRepository leadRepository, IRequestHelper auth, IMapper mapper)
         {
             _leadRepository = leadRepository;
+            _requestHelper = auth;
             _mapper = mapper;
         }
 
@@ -29,7 +33,8 @@ namespace MarvelousReportMicroService.BLL.Services
             return _mapper.Map<List<LeadModel>>(leads);
         }
 
-        public async Task<List<LeadStatusUpdateModel>> GetLeadsByOffsetAndFetchParameters(LeadSerchWithOffsetAndFetchModel model)
+        public async Task<List<LeadStatusUpdateModel>> GetLeadsByOffsetAndFetchParameters(
+            LeadSerchWithOffsetAndFetchModel model)
         {
             var leads = await _leadRepository.GetLeadsByOffsetANdFetchParameters(_mapper.Map<LeadSerchWithOffsetAndFetch>(model));
             return _mapper.Map<List<LeadStatusUpdateModel>>(leads);

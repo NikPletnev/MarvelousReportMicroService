@@ -1,12 +1,12 @@
-﻿using MarvelousReportMicroService.API.Consumers;
+﻿using MarvelousReportMicroService.DAL.Repositories;
+using MarvelousReportMicroService.API.Consumers;
 using MarvelousReportMicroService.BLL.Services;
-using MarvelousReportMicroService.DAL.Repositories;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using MassTransit;
+using MarvelousReportMicroService.BLL.Helpers;
 using NLog.Extensions.Logging;
+using System.Data.SqlClient;
 using SqlKata.Compilers;
 using SqlKata.Execution;
-using System.Data.SqlClient;
+using MassTransit;
 
 namespace MarvelousReportMicroService.API.Extensions
 {
@@ -18,6 +18,7 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IServiceService, ServiceService>();
+            services.AddScoped<IRequestHelper, RequestHelper>();
         }
 
         public static void RegisterProjectRepositories(this IServiceCollection services)
@@ -84,5 +85,7 @@ namespace MarvelousReportMicroService.API.Extensions
                 });
             });
         }
+
+
     }
 }
