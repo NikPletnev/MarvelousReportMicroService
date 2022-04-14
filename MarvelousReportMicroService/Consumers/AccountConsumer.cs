@@ -3,7 +3,7 @@ using MarvelousReportMicroService.BLL.Models;
 using Marvelous.Contracts.ExchangeModels;
 using MassTransit;
 using AutoMapper;
-
+using MarvelousReportMicroService.BLL.Exceptions;
 
 namespace MarvelousReportMicroService.API.Consumers
 {
@@ -22,14 +22,17 @@ namespace MarvelousReportMicroService.API.Consumers
 
         public async Task Consume(ConsumeContext<AccountExchangeModel> context)
         {
+            if(context.Message == null)
+            {
+                _logger.LogError($"Account adding failed");
+                throw new ExchangeModelRecivingError(nameof(context));
+            }
+
             _logger.LogInformation($"Getting Account {context.Message.Id}");
             var model = _mapper.Map<AccountModel>(context.Message);
-            foreach (var item in model.GetType().GetProperties())
-            {
-                _logger.LogInformation($"{item.Name}: {item.GetValue(model)}");
-            }
-            _logger.LogInformation($"");
-            await _accountService.AddAccount(_mapper.Map<AccountModel>(context.Message));
+            await _accountService.AddAccount(model);
+            _logger.LogInformation($"Account {context.Message.Id} recived");
+            
         }
     }
 }
