@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
-using MarvelousReportMicroService.API.Consumers;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 
 namespace MarvelousReportMicroService.API.Tests.ConsumersTests
 {
-    public class BaseTest
+    public class BaseTest<T>
     {
         protected IMapper _mapper;
-        protected Mock<ILogger<AccountConsumer>> _logger;
+        protected Mock<ILogger<T>> _logger;
 
         protected void VerifyLogger(LogLevel logLevel, String message)
         {

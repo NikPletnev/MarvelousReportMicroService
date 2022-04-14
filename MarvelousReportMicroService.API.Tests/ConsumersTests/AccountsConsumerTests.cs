@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MarvelousReportMicroService.API.Tests.ConsumersTests
 {
-    public class AccountConsumerTests : BaseTest
+    public class AccountsConsumerTests : BaseTest<AccountConsumer>
     {
         private AccountConsumer _consumer;
         private Mock<IAccountService> _accountServiceMock;
