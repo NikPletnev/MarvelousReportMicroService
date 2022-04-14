@@ -5,25 +5,18 @@ using MarvelousReportMicroService.API.Consumers;
 using MarvelousReportMicroService.BLL.Exceptions;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
-using MarvelousReportMicroService.DAL.Repositories;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Threading.Tasks;
 
 namespace MarvelousReportMicroService.API.Tests.ConsumersTests
 {
-    public class AccountConsumerTests
+    public class AccountConsumerTests : BaseTest
     {
-
-        private IMapper _mapper;
-        private Mock<ILogger<AccountConsumer>> _logger;
         private AccountConsumer _consumer;
         private Mock<IAccountService> _accountServiceMock;
-
-
 
         [SetUp]
         public void Setup()
@@ -66,17 +59,5 @@ namespace MarvelousReportMicroService.API.Tests.ConsumersTests
             Assert.ThrowsAsync<ExchangeModelRecivingError>(async () => await _consumer.Consume(context));
         }
 
-        private void VerifyLogger(LogLevel logLevel, String message)
-        {
-             _logger.Verify(
-                x => x.Log(
-                    logLevel,
-                    It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) =>
-                    string.Equals(message, o.ToString(),
-                    StringComparison.InvariantCultureIgnoreCase)),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()), Times.Once);
-        }
     }
 }
