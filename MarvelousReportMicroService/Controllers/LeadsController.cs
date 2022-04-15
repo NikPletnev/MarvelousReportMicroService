@@ -10,6 +10,7 @@ using AutoMapper;
 using Marvelous.Contracts.Endpoints;
 using MarvelousReportMicroService.API.Extensions;
 using MarvelousReportMicroService.BLL.Helpers;
+using MarvelousReportMicroService.BLL.Exceptions;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
@@ -125,8 +126,9 @@ namespace MarvelousReportMicroService.API.Controllers
 
         [HttpGet(ReportingEndpoints.GetAllLeads)]
         [ProducesResponseType(typeof(LeadAuthExchangeModel), 200)]
+        [ProducesResponseType(typeof(ForbiddenException), 403)]
         public async Task<ActionResult<List<LeadAuthExchangeModel>>> GetAllLeads()
-        {   
+        {
             await CheckMicroservice(Microservice.MarvelousAuth);
 
             _logger.LogInformation($"Request to get all leads");
