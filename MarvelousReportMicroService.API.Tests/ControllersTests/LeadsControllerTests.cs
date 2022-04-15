@@ -71,17 +71,17 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<OkObjectResult>(result.Result);
 
-            //for (int i = 0; i < expected.Count; i++)
-            //{
-            //    Assert.AreEqual(expected[i].Id, result.Value[i].Id);
-            //    Assert.AreEqual(expected[i].Role, result.Value[i].Role);
-            //    Assert.AreEqual(expected[i].Email, result.Value[i].Email);
-            //    Assert.AreEqual(expected[i].HashPassword, result.Value[i].HashPassword);
-            //}
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, result.Value[i].Id);
+                Assert.AreEqual(expected[i].Role, result.Value[i].Role);
+                Assert.AreEqual(expected[i].Email, result.Value[i].Email);
+                Assert.AreEqual(expected[i].HashPassword, result.Value[i].HashPassword);
+            }
         }
 
         [TestCaseSource(typeof(GetAllLeads_Should403TestCaseSource))]
-        public async Task GetAllLeadsTests_Should403(
+        public async Task GetAllLeadsTests_WhenAccessIsDenied_ShouldThrowsForbiddenException(
             List<LeadModel> leads,
             IdentityResponseModel model)
         {
@@ -89,6 +89,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             string token = "token";
             var context = new DefaultHttpContext();
             context.Request.Headers.Authorization = token;
+
             _leadsController.ControllerContext.HttpContext = context;
 
             _requestHelperMock.Setup(x => x.SendRequestCheckValidateToken(
