@@ -2,6 +2,7 @@
 using Marvelous.Contracts.ExchangeModels;
 using MarvelousReportMicroService.API.Configuration;
 using MarvelousReportMicroService.API.Consumers;
+using MarvelousReportMicroService.API.Tests.ConsumersTests.TestCaseSources;
 using MarvelousReportMicroService.BLL.Services;
 using MassTransit;
 using Microsoft.Extensions.Logging;
@@ -25,26 +26,12 @@ namespace MarvelousReportMicroService.API.Tests.ConsumersTests
             _consumer = new LeadConsumer(_mapper, _logger.Object, _leadServiceMock.Object);
         }
 
-        [Test]
-        public void LeadConsumeTest_WhenLeadIsNotExist()
+        [TestCaseSource(typeof(LeadConsumeTestTestCaseSource))]
+        public void LeadConsumeTest_WhenLeadIsNotExist(LeadFullExchangeModel model)
         {
             //given
-            LeadFullExchangeModel model = new LeadFullExchangeModel()
-            {
-                Id = 1,
-                Role = Marvelous.Contracts.Enums.Role.Regular,
-                Name = "Name",
-                LastName = "Last Name",
-                BirthDate = new System.DateTime(2000, 01, 01),
-                Email = "email@mail.ru",
-                Phone = "7777777777",
-                Password = "qwe",
-                City = "gorod",
-                IsBanned = false
-            };
-
             var context = Mock.Of<ConsumeContext<LeadFullExchangeModel>>(m =>
-             m.Message == model);
+            m.Message == model);
 
             string getMessage = $"Getting lead {context.Message.Id}";
             string addLeadMessage = $"Lead added";
@@ -61,26 +48,12 @@ namespace MarvelousReportMicroService.API.Tests.ConsumersTests
             VerifyLogger(LogLevel.Information, addLeadMessage);
         }
 
-        [Test]
-        public void LeadConsumeTest_WhenLeadIsExist()
+        [TestCaseSource(typeof(LeadConsumeTestTestCaseSource))]
+        public void LeadConsumeTest_WhenLeadIsExist(LeadFullExchangeModel model)
         {
             //given
-            LeadFullExchangeModel model = new LeadFullExchangeModel()
-            {
-                Id = 1,
-                Role = Marvelous.Contracts.Enums.Role.Regular,
-                Name = "Name",
-                LastName = "Last Name",
-                BirthDate = new System.DateTime(2000, 01, 01),
-                Email = "email@mail.ru",
-                Phone = "7777777777",
-                Password = "qwe",
-                City = "gorod",
-                IsBanned = false
-            };
-
             var context = Mock.Of<ConsumeContext<LeadFullExchangeModel>>(m =>
-             m.Message == model);
+            m.Message == model);
 
             string getMessage = $"Getting lead {context.Message.Id}";
             string addLeadMessage = $"Lead updated";
