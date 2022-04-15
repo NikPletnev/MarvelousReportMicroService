@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using MarvelousReportMicroService.API.Configuration;
 using MarvelousReportMicroService.API.Controllers;
 using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.API.Tests.ConsumersTests;
 using MarvelousReportMicroService.API.Tests.ControllersTests.TestCaseSources;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -17,7 +17,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
 {
     public class AccountsControllerTests : BaseTest<AccountsController>
     {
-        private Mock<IMapper> _mapperMock;
+        private IMapper _mapper;
         private Mock<ITransactionService> _transactionServiceMock;
         private Mock<IAccountService> _accountServiceMock;
         private AccountsController _accountController;
@@ -25,13 +25,13 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
         [SetUp]
         public void Setup()
         {
+            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<APIMapper>()));
             _transactionServiceMock = new Mock<ITransactionService>();
             _logger = new Mock<ILogger<AccountsController>>();
-            _mapperMock = new Mock<IMapper>();
             _accountServiceMock = new Mock<IAccountService>();
 
             _accountController = new AccountsController(
-                _mapperMock.Object,
+                _mapper,
                 _logger.Object,
                 _transactionServiceMock.Object,
                 _accountServiceMock.Object);
@@ -54,9 +54,10 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             var result = await _accountController.GetAccountBalance(id);
 
             //then
-            Assert.IsInstanceOf<OkObjectResult>(result.Result);
-            //VerifyLogger(LogLevel.Information, firstMessage);
-            //VerifyLogger(LogLevel.Information, secondMessage);
+            Assert.AreEqual(balance, result);
+            //Assert.IsInstanceOf<OkObjectResult>(result.Result);
+            VerifyLogger(LogLevel.Information, firstMessage);
+            VerifyLogger(LogLevel.Information, secondMessage);
         }
 
         [TestCaseSource(typeof(GetTransactionsByAccountIdTestCasrSource))]

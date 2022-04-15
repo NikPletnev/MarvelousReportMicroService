@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 
-namespace MarvelousReportMicroService.API.Tests.ConsumersTests
+namespace MarvelousReportMicroService.API.Tests
 {
     public class BaseTest<T>
     {
