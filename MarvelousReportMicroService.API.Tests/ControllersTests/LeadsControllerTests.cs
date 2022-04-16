@@ -66,18 +66,20 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
 
             //when
             var result = await _leadsController.GetAllLeads();
+            var actualResult = result.Result as OkObjectResult;
 
             //then
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<OkObjectResult>(result.Result);
+            Assert.IsNotNull(actualResult);
+            Assert.IsInstanceOf<OkObjectResult>(actualResult);
+            var actuaLeads = (List<LeadAuthExchangeModel>)actualResult.Value;
 
-            //for (int i = 0; i < expected.Count; i++)
-            //{
-            //    Assert.AreEqual(expected[i].Id, result.Value[i].Id);
-            //    Assert.AreEqual(expected[i].Role, result.Value[i].Role);
-            //    Assert.AreEqual(expected[i].Email, result.Value[i].Email);
-            //    Assert.AreEqual(expected[i].HashPassword, result.Value[i].HashPassword);
-            //}
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actuaLeads[i].Id);
+                Assert.AreEqual(expected[i].Role, actuaLeads[i].Role);
+                Assert.AreEqual(expected[i].Email, actuaLeads[i].Email);
+                Assert.AreEqual(expected[i].HashPassword, actuaLeads[i].HashPassword);
+            }
         }
 
         [TestCaseSource(typeof(GetAllLeads_Should403TestCaseSource))]
