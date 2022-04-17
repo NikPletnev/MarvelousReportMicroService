@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Marvelous.Contracts.Enums;
 using Marvelous.Contracts.ExchangeModels;
 using Marvelous.Contracts.ResponseModels;
 using MarvelousReportMicroService.API.Configuration;
@@ -8,6 +9,7 @@ using MarvelousReportMicroService.BLL.Exceptions;
 using MarvelousReportMicroService.BLL.Helpers;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
+using MarvelousReportMicroService.DAL.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -107,6 +110,54 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
 
             //then
             Assert.ThrowsAsync<ForbiddenException>(async () => await _leadsController.GetAllLeads());
+        }
+
+        [TestCaseSource(typeof(LeadSearchTestCaseSeource))]
+        public async Task LeadSearchTest_Should200(
+            string? name,
+            LeadSearchParams? nameParam,
+            string? lastName,
+            LeadSearchParams? lastNameParam,
+            DateTime? startBirthDate,
+            DateTime? endBirthDate,
+            string? email,
+            LeadSearchParams? emailParam,
+            string? phone,
+            LeadSearchParams? phoneParam,
+            Role? role,
+            bool? isBanned,
+            LeadSearchModel leadModel,
+            List<LeadModel> expectedList)
+        {
+            //given 
+            _leadServiceMock.Setup(l => l.GetLeadByParameters(_mapper.Map<LeadSearchModel>(leadModel)))
+                .Returns(expectedList);
+            string requestMessage = $"Request to get all leads for certain parameters";
+            string responseMessage = $"Response to a request to get all leads for certain parameters";
+
+            //when
+            var result = _leadsController.GetLeadByParameters(
+                            null,
+                            name,
+                            nameParam,
+                            lastName,
+                            lastNameParam,
+                            startBirthDate,
+                            endBirthDate,
+                            email,
+                            emailParam,
+                            phone,
+                            phoneParam,
+                            role,
+                            isBanned);
+
+            var okResult = result.Result as OkObjectResult;
+
+            //then
+            Assert.IsNotNull(okResult);
+            Assert.IsInstanceOf<OkObjectResult>(okResult);
+            VerifyLogger(LogLevel.Information, requestMessage);
+            VerifyLogger(LogLevel.Information, responseMessage);
         }
     }
 }
