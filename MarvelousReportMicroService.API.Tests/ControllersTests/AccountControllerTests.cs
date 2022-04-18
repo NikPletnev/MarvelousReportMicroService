@@ -52,10 +52,11 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
 
             //when
             var result = await _accountController.GetAccountBalance(id);
-
+            var actualResult = result.Result as OkObjectResult;
+          
             //then
-            Assert.AreEqual(balance, result);
-            //Assert.IsInstanceOf<OkObjectResult>(result.Result);
+            Assert.AreEqual(balance, actualResult.Value);
+            Assert.IsInstanceOf<OkObjectResult>(result.Result);
             VerifyLogger(LogLevel.Information, firstMessage);
             VerifyLogger(LogLevel.Information, secondMessage);
         }

@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace MarvelousReportMicroService.API.Tests.ControllersTests
 {
-    public class GetTransactionsBetweenDatesByLeadIdTestCaseSource : IEnumerable
+    public class GetServicePayTransactionsByLeadIdBetweenDateTestCaseSource: IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
             var leadId = 1;
-            var startDate  = new DateTime(1990, 1, 1);
+            var startDate = new DateTime(1990, 1, 1);
             var endDate = new DateTime(1991, 1, 1);
             var transactionModels = new List<TransactionModel>
             {
@@ -85,11 +85,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
                     Type = Marvelous.Contracts.Enums.TransactionType.Transfer
                 }
             };
-
-            yield return new object[] { leadId, startDate, endDate, transactionModels, expectedTransactionModels };
-
-
-
+            yield return new object[] { leadId, startDate, endDate, transactionModels , expectedTransactionModels };
         }
     }
 }
