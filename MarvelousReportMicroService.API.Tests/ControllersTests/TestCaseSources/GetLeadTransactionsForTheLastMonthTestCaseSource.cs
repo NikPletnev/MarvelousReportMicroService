@@ -1,5 +1,6 @@
 ﻿using Marvelous.Contracts.Enums;
 using Marvelous.Contracts.ResponseModels;
+using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
 using System;
 using System.Collections;
@@ -27,15 +28,30 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
                 {
                     Amount = 200,
                     Rate = 1000
-                },
+                }
             };
+
+            List<ShortTransactionResponse> shortTransactionResponses = new List<ShortTransactionResponse>
+            {
+                new ShortTransactionResponse
+                {
+                    Amount = 100,
+                    Rate = 1000
+                },
+                new ShortTransactionResponse
+                {
+                    Amount = 200,
+                    Rate = 1000
+                }
+            };
+
             IdentityResponseModel model = new IdentityResponseModel()
             {
                 Id = 1,
                 Role = "role",
                 IssuerMicroservice = Microservice.MarvelousAccountChecking.ToString()
             };
-            yield return new object[] { leadId, trancactionsCount, shortTransactionModels,  model };
+            yield return new object[] { leadId, trancactionsCount, shortTransactionModels, shortTransactionResponses, model };
 
         }
     }

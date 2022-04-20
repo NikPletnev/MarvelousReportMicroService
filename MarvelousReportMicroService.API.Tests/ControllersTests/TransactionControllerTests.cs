@@ -166,6 +166,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             (int leadId,
              int transactionsCount,
              List<ShortTransactionModel> shortTransactionModels,
+             List<ShortTransactionResponse> expectedTransactions,
              IdentityResponseModel model)
         {
             //given
@@ -189,11 +190,40 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             //then
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(shortTransactionModels, actualResult.Value);
+            Assert.AreEqual(expectedTransactions, actualResult.Value);
             Assert.IsInstanceOf<OkObjectResult>(result.Result);
             VerifyLogger(LogLevel.Information, firstMessage);
             VerifyLogger(LogLevel.Information, secondMessage);
         }
+
+        [TestCaseSource(typeof(GetLeadTransactionsForTheLastMonthForbidenExceptionTestCaseSource))]
+        public async Task GetLeadTransactionsForTheLastMonthTest_ShouldThrowForbiddenException
+            (int leadId,
+             int transactionsCount,
+             IdentityResponseModel model)
+        {
+            //given
+            var firstMessage = $"Request to receive transactions for the last month by lead id = {leadId}";
+            var context = new DefaultHttpContext();
+            _transactionController.ControllerContext.HttpContext = context;
+
+            _requestHelperMock.Setup(x => x.SendRequestCheckValidateToken(
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>()))
+                .ReturnsAsync(model);
+
+            //when
+
+
+            //then
+
+            Assert.ThrowsAsync<ForbiddenException>(async () => await _transactionController.GetLeadTransactionsForTheLastMonth(leadId));
+            VerifyLogger(LogLevel.Information, firstMessage);
+
+        }
+
+
 
 
 
