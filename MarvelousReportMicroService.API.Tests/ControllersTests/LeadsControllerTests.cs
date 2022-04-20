@@ -4,6 +4,7 @@ using Marvelous.Contracts.ExchangeModels;
 using Marvelous.Contracts.ResponseModels;
 using MarvelousReportMicroService.API.Configuration;
 using MarvelousReportMicroService.API.Controllers;
+using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.API.Tests.ControllersTests.TestCaseSources;
 using MarvelousReportMicroService.BLL.Exceptions;
 using MarvelousReportMicroService.BLL.Helpers;
@@ -16,7 +17,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -59,8 +59,8 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             _leadsController.ControllerContext.HttpContext = context;
 
             _requestHelperMock.Setup(x => x.SendRequestCheckValidateToken(
-                It.IsAny<string>(), 
-                It.IsAny<string>(), 
+                It.IsAny<string>(),
+                It.IsAny<string>(),
                 It.IsAny<string>()))
                 .ReturnsAsync(model);
 
@@ -158,6 +158,56 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             Assert.IsInstanceOf<OkObjectResult>(okResult);
             VerifyLogger(LogLevel.Information, requestMessage);
             VerifyLogger(LogLevel.Information, responseMessage);
+        }
+
+        [TestCaseSource(typeof(GetLeadWithOffsetAndFetchTestCaseSource))]
+        public async Task GetLeadWithOffsetAndFetchTest_Should200(
+            int fetch,
+            int offset,
+            List<LeadStatusUpdateModel> leadModels,
+            List<LeadStatusUpdateResponse> expected,
+            IdentityResponseModel model)
+        {
+            //given
+            _leadServiceMock
+                .Setup(l => l.GetLeadsByOffsetAndFetchParameters(It.IsAny<LeadSerchWithOffsetAndFetchModel>()))
+                .ReturnsAsync(leadModels);
+
+            string token = "token";
+            var context = new DefaultHttpContext();
+            context.Request.Headers.Authorization = token;
+
+            _leadsController.ControllerContext.HttpContext = context;
+
+            _requestHelperMock.Setup(x => x.SendRequestCheckValidateToken(
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>()))
+                .ReturnsAsync(model);
+
+            string requestString = $"Request to get for {fetch} leads starting with {offset}";
+            string responseString = $"Response to a request to get for {fetch} leads starting with {offset}";
+
+            //when
+            var result = await _leadsController.GetLeadWithOffsetAndFetch(offset, fetch);
+            var actualResult = result.Result as OkObjectResult;
+
+            var actuaLeads = (List<LeadStatusUpdateResponse>)actualResult.Value;
+
+            //then
+            VerifyLogger(LogLevel.Information, requestString);
+            VerifyLogger(LogLevel.Information, responseString);
+
+            Assert.IsNotNull(actualResult);
+            Assert.IsInstanceOf<OkObjectResult>(actualResult);
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actuaLeads[i].Id);
+                Assert.AreEqual(expected[i].Role, actuaLeads[i].Role);
+                Assert.AreEqual(expected[i].Email, actuaLeads[i].Email);
+                Assert.AreEqual(expected[i].BirthDate, actuaLeads[i].BirthDate);
+            }
         }
     }
 }
