@@ -2,7 +2,6 @@
 using MarvelousReportMicroService.API.Configuration;
 using MarvelousReportMicroService.API.Controllers;
 using MarvelousReportMicroService.API.Models;
-using MarvelousReportMicroService.API.Tests.ConsumersTests;
 using MarvelousReportMicroService.API.Tests.ControllersTests.TestCaseSources;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
@@ -52,10 +51,11 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
 
             //when
             var result = await _accountController.GetAccountBalance(id);
+            var actualResult = result.Result as OkObjectResult;
 
             //then
-            Assert.AreEqual(balance, result);
-            //Assert.IsInstanceOf<OkObjectResult>(result.Result);
+            Assert.AreEqual(balance, actualResult.Value);
+            Assert.IsInstanceOf<OkObjectResult>(result.Result);
             VerifyLogger(LogLevel.Information, firstMessage);
             VerifyLogger(LogLevel.Information, secondMessage);
         }
@@ -90,7 +90,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
                 Assert.AreEqual(transactions[i].Date, expected[i].Date);
                 Assert.AreEqual(transactions[i].Amount, expected[i].Amount);
                 Assert.AreEqual(transactions[i].Currency, expected[i].Currency);
-                Assert.AreEqual(transactions[i].Rate/1000, expected[i].Rate);
+                Assert.AreEqual(transactions[i].Rate / 1000, expected[i].Rate);
             }
         }
     }

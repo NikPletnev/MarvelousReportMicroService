@@ -12,7 +12,7 @@ namespace MarvelousReportMicroService.BLL.Helpers
 {
     public class RequestHelper : IRequestHelper
     {
-        public async Task<RestResponse<IdentityResponseModel>> SendRequestCheckValidateToken(
+        public async Task<IdentityResponseModel> SendRequestCheckValidateToken(
             string url,
             string path,
             string jwtToken)
@@ -24,7 +24,7 @@ namespace MarvelousReportMicroService.BLL.Helpers
             var response = await client.ExecuteAsync<IdentityResponseModel>(request);
             CheckTransactionError(response);
 
-            return response;
+            return response.Data;
         }
 
         public async Task<RestResponse<T>> SendRequestForConfigs<T>(string url, string path, string jwtToken = "null")
