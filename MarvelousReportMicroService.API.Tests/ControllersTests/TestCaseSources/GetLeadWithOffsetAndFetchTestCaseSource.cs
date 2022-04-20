@@ -15,10 +15,28 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests.TestCaseSources
             int fetch = 1;
             int offset = 3;
 
-            LeadSerchWithOffsetAndFetchModel leadSearchModel = new LeadSerchWithOffsetAndFetchModel()
+            List<LeadStatusUpdateModel> leadModels = new List<LeadStatusUpdateModel>()
             {
-                Offset = offset,
-                Fetch = fetch
+                new LeadStatusUpdateModel()
+                {
+                    Id = 1,
+                    Role = Role.Regular,
+                    BirthDate = new DateTime(2000, 01, 01),
+                    Email = "email"
+                },
+                new LeadStatusUpdateModel()
+                {
+                    Id = 2,
+                    Role = Role.Regular,
+                    BirthDate = new DateTime(2001, 01, 01),
+                    Email = "email1"
+                },new LeadStatusUpdateModel()
+                {
+                    Id = 3,
+                    Role = Role.Regular,
+                    BirthDate = new DateTime(2002, 01, 01),
+                    Email = "email2"
+                }
             };
 
             List<LeadStatusUpdateResponse> expected = new List<LeadStatusUpdateResponse>()
@@ -52,7 +70,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests.TestCaseSources
                 IssuerMicroservice = "MarvelousAccountChecking"
             };
 
-            yield return new object[] { fetch, offset, leadSearchModel, expected, model };
+            yield return new object[] { fetch, offset, leadModels, expected, model };
         }
     }
 }

@@ -192,22 +192,58 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             var result = await _leadsController.GetLeadWithOffsetAndFetch(offset, fetch);
             var actualResult = result.Result as OkObjectResult;
 
-            var actuaLeads = (List<LeadStatusUpdateResponse>)actualResult.Value;
+            var actualLeads = (List<LeadStatusUpdateResponse>)actualResult.Value;
 
             //then
-            VerifyLogger(LogLevel.Information, requestString);
-            VerifyLogger(LogLevel.Information, responseString);
-
             Assert.IsNotNull(actualResult);
             Assert.IsInstanceOf<OkObjectResult>(actualResult);
 
             for (int i = 0; i < expected.Count; i++)
             {
-                Assert.AreEqual(expected[i].Id, actuaLeads[i].Id);
-                Assert.AreEqual(expected[i].Role, actuaLeads[i].Role);
-                Assert.AreEqual(expected[i].Email, actuaLeads[i].Email);
-                Assert.AreEqual(expected[i].BirthDate, actuaLeads[i].BirthDate);
+                Assert.AreEqual(expected[i].Id, actualLeads[i].Id);
+                Assert.AreEqual(expected[i].Role, actualLeads[i].Role);
+                Assert.AreEqual(expected[i].Email, actualLeads[i].Email);
+                Assert.AreEqual(expected[i].BirthDate, actualLeads[i].BirthDate);
             }
+
+            VerifyLogger(LogLevel.Information, requestString);
+            VerifyLogger(LogLevel.Information, responseString);
+        }
+
+        [TestCaseSource(typeof(GetLeadsByServiceIdTestCaseSource))]
+        public async Task GetLeadsByServiceIdTest(int id, List<LeadModel> leadModels, List<LeadResponse> expected)
+        {
+            //given
+            string requestString = $"Request to get all service(id = {id}) subscribers";
+            string responseString = $"Response to a request to get all service(id = {id}) subscribers";
+
+            _leadServiceMock.Setup(l => l.GetLeadsByServiceId(id)).ReturnsAsync(leadModels);
+
+            //when
+            var result = await _leadsController.GetLeadsByServiceId(id);
+            var actualResult = result.Result as OkObjectResult;
+
+            var actualLeads = (List<LeadResponse>)actualResult.Value;
+
+            //then
+            Assert.IsNotNull(actualResult);
+            Assert.IsInstanceOf<OkObjectResult>(actualResult);
+            Assert.AreEqual(expected.Count, actualLeads.Count);
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actualLeads[i].Id);
+                Assert.AreEqual(expected[i].Name, actualLeads[i].Name);
+                Assert.AreEqual(expected[i].LastName, actualLeads[i].LastName);
+                Assert.AreEqual(expected[i].Phone, actualLeads[i].Phone);
+                Assert.AreEqual(expected[i].IsBanned, actualLeads[i].IsBanned);
+                Assert.AreEqual(expected[i].Role, actualLeads[i].Role);
+                Assert.AreEqual(expected[i].Email, actualLeads[i].Email);
+                Assert.AreEqual(expected[i].BirthDate, actualLeads[i].BirthDate);
+            }
+
+            VerifyLogger(LogLevel.Information, requestString);
+            VerifyLogger(LogLevel.Information, responseString);
         }
     }
 }
