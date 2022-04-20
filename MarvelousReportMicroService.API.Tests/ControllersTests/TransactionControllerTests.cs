@@ -3,6 +3,7 @@ using Marvelous.Contracts.ResponseModels;
 using MarvelousReportMicroService.API.Configuration;
 using MarvelousReportMicroService.API.Controllers;
 using MarvelousReportMicroService.API.Models;
+using MarvelousReportMicroService.BLL.Exceptions;
 using MarvelousReportMicroService.BLL.Helpers;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
@@ -106,8 +107,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
         public async Task GetCountLeadTransactionWithoutWithdrawalTest_ShouldReturnCountLeadsWithoutWithdraws
             (int leadId,
             int leadCount,
-            IdentityResponseModel model
-            )
+            IdentityResponseModel model)
         {
             //given
             _transactionServiceMock.Setup(l => l.GetCountLeadTransactionWithoutWithdrawal(leadId)).ReturnsAsync(leadCount);
@@ -117,7 +117,6 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
                 $"{leadId} for last two months in quantity = {leadCount}";
 
             var context = new DefaultHttpContext();
-            context.Request.Headers.Authorization = jwtToken;
             _transactionController.ControllerContext.HttpContext = context;
 
             _requestHelperMock.Setup(x => x.SendRequestCheckValidateToken(
@@ -136,8 +135,66 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             Assert.IsInstanceOf<OkObjectResult>(result.Result);
             VerifyLogger(LogLevel.Information, firstMessage);
             VerifyLogger(LogLevel.Information, secondMessage);
-
         }
+
+        [TestCaseSource(typeof(GetCountLeadTransactionWithoutWithdrawalForbidenExceptionTestCaseSource))]
+        public async Task GetCountLeadTransactionWithoutWithdrawalTest_ShouldThrowForbiddenException
+            (int leadId,
+            int leadCount,
+            IdentityResponseModel model)
+        {
+            //given
+            var firstMessage = $"Request to receive count transaction without withdrawal by leadId = " +
+                $"{leadId} for last two months";
+            var context = new DefaultHttpContext();
+            _transactionController.ControllerContext.HttpContext = context;
+
+            _requestHelperMock.Setup(x => x.SendRequestCheckValidateToken(
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>()))
+                .ReturnsAsync(model);
+            //when
+
+            //then
+            Assert.ThrowsAsync<ForbiddenException>(async () => await _transactionController.GetCountLeadTransactionWithoutWithdrawal(leadId));
+            VerifyLogger(LogLevel.Information, firstMessage);
+        }
+
+        [TestCaseSource(typeof(GetLeadTransactionsForTheLastMonthTestCaseSource))]
+        public async Task GetLeadTransactionsForTheLastMonthTest_ShouldReturnTransactions
+            (int leadId,
+             int transactionsCount,
+             List<ShortTransactionModel> shortTransactionModels,
+             IdentityResponseModel model)
+        {
+            //given
+            var firstMessage = $"Request to receive transactions for the last month by lead id = {leadId}";
+            var secondMessage = $"Response to receive transactions for the last month by lead id = {leadId} in quantity = {transactionsCount}";
+            var context = new DefaultHttpContext();
+            _transactionController.ControllerContext.HttpContext = context;
+
+            _requestHelperMock.Setup(x => x.SendRequestCheckValidateToken(
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>()))
+                .ReturnsAsync(model);
+
+            _transactionServiceMock.Setup(l => l.GetLeadTransactionsForTheLastMonth(leadId)).ReturnsAsync(shortTransactionModels);
+            //when
+
+            var result = await _transactionController.GetLeadTransactionsForTheLastMonth(leadId);
+            var actualResult = result.Result as OkObjectResult;
+
+            //then
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(shortTransactionModels, actualResult.Value);
+            Assert.IsInstanceOf<OkObjectResult>(result.Result);
+            VerifyLogger(LogLevel.Information, firstMessage);
+            VerifyLogger(LogLevel.Information, secondMessage);
+        }
+
 
 
     }
