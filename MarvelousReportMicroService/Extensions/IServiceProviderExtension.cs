@@ -82,6 +82,12 @@ namespace MarvelousReportMicroService.API.Extensions
                     {
                         e.ConfigureConsumer<AccountConsumer>(context);
                     });
+                    cfg.ReceiveEndpoint("invoicePayments", e =>
+                    {
+                        e.ConfigureConsumer<InvoicePaymentConsumer>(context);
+                    });
+                   
+
                 });
             });
         }
