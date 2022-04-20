@@ -1,17 +1,12 @@
-﻿using Marvelous.Contracts.Enums;
-using Marvelous.Contracts.ResponseModels;
-using MarvelousReportMicroService.API.Models;
+﻿using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarvelousReportMicroService.API.Tests.ControllersTests
 {
-    public class GetServicePayTransactionsByLeadIdBetweenDateTestCaseSource: IEnumerable
+    public class GetServicePayTransactionsByLeadIdBetweenDateTestCaseSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -85,7 +80,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
                     Type = Marvelous.Contracts.Enums.TransactionType.Transfer
                 }
             };
-            yield return new object[] { leadId, startDate, endDate, transactionModels , expectedTransactionModels };
+            yield return new object[] { leadId, startDate, endDate, transactionModels, expectedTransactionModels };
         }
     }
 }

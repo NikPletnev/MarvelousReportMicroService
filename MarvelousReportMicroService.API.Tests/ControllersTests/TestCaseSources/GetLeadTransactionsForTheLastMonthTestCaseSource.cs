@@ -2,12 +2,8 @@
 using Marvelous.Contracts.ResponseModels;
 using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarvelousReportMicroService.API.Tests.ControllersTests
 {

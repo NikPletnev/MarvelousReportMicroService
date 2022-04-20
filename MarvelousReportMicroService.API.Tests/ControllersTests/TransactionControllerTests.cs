@@ -215,9 +215,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
 
             //when
 
-
             //then
-
             Assert.ThrowsAsync<ForbiddenException>(async () => await _transactionController.GetLeadTransactionsForTheLastMonth(leadId));
             VerifyLogger(LogLevel.Information, firstMessage);
 

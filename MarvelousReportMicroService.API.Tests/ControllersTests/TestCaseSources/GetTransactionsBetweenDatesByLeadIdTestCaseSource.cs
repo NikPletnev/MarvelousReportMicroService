@@ -1,13 +1,8 @@
-﻿using Marvelous.Contracts.Enums;
-using Marvelous.Contracts.ResponseModels;
-using MarvelousReportMicroService.API.Models;
+﻿using MarvelousReportMicroService.API.Models;
 using MarvelousReportMicroService.BLL.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarvelousReportMicroService.API.Tests.ControllersTests
 {
@@ -16,7 +11,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
         public IEnumerator GetEnumerator()
         {
             var leadId = 1;
-            var startDate  = new DateTime(1990, 1, 1);
+            var startDate = new DateTime(1990, 1, 1);
             var endDate = new DateTime(1991, 1, 1);
             var transactionModels = new List<TransactionModel>
             {
