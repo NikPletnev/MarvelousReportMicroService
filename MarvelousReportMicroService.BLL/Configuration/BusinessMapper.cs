@@ -10,6 +10,7 @@ namespace MarvelousReportMicroService.BLL.Configuration
     {
             public BusinessMapper()
             {
+            CreateMap<InvoicePayment, InvoicePaymentModel>();
             CreateMap<Lead, LeadModel>();
 
             CreateMap<LeadStatusUpdateModel, LeadStatusUpdate>().ReverseMap();
@@ -66,13 +67,3 @@ namespace MarvelousReportMicroService.BLL.Configuration
         }
     }
 }
-
-
-//lead.Name = GenerateParamString.Generate(lead.NameParam, lead.Name);
-//lead.NameParam = null;
-//lead.LastName = GenerateParamString.Generate(lead.LastNameParam, lead.LastName);
-//lead.LastNameParam = null;
-//lead.Email = GenerateParamString.Generate(lead.EmailParam, lead.Email);
-//lead.EmailParam = null;
-//lead.Phone = GenerateParamString.Generate(lead.PhoneParam, lead.Phone);
-//lead.PhoneParam = null;
