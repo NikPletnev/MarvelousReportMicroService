@@ -245,5 +245,42 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             VerifyLogger(LogLevel.Information, requestString);
             VerifyLogger(LogLevel.Information, responseString);
         }
+
+        [TestCaseSource(typeof(GetBirthdayLeadTestCaseSource))]
+        public async Task GetBirthdayLeadTest(int day, int month, List<LeadModel> leads, List<LeadResponse> expected)
+        {
+            //given
+            _leadServiceMock.Setup(l => l.GetBirthdayLead(day, month)).ReturnsAsync(leads);
+
+            string requestString = $"Request to get all birthady {month}\\{day} leads";
+            string responseString = $"Response to a request to get all get all birthday {month}\\{day} " +
+                $"leads in quantity = {leads.Count}";
+
+            //when
+            var actual = await _leadsController.GetBirthdayLead(day, month);
+            var actualResult = actual.Result as OkObjectResult;
+
+            var actualLeads = (List<LeadResponse>)actualResult.Value;
+
+            //then
+            Assert.IsNotNull(actualResult);
+            Assert.IsInstanceOf<OkObjectResult>(actualResult);
+            Assert.AreEqual(expected.Count, actualLeads.Count);
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actualLeads[i].Id);
+                Assert.AreEqual(expected[i].Name, actualLeads[i].Name);
+                Assert.AreEqual(expected[i].LastName, actualLeads[i].LastName);
+                Assert.AreEqual(expected[i].Phone, actualLeads[i].Phone);
+                Assert.AreEqual(expected[i].IsBanned, actualLeads[i].IsBanned);
+                Assert.AreEqual(expected[i].Role, actualLeads[i].Role);
+                Assert.AreEqual(expected[i].Email, actualLeads[i].Email);
+                Assert.AreEqual(expected[i].BirthDate, actualLeads[i].BirthDate);
+            }
+
+            VerifyLogger(LogLevel.Information, requestString);
+            VerifyLogger(LogLevel.Information, responseString);
+        }
     }
 }
