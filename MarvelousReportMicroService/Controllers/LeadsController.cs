@@ -111,7 +111,8 @@ namespace MarvelousReportMicroService.API.Controllers
             _logger.LogInformation($"Request to get all birthady {month}\\{day} leads");
             var leads = await _leadService.GetBirthdayLead(day, month);
 
-            _logger.LogInformation($"Response to a request to get all get all birthday {month}\\{day} leads in quantity = {leads.Count}");
+            _logger.LogInformation($"Response to a request to get all get all birthday {month}\\{day} " +
+                $"leads in quantity = {leads.Count}");
             return Ok(_mapper.Map<List<LeadResponse>>(leads));
         }
 
@@ -119,10 +120,10 @@ namespace MarvelousReportMicroService.API.Controllers
         public async Task<ActionResult> GetLeadsCountByRole([FromQuery] Role role)
         {
             _logger.LogInformation($"Request to get count of leads by role = {role}");
-            var leads = await _leadService.GetLeadsCountByRole(role);
+            var leadsCount = await _leadService.GetLeadsCountByRole(role);
 
-            _logger.LogInformation($"Response to get count of leads by role = {role}");
-            return Ok(leads);
+            _logger.LogInformation($"Response to get count of leads by role = {role} in quantity = {leadsCount}");
+            return Ok(leadsCount);
         }
 
         [HttpGet(ReportingEndpoints.GetAllLeads)]

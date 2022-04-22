@@ -282,5 +282,28 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             VerifyLogger(LogLevel.Information, requestString);
             VerifyLogger(LogLevel.Information, responseString);
         }
+
+        [TestCaseSource(typeof(GetLeadsCountByRoleTestCaseSource))]
+        public async Task GetLeadsCountByRoleTest(Role role, int count, int expected)
+        {
+            //given
+            _leadServiceMock.Setup(l => l.GetLeadsCountByRole(role)).ReturnsAsync(count);
+
+            string requestString = $"Request to get count of leads by role = {role}";
+            string responseString = $"Response to get count of leads by role = {role} in quantity = {count}";
+
+            //when
+            var actual = await _leadsController.GetLeadsCountByRole(role);
+            var actualResult = actual as OkObjectResult;
+            
+
+            //then
+            Assert.IsNotNull(actualResult);
+            Assert.IsInstanceOf<OkObjectResult>(actualResult);
+            Assert.AreEqual(expected, actualResult.Value);
+
+            VerifyLogger(LogLevel.Information, requestString);
+            VerifyLogger(LogLevel.Information, responseString);
+        }
     }
 }
