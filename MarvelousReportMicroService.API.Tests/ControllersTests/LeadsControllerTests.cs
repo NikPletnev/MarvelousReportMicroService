@@ -283,7 +283,7 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             VerifyLogger(LogLevel.Information, responseString);
         }
 
-        [TestCaseSource(typeof(GetLeadsCountByRoleTestCaseSource))]
+        [TestCase(Role.Regular, 1, 1)]
         public async Task GetLeadsCountByRoleTest(Role role, int count, int expected)
         {
             //given
@@ -301,6 +301,38 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
             Assert.IsNotNull(actualResult);
             Assert.IsInstanceOf<OkObjectResult>(actualResult);
             Assert.AreEqual(expected, actualResult.Value);
+
+            VerifyLogger(LogLevel.Information, requestString);
+            VerifyLogger(LogLevel.Information, responseString);
+        }
+
+        [TestCaseSource(typeof(GetLeadsWithNegativeBalanceTestCaseSource))]
+        public async Task GetLeadsWithNegativeBalanceTest(List<LeadModel> leads, List<LeadResponse> expected)
+        {
+            //given
+            _leadServiceMock.Setup(l => l.GetLeadsWithNegativeBalance()).ReturnsAsync(leads);
+
+            string requestString = $"Request to get all leads with negative balance";
+            string responseString = $"Response to get all leads with negative balance in quantity = {leads.Count}";
+
+            //when
+            var actual = await _leadsController.GetLeadsWithNegativeBalance();
+            var actualResult = actual.Result as OkObjectResult;
+
+            var actualLeads = (List<LeadResponse>)actualResult.Value;
+
+            //then
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actualLeads[i].Id);
+                Assert.AreEqual(expected[i].Name, actualLeads[i].Name);
+                Assert.AreEqual(expected[i].LastName, actualLeads[i].LastName);
+                Assert.AreEqual(expected[i].Phone, actualLeads[i].Phone);
+                Assert.AreEqual(expected[i].IsBanned, actualLeads[i].IsBanned);
+                Assert.AreEqual(expected[i].Role, actualLeads[i].Role);
+                Assert.AreEqual(expected[i].Email, actualLeads[i].Email);
+                Assert.AreEqual(expected[i].BirthDate, actualLeads[i].BirthDate);
+            }
 
             VerifyLogger(LogLevel.Information, requestString);
             VerifyLogger(LogLevel.Information, responseString);
