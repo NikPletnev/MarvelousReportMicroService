@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Marvelous.Contracts.ExchangeModels;
+using MarvelousReportMicroService.BLL.Exceptions;
 using MarvelousReportMicroService.BLL.Models;
 using MarvelousReportMicroService.BLL.Services;
 using MassTransit;
@@ -21,18 +22,24 @@ namespace MarvelousReportMicroService.API.Consumers
 
         public async Task Consume(ConsumeContext<ServiceExchangeModel> context)
         {
-            _logger.LogInformation($"Getting lead {context.Message.Id}");
+            if (context.Message == null)
+            {
+                _logger.LogError($"Account adding failed");
+                throw new ExchangeModelRecivingError(nameof(context));
+            }
+
+            _logger.LogInformation($"Getting service {context.Message.Id}");
 
             var serviceModel = _mapper.Map<ServiceModel>(context.Message);
             if (await _serviceService.GetServiceIdIfExsist(serviceModel.Id) == null)
             {
                 await _serviceService.AddService(serviceModel);
-                _logger.LogInformation($"Lead added");
+                _logger.LogInformation($"Service added");
             }
             else
             {
                 await _serviceService.UpdateService(serviceModel);
-                _logger.LogInformation($"Lead updated");
+                _logger.LogInformation($"Service updated");
             }
 
         }
