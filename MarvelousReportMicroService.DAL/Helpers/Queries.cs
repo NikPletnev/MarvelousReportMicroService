@@ -22,5 +22,6 @@
         public const string GetLeadById = "GetLeadById";
         public const string GetLeadsWithNegativeBalance = "GetLeadsWithNegativeBalance";
         public const string AddInvoicePayment = "AddInvoicePayment";
+        public const string AddService = "AddService";
     }
 }

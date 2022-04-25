@@ -14,6 +14,25 @@ namespace MarvelousReportMicroService.DAL.Repositories
 
         }
 
+        public async Task AddService(Service model)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            await connection
+                   .QueryAsync<Account>(
+                   Queries.AddService
+                   , new
+                   {
+                       Externalid = model.ExternalId,
+                       model.Name,
+                       model.Type,
+                       model.Description,
+                       model.Price,
+                       model.IsDeleted
+                   }
+                   , commandType: CommandType.StoredProcedure);
+        }
+
         public async Task<List<Service>> GetServicesSortedByCountLeads()
         {
             using IDbConnection connection = ProvideConnection();
