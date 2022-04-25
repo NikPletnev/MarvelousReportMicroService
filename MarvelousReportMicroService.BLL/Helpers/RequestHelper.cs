@@ -1,9 +1,6 @@
 ﻿using Marvelous.Contracts.Autentificator;
-using Marvelous.Contracts.Endpoints;
 using Marvelous.Contracts.Enums;
 using Marvelous.Contracts.ResponseModels;
-using MarvelousReportMicroService.BLL.Exceptions;
-using Microsoft.Extensions.Logging;
 using RestSharp;
 using RestSharp.Authenticators;
 using System.Net;
