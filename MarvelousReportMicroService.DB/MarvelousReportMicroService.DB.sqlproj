@@ -93,6 +93,8 @@
     <Build Include="Tables\InvoicePayment.sql" />
     <Build Include="StoredProcedures\AddInvoicePayment.sql" />
     <Build Include="StoredProcedures\AddService.sql" />
+    <Build Include="StoredProcedures\GetServiceById.sql" />
+    <Build Include="StoredProcedures\UpdateService.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarvelousReportMicroService.DB.refactorlog" />
