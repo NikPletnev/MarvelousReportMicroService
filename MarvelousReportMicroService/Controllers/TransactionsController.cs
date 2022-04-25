@@ -3,12 +3,14 @@ using MarvelousReportMicroService.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Marvelous.Contracts.Enums;
+using MarvelousReportMicroService.API.Extensions;
+using MarvelousReportMicroService.BLL.Helpers;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TransactionsController : Controller
+    public class TransactionsController : AdvancedController
     {
         private readonly ITransactionService _transactionService;
         private readonly ILogger<TransactionsController> _logger;
@@ -16,7 +18,9 @@ namespace MarvelousReportMicroService.API.Controllers
 
         public TransactionsController(IMapper mapper,
             ILogger<TransactionsController> logger,
-            ITransactionService transactionService)
+            IConfiguration configuration,
+            IRequestHelper requestHelper,
+            ITransactionService transactionService) : base(configuration, requestHelper, logger)
         {
             _mapper = mapper;
             _logger = logger;
@@ -86,10 +90,6 @@ namespace MarvelousReportMicroService.API.Controllers
             return Ok(count);
         }
 
-        private Task CheckMicroservice(object marvelousAuth)
-        {
-            throw new NotImplementedException();
-        }
 
         [HttpGet("by-leadId-last-month")]
         public async Task<ActionResult<List<ShortTransactionResponse>>> GetLeadTransactionsForTheLastMonth(

@@ -29,7 +29,7 @@ namespace MarvelousReportMicroService.API.Extensions
             if (!service.Select(r => r.ToString()).Contains(identity.IssuerMicroservice))
             {
                 throw new ForbiddenException($"{identity.IssuerMicroservice} " +
-                    $"doesn't have access to this endpiont");
+                $"doesn't have access to this endpiont");
             }
         }
     }

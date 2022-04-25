@@ -90,6 +90,8 @@
     <Build Include="StoredProcedures\UpdateLead.sql" />
     <Build Include="StoredProcedures\GetLeadById.sql" />
     <Build Include="StoredProcedures\GetLeadsWithNegativeBalance.sql" />
+    <Build Include="Tables\InvoicePayment.sql" />
+    <Build Include="StoredProcedures\AddInvoicePayment.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarvelousReportMicroService.DB.refactorlog" />
