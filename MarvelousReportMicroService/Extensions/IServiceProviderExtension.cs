@@ -63,6 +63,7 @@ namespace MarvelousReportMicroService.API.Extensions
                 x.AddConsumer<LeadConsumer>();
                 x.AddConsumer<AccountConsumer>();
                 x.AddConsumer<InvoicePaymentConsumer>();
+                x.AddConsumer<ServiceConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -89,6 +90,10 @@ namespace MarvelousReportMicroService.API.Extensions
                     cfg.ReceiveEndpoint("invoicePayments", e =>
                     {
                         e.ConfigureConsumer<InvoicePaymentConsumer>(context);
+                    });
+                    cfg.ReceiveEndpoint("ServiceQueue", e =>
+                    {
+                        e.ConfigureConsumer<ServiceConsumer>(context);
                     });
                 });
             });
