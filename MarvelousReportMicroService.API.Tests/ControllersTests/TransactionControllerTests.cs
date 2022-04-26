@@ -21,9 +21,9 @@ namespace MarvelousReportMicroService.API.Tests.ControllersTests
 {
     public class TransactionControllerTests : BaseTest<TransactionsController>
     {
+        private const string jwtToken = "testToken";
         private Mock<ITransactionService> _transactionServiceMock;
         private TransactionsController _transactionController;
-        private const string jwtToken = "testToken";
         private Mock<IRequestHelper> _requestHelperMock;
         private Mock<IConfiguration> _config;
 

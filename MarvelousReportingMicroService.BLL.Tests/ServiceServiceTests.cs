@@ -1,14 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 
 namespace MarvelousReportingMicroService.BLL.Tests
 {
-    [TestClass]
     public class ServiceServiceTests
     {
-        [TestMethod]
-        public void TestMethod1()
+        private readonly IServiceRepository _serviceRepository;
+        private readonly IMapper _mapper;
+
+        [SetUp]
+        public void Setup()
         {
+            
         }
     }
 }

@@ -13,7 +13,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MarvelousReportMicroService
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarvelousReportMicroService.API.Tests", "MarvelousReportMicroService.API.Tests\MarvelousReportMicroService.API.Tests.csproj", "{05D0F821-4DB2-4CEE-8FD0-369A7585F32B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarvelousReportingMicroService.BLL.Tests", "MarvelousReportingMicroService.BLL.Tests\MarvelousReportingMicroService.BLL.Tests.csproj", "{E94A6947-C356-4F7A-BA4D-FD762C2F8354}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarvelousReportMicroService.BLL.Tests", "MarvelousReportMicroService.BLL.Tests\MarvelousReportMicroService.BLL.Tests.csproj", "{C6847012-1A34-4D0F-A4BE-21FF135AFFEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,10 @@ Global
 		{05D0F821-4DB2-4CEE-8FD0-369A7585F32B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05D0F821-4DB2-4CEE-8FD0-369A7585F32B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05D0F821-4DB2-4CEE-8FD0-369A7585F32B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E94A6947-C356-4F7A-BA4D-FD762C2F8354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E94A6947-C356-4F7A-BA4D-FD762C2F8354}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E94A6947-C356-4F7A-BA4D-FD762C2F8354}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E94A6947-C356-4F7A-BA4D-FD762C2F8354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6847012-1A34-4D0F-A4BE-21FF135AFFEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6847012-1A34-4D0F-A4BE-21FF135AFFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6847012-1A34-4D0F-A4BE-21FF135AFFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6847012-1A34-4D0F-A4BE-21FF135AFFEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
