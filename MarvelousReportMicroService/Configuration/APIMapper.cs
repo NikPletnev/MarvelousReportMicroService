@@ -33,6 +33,8 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<TransactionModel, TransactionResponse>().ForMember(
                 dest => dest.Rate,
                 opt => opt.MapFrom(src => (decimal)src.Rate / 1000));
+
+            CreateMap<ComissionTransactionExchangeModel, TransactionFeeModel>();
         }
     }
 }

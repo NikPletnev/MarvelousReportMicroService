@@ -20,6 +20,7 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IRequestHelper, RequestHelper>();
             services.AddScoped<IInvoicePaymentService, InvoicePaymentService>();
+            services.AddScoped<ITransactionFeeService, TransactionFeeService>();
         }
 
         public static void RegisterProjectRepositories(this IServiceCollection services)
@@ -29,6 +30,8 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IInvoicePaymentRepository, InvoicePaymentRepository>();
+            services.AddScoped<ITransactionFeeRepository, TransactionFeeRepository>();
+
         }
 
         public static void RegisterLogger(this IServiceCollection service, IConfiguration config)
@@ -62,8 +65,9 @@ namespace MarvelousReportMicroService.API.Extensions
                 x.AddConsumer<TransactionsConsumer>();
                 x.AddConsumer<LeadConsumer>();
                 x.AddConsumer<AccountConsumer>();
-                x.AddConsumer<InvoicePaymentConsumer>();
+                x.AddConsumer<InvoicePaymentConsumer>(); 
                 x.AddConsumer<ServiceConsumer>();
+                x.AddConsumer<TransactionFeeConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -94,6 +98,10 @@ namespace MarvelousReportMicroService.API.Extensions
                     cfg.ReceiveEndpoint("ServiceQueue", e =>
                     {
                         e.ConfigureConsumer<ServiceConsumer>(context);
+                    });
+                    cfg.ReceiveEndpoint("TransactionFeeQueue", e =>
+                    {
+                        e.ConfigureConsumer<TransactionFeeConsumer>(context);
                     });
                 });
             });
