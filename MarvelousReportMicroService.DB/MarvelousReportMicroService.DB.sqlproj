@@ -95,6 +95,8 @@
     <Build Include="StoredProcedures\AddService.sql" />
     <Build Include="StoredProcedures\GetServiceById.sql" />
     <Build Include="StoredProcedures\UpdateService.sql" />
+    <Build Include="Tables\TransactionFee.sql" />
+    <Build Include="StoredProcedures\AddTransactionFee.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarvelousReportMicroService.DB.refactorlog" />
