@@ -25,5 +25,6 @@
         public const string GetLeadsWithNegativeBalance = "GetLeadsWithNegativeBalance";
         public const string AddInvoicePayment = "AddInvoicePayment";
         public const string AddService = "AddService";
+        public const string AddTransactionFee = "AddTransactionFee";
     }
 }
