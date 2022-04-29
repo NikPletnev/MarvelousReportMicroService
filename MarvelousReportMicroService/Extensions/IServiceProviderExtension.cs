@@ -19,6 +19,7 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IRequestHelper, RequestHelper>();
+            services.AddScoped<IInvoicePaymentService, InvoicePaymentService>();
         }
 
         public static void RegisterProjectRepositories(this IServiceCollection services)
@@ -27,6 +28,7 @@ namespace MarvelousReportMicroService.API.Extensions
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IInvoicePaymentRepository, InvoicePaymentRepository>();
         }
 
         public static void RegisterLogger(this IServiceCollection service, IConfiguration config)
@@ -60,6 +62,7 @@ namespace MarvelousReportMicroService.API.Extensions
                 x.AddConsumer<TransactionsConsumer>();
                 x.AddConsumer<LeadConsumer>();
                 x.AddConsumer<AccountConsumer>();
+                x.AddConsumer<InvoicePaymentConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host("rabbitmq://80.78.240.16", hst =>
