@@ -26,5 +26,6 @@
         public const string AddInvoicePayment = "AddInvoicePayment";
         public const string AddService = "AddService";
         public const string AddTransactionFee = "AddTransactionFee";
+        public const string GetProfit = "GetProfit";
     }
 }
