@@ -17,3 +17,31 @@ CREATE TABLE [dbo].[Lead]
 	CONSTRAINT AK_ExternalId UNIQUE(ExternalId)
 )
 
+
+GO
+
+CREATE INDEX [IX_Lead_ExternalId] ON [dbo].[Lead] ([ExternalId])
+GO
+
+CREATE INDEX [IX_Lead_Name] ON [dbo].[Lead] ([Name])
+GO
+
+CREATE INDEX [IX_Lead_LastName] ON [dbo].[Lead] ([LastName])
+GO
+
+CREATE INDEX [IX_Lead_BirthDate] ON [dbo].[Lead] ([BirthDate])
+GO
+
+CREATE INDEX [IX_Lead_Email] ON [dbo].[Lead] ([Email])
+GO
+
+CREATE INDEX [IX_Lead_Phone] ON [dbo].[Lead] ([Phone])
+GO
+
+CREATE INDEX [IX_Lead_City] ON [dbo].[Lead] ([City])
+
+
+
+
+
+
