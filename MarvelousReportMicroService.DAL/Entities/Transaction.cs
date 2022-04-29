@@ -10,6 +10,6 @@ namespace MarvelousReportMicroService.DAL.Entities
         public decimal Amount { get; set; }
         public int AccountId { get; set; }
         public Currency Currency { get; set; }
-        public int Rate { get; set; }
+        public Int16 Rate { get; set; }
     }
 }

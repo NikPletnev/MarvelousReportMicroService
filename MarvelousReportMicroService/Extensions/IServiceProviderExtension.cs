@@ -71,11 +71,9 @@ namespace MarvelousReportMicroService.API.Extensions
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("rabbitmq://80.78.240.16", hst =>
-                    {
-                        hst.Username("nafanya");
-                        hst.Password("qwe!23");
-                    });
+
+
+
 
                     cfg.ReceiveEndpoint("transactionQueue", e =>
                     {

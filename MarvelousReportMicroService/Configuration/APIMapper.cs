@@ -28,11 +28,11 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<AccountExchangeModel, AccountModel>().ReverseMap();
             CreateMap<TransactionExchangeModel, TransactionModel>().ForMember(
                 dest => dest.Rate,
-                opt => opt.MapFrom(src => src.RubRate * 1000));
+                opt => opt.MapFrom(src => src.RubRate * 100));
 
             CreateMap<TransactionModel, TransactionResponse>().ForMember(
                 dest => dest.Rate,
-                opt => opt.MapFrom(src => (decimal)src.Rate / 1000));
+                opt => opt.MapFrom(src => (decimal)src.Rate / 100));
 
             CreateMap<ComissionTransactionExchangeModel, TransactionFeeModel>();
         }
