@@ -20,5 +20,12 @@ namespace MarvelousReportMicroService.BLL.Services
         {
             await _transactionFeeRepository.AddTransactionFee(_mapper.Map<TransactionFee>(model));
         }
+
+        public async Task<List<ProfitModel>> GetProfit(DateTime date)
+        {
+            var listProfit = await _transactionFeeRepository.GetProfit(date);
+            var result = _mapper.Map<List<ProfitModel>>(listProfit);
+            return result;
+        }
     }
 }

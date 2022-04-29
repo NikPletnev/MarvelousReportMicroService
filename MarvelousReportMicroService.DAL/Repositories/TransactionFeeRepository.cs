@@ -28,5 +28,21 @@ namespace MarvelousReportMicroService.DAL.Repositories
                    }
                    , commandType: CommandType.StoredProcedure);
         }
+
+        public async Task<List<Profit>> GetProfit(DateTime date)
+        {
+            using IDbConnection connection = ProvideConnection();
+
+            var profitList = (await connection.
+                QueryAsync<Profit>(
+                Queries.GetProfit,
+                new
+                {
+                    StartDate = date
+                },
+                commandType: CommandType.StoredProcedure)).ToList();
+
+            return profitList;
+        }
     }
 }

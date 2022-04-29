@@ -35,6 +35,8 @@ namespace MarvelousReportMicroService.API.Configuration
                 opt => opt.MapFrom(src => (decimal)src.Rate / 100));
 
             CreateMap<ComissionTransactionExchangeModel, TransactionFeeModel>();
+
+            CreateMap<ProfitModel, ProfitResponse>();
         }
     }
 }

@@ -5,6 +5,7 @@ using AutoMapper;
 using Marvelous.Contracts.Enums;
 using MarvelousReportMicroService.API.Extensions;
 using MarvelousReportMicroService.BLL.Helpers;
+using MarvelousReportMicroService.BLL.Models;
 
 namespace MarvelousReportMicroService.API.Controllers
 {
@@ -13,6 +14,7 @@ namespace MarvelousReportMicroService.API.Controllers
     public class TransactionsController : AdvancedController
     {
         private readonly ITransactionService _transactionService;
+        private readonly ITransactionFeeService _transactionFeeService;
         private readonly ILogger<TransactionsController> _logger;
         private readonly IMapper _mapper;
 
@@ -20,11 +22,13 @@ namespace MarvelousReportMicroService.API.Controllers
             ILogger<TransactionsController> logger,
             IConfiguration configuration,
             IRequestHelper requestHelper,
-            ITransactionService transactionService) : base(configuration, requestHelper, logger)
+            ITransactionService transactionService,
+            ITransactionFeeService transactionFeeService) : base(configuration, requestHelper, logger)
         {
             _mapper = mapper;
             _logger = logger;
             _transactionService = transactionService;
+            _transactionFeeService = transactionFeeService;
         }
 
         [HttpGet("by-lead-id/in-range")]
@@ -104,6 +108,16 @@ namespace MarvelousReportMicroService.API.Controllers
             _logger.LogInformation(
                 $"Response to receive transactions for the last month by lead id = {leadId} in quantity = {transactions.Count}");
             return Ok(_mapper.Map<List<ShortTransactionResponse>>(transactions.ToList()));
+        }
+
+        [HttpGet("profit")]
+        public async Task<ActionResult<List<ProfitResponse>>> GetProfit([FromQuery] DateTime date)
+        {
+            _logger.LogInformation($"Request to receive profit from {date}");
+            List<ProfitModel> profitList = await _transactionFeeService.GetProfit(date);
+
+            _logger.LogInformation($"Response to receive profit from {date}");
+            return Ok(_mapper.Map<List<ProfitResponse>>(profitList));
         }
     }
 }
