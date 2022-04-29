@@ -149,7 +149,7 @@ namespace MarvelousReportMicroService.DAL.Repositories
             using IDbConnection connection = ProvideConnection();
 
             var leadId = await connection
-                .QuerySingleAsync<int?>
+                .QueryFirstOrDefaultAsync<int?>
                 (
                  Queries.GetLeadById,
                  new { Id = id },
