@@ -1,20 +1,15 @@
-﻿using CurrencyEnum;
-using MarvelousReportMicroService.DAL.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Marvelous.Contracts.Enums;
 
-namespace MarvelousReportMicroService.DAL.Entityes
+namespace MarvelousReportMicroService.DAL.Entities
 {
     public class Transaction
     {
-        public int Id { get; set; }
+        public int ExternalId { get; set; }
         public DateTime Date { get; set; }
         public TransactionType Type { get; set; }
         public decimal Amount { get; set; }
         public int AccountId { get; set; }
         public Currency Currency { get; set; }
+        public int Rate { get; set; }
     }
 }

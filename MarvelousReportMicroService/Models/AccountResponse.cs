@@ -1,5 +1,4 @@
-﻿using CurrencyEnum;
-using MarvelousContracts;
+﻿using Marvelous.Contracts.Enums;
 
 namespace MarvelousReportMicroService.API.Models
 {

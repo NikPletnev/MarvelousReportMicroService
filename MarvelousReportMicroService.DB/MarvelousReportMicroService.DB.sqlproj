@@ -13,7 +13,7 @@
     </RootPath>
     <RootNamespace>MarvelousReportMicroService.DB</RootNamespace>
     <AssemblyName>MarvelousReportMicroService.DB</AssemblyName>
-    <ModelCollation>1033, CI</ModelCollation>
+    <ModelCollation>1049,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -22,6 +22,8 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <Recovery>SIMPLE</Recovery>
+    <DefaultCollation>Cyrillic_General_100_CI_AS</DefaultCollation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -44,7 +46,11 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
     <WarningLevel>4</WarningLevel>
+    <SqlCodeAnalysisRules>
+    </SqlCodeAnalysisRules>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -60,9 +66,39 @@
     <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Leads.sql" />
-    <Build Include="Tables\Accounts.sql" />
-    <Build Include="Tables\Trnsactions.sql" />
+    <Build Include="Tables\Lead.sql" />
+    <Build Include="Tables\Account.sql" />
+    <Build Include="Tables\Transaction.sql" />
+    <Build Include="StoredProcedures\GetTransactionsBetweenDatesByLeadId.sql" />
+    <Build Include="StoredProcedures\GetAccountBalance.sql" />
+    <Build Include="StoredProcedures\GetTransactionsByAccountId.sql" />
+    <Build Include="Tables\Service.sql" />
+    <Build Include="Tables\ServiceToLead.sql" />
+    <Build Include="StoredProcedures\GetLeadsByOffsetAndFetchParameters.sql" />
+    <Build Include="Tables\ServicePayment.sql" />
+    <Build Include="StoredProcedures\GetServicePayTransactionsByLeadIdBetweenDate.sql" />
+    <Build Include="StoredProcedures\GetLeadsByServiceId.sql" />
+    <Build Include="StoredProcedures\GetServicesSortedByCountLeads.sql" />
+    <Build Include="StoredProcedures\AddTransaction.sql" />
+    <Build Include="StoredProcedures\AddLead.sql" />
+    <Build Include="StoredProcedures\AddAccount.sql" />
+    <Build Include="StoredProcedures\GetLeadTransactionsForTheLastMonth.sql" />
+    <Build Include="StoredProcedures\GetBirthdayLead.sql" />
+    <Build Include="StoredProcedures\GetCountLeadTransactionWithoutWithdrawal.sql" />
+    <Build Include="StoredProcedures\GetLeadsCountByRole.sql" />
     <Build Include="StoredProcedures\GetAllLeads.sql" />
+    <Build Include="StoredProcedures\UpdateLead.sql" />
+    <Build Include="StoredProcedures\GetLeadById.sql" />
+    <Build Include="StoredProcedures\GetLeadsWithNegativeBalance.sql" />
+    <Build Include="Tables\InvoicePayment.sql" />
+    <Build Include="StoredProcedures\AddInvoicePayment.sql" />
+    <Build Include="StoredProcedures\AddService.sql" />
+    <Build Include="StoredProcedures\GetServiceById.sql" />
+    <Build Include="StoredProcedures\UpdateService.sql" />
+    <Build Include="Tables\TransactionFee.sql" />
+    <Build Include="StoredProcedures\AddTransactionFee.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="MarvelousReportMicroService.DB.refactorlog" />
   </ItemGroup>
 </Project>
