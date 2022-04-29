@@ -71,9 +71,11 @@ namespace MarvelousReportMicroService.API.Extensions
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
-            
 
-                    cfg.ReceiveEndpoint("transactionQueue_error_error", e =>
+
+
+
+                    cfg.ReceiveEndpoint("transactionQueue", e =>
                     {
                         e.ConfigureConsumer<TransactionsConsumer>(context);
                     });
