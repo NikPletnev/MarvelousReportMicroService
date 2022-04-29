@@ -18,7 +18,7 @@ namespace MarvelousReportMicroService.BLL.Configuration
             CreateMap<ShortTransaction, ShortTransactionModel>()
                 .ForMember(
                 dest => dest.Rate,
-                opt => opt.MapFrom(src => ((decimal)src.Rate) / 1000)
+                opt => opt.MapFrom(src => ((decimal)src.Rate) / 100)
                 );
 
             CreateMap<LeadModel, Lead>()
