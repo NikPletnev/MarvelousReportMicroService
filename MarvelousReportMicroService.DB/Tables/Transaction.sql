@@ -12,3 +12,8 @@
 	[Id] ASC
 ), 
     CONSTRAINT [FK_Transaction_ToAccaunts] FOREIGN KEY ([AccountId]) REFERENCES [Account]([ExternalId]))
+
+	
+GO
+
+CREATE INDEX [IX_AccId_Type_Date] ON [dbo].[Transaction] ([AccountId] ASC) INCLUDE([Rate])

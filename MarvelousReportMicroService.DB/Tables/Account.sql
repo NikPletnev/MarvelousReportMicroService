@@ -9,3 +9,7 @@
     [IsBlocked] BIT NOT NULL,
     CONSTRAINT [FK_LeadId_ToLead] FOREIGN KEY ([LeadId]) REFERENCES [dbo].[Lead]([ExternalId])
 )
+GO
+CREATE INDEX [IX_Account_ExternalId] ON [dbo].[Account] ([ExternalId])
+GO
+CREATE INDEX [IX_Account_LeadId] ON [dbo].[Account] ([LeadId])
