@@ -10,6 +10,7 @@ namespace MarvelousReportMicroService.API.Configuration
     {
         public APIMapper()
         {
+            CreateMap<LeadModel, LeadResponse>();
             CreateMap<InvoicePaymentExchangeModel, InvoicePaymentModel>().ReverseMap();
             CreateMap<LeadModel, LeadResponse>().ReverseMap();
             CreateMap<LeadStatusUpdateResponse, LeadStatusUpdateModel>().ReverseMap();
@@ -18,6 +19,7 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<LeadSearchModel, LeadSearchRequest>().ReverseMap();
             CreateMap<LeadSerchWithOffsetAndFetchModel, LeadSerchWithOffsetAndFetchRequest>().ReverseMap();
             CreateMap<ServiceModel, ServiceResponse>().ReverseMap();
+            CreateMap<ServiceExchangeModel, ServiceModel>();
             CreateMap<LeadModel, LeadAuthExchangeModel>()
                 .ForMember(
                 dest => dest.HashPassword,
@@ -31,6 +33,8 @@ namespace MarvelousReportMicroService.API.Configuration
             CreateMap<TransactionModel, TransactionResponse>().ForMember(
                 dest => dest.Rate,
                 opt => opt.MapFrom(src => (decimal)src.Rate / 1000));
+
+            CreateMap<ComissionTransactionExchangeModel, TransactionFeeModel>();
         }
     }
 }

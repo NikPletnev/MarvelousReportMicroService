@@ -1,7 +1,6 @@
 ﻿using MarvelousReportMicroService.BLL.Services;
 using MarvelousReportMicroService.BLL.Models;
 using Marvelous.Contracts.ExchangeModels;
-using Marvelous.Contracts.RequestModels;
 using MassTransit;
 using AutoMapper;
 using MarvelousReportMicroService.BLL.Exceptions;

@@ -15,6 +15,22 @@ namespace MarvelousReportMicroService.BLL.Services
             _mapper = mapper;
         }
 
+        public async Task AddService(ServiceModel model)
+        {
+            _serviceRepository.AddService(_mapper.Map<Service>(model));
+        }
+
+        public async Task UpdateService(ServiceModel model)
+        {
+            _serviceRepository.UpdateService(_mapper.Map<Service>(model));
+        }
+
+        public async Task<int?> GetServiceIdIfExsist(int id)
+        {
+            return await _serviceRepository.GetServiceIdIfExsist(id);
+
+        }
+
         public async Task<List<ServiceModel>> GetServicesSortedByCountLeads()
         {
             List<Service> services = await _serviceRepository

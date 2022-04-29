@@ -19,8 +19,12 @@
         public const string GetLeadsCountByRole = "GetLeadsCountByRole";
         public const string GetLeadTransactionsForTheLastMonth = "GetLeadTransactionsForTheLastMonth";
         public const string UpdateLead = "UpdateLead";
+        public const string UpdateService = "UpdateService";
         public const string GetLeadById = "GetLeadById";
+        public const string GetServiceById = "GetServiceById";
         public const string GetLeadsWithNegativeBalance = "GetLeadsWithNegativeBalance";
         public const string AddInvoicePayment = "AddInvoicePayment";
+        public const string AddService = "AddService";
+        public const string AddTransactionFee = "AddTransactionFee";
     }
 }

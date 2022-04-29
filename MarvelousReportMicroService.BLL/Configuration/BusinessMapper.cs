@@ -64,6 +64,8 @@ namespace MarvelousReportMicroService.BLL.Configuration
                 CreateMap<Service, ServiceModel>().ForMember(
                     dest => dest.Id,
                     opt => opt.MapFrom(src => src.ExternalId)).ReverseMap();
+
+            CreateMap<TransactionFee, TransactionFeeModel>().ReverseMap();
         }
     }
 }
